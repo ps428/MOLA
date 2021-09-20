@@ -11,10 +11,12 @@ function initMap() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
         var pos = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude
+            // lat: position.coords.latitude,
+            // lng: position.coords.longitude
+            lat: 26.2195,
+            lng: 72.94225
         };
-
+        
         infoWindow.setPosition(pos);
         infoWindow.setContent('Location found.');
         map.setCenter(pos);
@@ -51,51 +53,55 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
     }
     };
 
+  var icon = {
+      url: "assets/ambulance_super_fast.jpeg", // url
+      // url: "assets/ambulance_ptv.png", // url
+      // url: "assets/ambulance_icu.png", // url
+      scaledSize: new google.maps.Size(30, 20), // scaled size
+      origin: new google.maps.Point(0,0), // origin
+      anchor: new google.maps.Point(0, 0) // anchor
+  };
 
-  locations_jdh = [[{lat: 26.2195, lng: 72.94225}],
+  locations_jdh = [[{lat: 26.2175, lng: 72.9432}],
                [{lat: 26.2175, lng: 72.94225}], 
                [{lat: 26.2185, lng: 72.94235}],
                [{lat: 26.2178, lng: 72.94235}],
                [{lat: 26.2188, lng: 72.94246}],
                [{lat: 26.2185, lng: 72.94218}]]
+  ambulance_types_jdh = ["ambulance_super_fast", 
+                         "ambulance_icu", 
+                         "ambulance_super_fast",
+                         "ambulance_ptv",
+                         "ambulance_super_fast",
+                         "ambulance_icu"]
   // The map, centered at Uluru
 
   var features = []
 
-  for(i=0;i<2;i++)
+  for(i=0;i<locations_jdh.length;i++)
   {
     lat_long = locations_jdh[i][0]
     // console.log(Object.values(lat_long))
     new_item = {
       position: new google.maps.LatLng(lat_long),
-      type: "ambulance_super_fast",
+      type: ambulance_types_jdh[i],
     }
     features.push(new_item)
-  
-    lat_long = locations_jdh[i+1][0]
-    new_item = {
-      position: new google.maps.LatLng(lat_long),
-      type: "ambulance_icu",
-    }
-    features.push(new_item)
-  
-    lat_long = locations_jdh[i+2][0]
-    new_item = {
-      position: new google.maps.LatLng(lat_long),
-      type: "ambulance_ptv",
-    }
-    features.push(new_item)
+    
   }
 
 
-  for(i=0;i<6;i++)
+  for(i=0;i<locations_jdh.length;i++)
   {
     const marker = new google.maps.Marker({
+      title: features[i].type,
       position: features[i].position,
-      // icon: icons.ambulance_super_fast.icon,
+      icon: icon,
       map:map
     })
+    // console.log(features[i].position)
   }
+
   // The marker, positioned at Uluru
   
 }
