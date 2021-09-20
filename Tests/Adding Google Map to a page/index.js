@@ -8,15 +8,35 @@ function initMap() {
     // center: new google.maps.LatLng(26.2195, 72.94225),
   });
 
+  // Human icon extraction
+  var human_icon = {
+    url: "assets/human.png", // url
+    // url: "assets/ambulance_ptv.png", // url
+    // url: "assets/ambulance_icu.png", // url
+    scaledSize: new google.maps.Size(15, 25), // scaled size
+    origin: new google.maps.Point(0,0), // origin
+    anchor: new google.maps.Point(0, 0) // anchor
+  };
+
+// Human data, from curr loction or entered value
+  var human = {
+    "title": 'Your location',
+  // "lng": position.coords.longitude
+  // "lat": position.coords.latitude,
+    "lat": '26.21723',
+    "lng": '72.94516',
+    "user_name": "Patient",
+    "description": 'Max ambulance..available.',
+    "icon": human_icon
+  }
+
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
-        var pos = {
-            // lat: position.coords.latitude,
-            // lng: position.coords.longitude
-            lat: 26.2195,
-            lng: 72.94225
-        };
-        
+        // var pos = {
+        //     lat: parseFloat(human.lat),
+        //     lng: parseFloat(human.lng)
+        // };
+        pos = new google.maps.LatLng(human.lat, human.lng)
         infoWindow.setPosition(pos);
         infoWindow.setContent('Location found.');
         map.setCenter(pos);
@@ -92,7 +112,7 @@ var icon_ptv = {
       "icon": icon_ptv
     },
     {
-      "title": 'Apolo',
+      "title": 'Appolo',
       "lat": '26.2178',
       "lng": '72.94546',
       "driver_name": "Mrs Angela Merkel",
@@ -113,8 +133,42 @@ var icon_ptv = {
     "type": "icu",
     "icon": icon_icu
     },
+    {
+      "title": 'AIIMS',
+      "lat": '26.218',
+      "lng": '72.94466',
+      "driver_name": "Mr Fidel Castro",
+      "driver_contact":9292929212,
+      "description": 'AIIMS ambulance..available.',
+      "status": 'available',
+      "type": "ptv",
+      "icon": icon_ptv
+    },
+    {
+      "title": 'Appolo',
+      "lat": '26.215',
+      "lng": '72.94586',
+      "driver_name": "Mr Lenin",
+      "driver_contact":9292929212,
+      "description": 'Max ambulance..available.',
+      "status": 'available',
+      "type": "icu",
+      "icon": icon_icu
+    }
     ];
+  
+  // Adding human on map
+  marker_data = human
+    lat_long = new google.maps.LatLng(marker_data.lat, marker_data.lng)
 
+    const marker = new google.maps.Marker({
+      title: marker_data.title,
+      position: lat_long,
+      icon: marker_data.icon,
+      map:map
+    })
+
+    // Adding Ambulances on map
   for(i=0;i<ambulances.length;i++)
   {
     marker_data = ambulances[i]
