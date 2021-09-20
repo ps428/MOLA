@@ -36,24 +36,8 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
                           'Error: Your browser doesn\'t support geolocation.');
 }
 
-  // const iconBase =
-  // "https://developers.google.com/maps/documentation/javascript/examples/full/images/";
-
-  var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
-
-  const icons = {
-    ambulance_ptv: {
-      icon: iconBase + "ambulance_ptv.png",
-    },
-    ambulance_icu: {
-      icon: iconBase + "ambulance_icu.png",
-    },
-    ambulance_super_fast: {
-      icon: iconBase + "ambulance_super_fast.jpeg",
-    }
-    };
-
-  var icon = {
+  
+  var icon_super_fast = {
       url: "assets/ambulance_super_fast.jpeg", // url
       // url: "assets/ambulance_ptv.png", // url
       // url: "assets/ambulance_icu.png", // url
@@ -62,78 +46,105 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
       anchor: new google.maps.Point(0, 0) // anchor
   };
 
-  locations_jdh = [[{lat: 26.2175, lng: 72.9432}],
-               [{lat: 26.2175, lng: 72.94225}], 
-               [{lat: 26.2185, lng: 72.94235}],
-               [{lat: 26.2178, lng: 72.94235}],
-               [{lat: 26.2188, lng: 72.94246}],
-               [{lat: 26.2185, lng: 72.94218}]]
-  ambulance_types_jdh = ["ambulance_super_fast", 
-                         "ambulance_icu", 
-                         "ambulance_super_fast",
-                         "ambulance_ptv",
-                         "ambulance_super_fast",
-                         "ambulance_icu"]
+  var icon_icu = {
+    url: "assets/ambulance_icu.png", // url
+    // url: "assets/ambulance_ptv.png", // url
+    // url: "assets/ambulance_icu.png", // url
+    scaledSize: new google.maps.Size(30, 20), // scaled size
+    origin: new google.maps.Point(0,0), // origin
+    anchor: new google.maps.Point(0, 0) // anchor
+};
+
+var icon_ptv = {
+  url: "assets/ambulance_ptv.png", // url
+  // url: "assets/ambulance_ptv.png", // url
+  // url: "assets/ambulance_icu.png", // url
+  scaledSize: new google.maps.Size(30, 20), // scaled size
+  origin: new google.maps.Point(0,0), // origin
+  anchor: new google.maps.Point(0, 0) // anchor
+};
+
   // The map, centered at Uluru
 
-  var features = []
 
-  for(i=0;i<locations_jdh.length;i++)
+  // # From firebase, get available ambulance function
+  var ambulances = [
+    {
+        "title": 'MAX',
+        "lat": '26.2178',
+        "lng": '72.94246',
+        "driver_name": "Mr Che Gueverra",
+        "driver_contact":9292929212,
+        "description": 'Max ambulance..available.',
+        "status": 'available',
+        "type": "icu",
+        "icon": icon_icu
+    },
+    {
+      "title": 'AIIMS',
+      "lat": '26.2158',
+      "lng": '72.94246',
+      "driver_name": "Mr. Nikita Khuruschev",
+      "driver_contact":8292929212,
+      "description": 'AIIMS ambulance..available.',
+      "status": 'available',
+      "type": "ptv",
+      "icon": icon_ptv
+    },
+    {
+      "title": 'Apolo',
+      "lat": '26.2178',
+      "lng": '72.94546',
+      "driver_name": "Mrs Angela Merkel",
+      "driver_contact":7292929212,
+      "description": 'Apolo ambulance..available.',
+      "status": 'available',
+      "type": "super_fast",
+      "icon": icon_super_fast
+    },
+    {
+    "title": 'AIIMS',
+    "lat": '26.215',
+    "lng": '72.94446',
+    "driver_name": "Mr Vladimir Putin",
+    "driver_contact":9292929212,
+    "description": 'Max ambulance..available.',
+    "status": 'available',
+    "type": "icu",
+    "icon": icon_icu
+    },
+    ];
+
+  for(i=0;i<ambulances.length;i++)
   {
-    lat_long = locations_jdh[i][0]
-    // console.log(Object.values(lat_long))
-    new_item = {
-      position: new google.maps.LatLng(lat_long),
-      type: ambulance_types_jdh[i],
-    }
-    features.push(new_item)
-    
-  }
+    marker_data = ambulances[i]
+    lat_long = new google.maps.LatLng(marker_data.lat, marker_data.lng)
 
-
-  for(i=0;i<locations_jdh.length;i++)
-  {
     const marker = new google.maps.Marker({
-      title: features[i].type,
-      position: features[i].position,
-      icon: icon,
+      title: marker_data.title,
+      position: lat_long,
+      icon: marker_data.icon,
       map:map
     })
+
+    // DON'T REMOVE THESE COMMENTS, THESE ARE FOR ADDING A ON CLICK FUNCTION, WILL ACTIVATE IT AFTER FIRST DEMO
+    // Attach click event to the marker.
+  //   (function (marker, marker_data) {
+  //     google.maps.event.addListener(marker, "click", function (e) {
+  //         //Wrap the contentq inside an HTML DIV in order to set height and width of InfoWindow.
+  //         infoWindow.setContent("<div style = 'width:200px;min-height:40px'>" + marker_data.description + "</div>");
+  //         infoWindow.open(map, marker);
+  //     });
+  // })(marker, marker_data);
+
+}
     // console.log(features[i].position)
-  }
+  
 
   // The marker, positioned at Uluru
   
 }
 
-// var locations = [
-//   ['Bondi Beach', -33.890542, 151.274856, 4],
-//   ['Coogee Beach', -33.923036, 151.259052, 5],
-//   ['Cronulla Beach', -34.028249, 151.157507, 3]      ['Cronulla Beach', -34.028249, 151.157507, 3],
-//   ['Manly Beach', -33.80010128657071, 151.28747820854187, 2],
-//   ['Maroubra Beach', -33.950198, 151.259302, 1]
-// ];
-
-// var map = new google.maps.Map(document.getElementById('map'), {
-//   zoom: 10,
-//   center: new google.maps.LatLng(-33.92, 151.25),
-//   mapTypeId: google.maps.MapTypeId.ROADMAP
-// });
-
-// var infowindow = new google.maps.InfoWindow();
-
-// var marker, i;
-
-// for (i = 0; i < locations.length; i++) {  
-//   marker = new google.maps.Marker({
-//     position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-//     map: map
-//   });
-
-//   google.maps.event.addListener(marker, 'click', (function(marker, i) {
-//     return function() {
-//       infowindow.setContent(locations[i][0]);
-//       infowindow.open(map, marker);
-//     }
-//   })(marker, i));
-// }
+window.onload = function () {
+  initMap();
+}
