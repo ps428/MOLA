@@ -32,6 +32,17 @@ background-color: rgba(255, 255, 255, 0.5) !important;
 box-shadow: 3px 7px 6px 2px #000000;
 }
 
+/* for signup form */
+.card2{
+    height: 520px;
+    margin-top: auto;
+    margin-bottom: auto;
+    right: 0px;
+    width: 350px;
+    background-color: rgba(255, 255, 255, 0.5) !important;
+    -webkit-box-shadow: 3px 7px 6px 2px #000000; 
+    box-shadow: 3px 7px 6px 2px #000000;
+    }
 
 
 .card-header h3{
