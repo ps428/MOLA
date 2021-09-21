@@ -126,8 +126,8 @@ function add_abmulances(user_lat, user_lng, map) {
   var ambulances = [{
           // around user location
           "title": 'Appolo PTV',
-          "lat": user_lat + 0.0002,
-          "lng": user_lng + 0.0006,
+          "lat": user_lat + Math.random()/500,
+          "lng": user_lng + Math.random()/500,
           "driver_name": "Mr Che Gueverra",
           "driver_contact": 9292929212,
           "description": 'Max ambulance..available.',
@@ -138,8 +138,8 @@ function add_abmulances(user_lat, user_lng, map) {
       {
           // around user location
           "title": 'MAX ICU',
-          "lat": user_lat + 0.0006,
-          "lng": user_lng + 0.0002,
+          "lat": user_lat + Math.random()/1000,
+          "lng": user_lng + Math.random()/300,
           "driver_name": "Mr Che Gueverra",
           "driver_contact": 9292929212,
           "description": 'Max ambulance..available.',
@@ -150,8 +150,8 @@ function add_abmulances(user_lat, user_lng, map) {
       {
           // around user location
           "title": 'MAX Super Fast',
-          "lat": user_lat + 0.0017,
-          "lng": user_lng + 0.001,
+          "lat": user_lat - Math.random()/500,
+          "lng": user_lng - Math.random()/1000,
           "driver_name": "Mr Che Gueverra",
           "driver_contact": 9292929212,
           "description": 'Max ambulance..available.',
@@ -160,10 +160,22 @@ function add_abmulances(user_lat, user_lng, map) {
           "icon": icon_super_fast
       },
       {
+        // around user location
+        "title": 'Appolo Super Fast',
+        "lat": user_lat - Math.random()/500,
+        "lng": user_lng - Math.random()/500,
+        "driver_name": "Mr Che Gueverra",
+        "driver_contact": 9292929212,
+        "description": 'Max ambulance..available.',
+        "status": 'available',
+        "type": "super_fast",
+        "icon": icon_super_fast
+    },
+    {
           // around user location
           "title": 'MAX ICU',
-          "lat": user_lat + 0.0009,
-          "lng": user_lng + 0.002,
+          "lat": user_lat - Math.random()/700,
+          "lng": user_lng + Math.random()/1000,
           "driver_name": "Mr Che Gueverra",
           "driver_contact": 9292929212,
           "description": 'Max ambulance..available.',
@@ -174,8 +186,8 @@ function add_abmulances(user_lat, user_lng, map) {
       {
           // around user location
           "title": 'AIIMS PTV',
-          "lat": user_lat + 0.002,
-          "lng": user_lng + 0.001,
+          "lat": user_lat + Math.random()/400,
+          "lng": user_lng - Math.random()/1000,
           "driver_name": "Mr Che Gueverra",
           "driver_contact": 9292929212,
           "description": 'Max ambulance..available.',
