@@ -1,0 +1,106 @@
+
+/* Made with love by Mutiullah Samim*/
+
+@import url('https://fonts.googleapis.com/css?family=Numans');
+@import url('https://fonts.googleapis.com/css?family=Poppins');
+
+html,body{
+background-size: cover;
+background-repeat: no-repeat;
+height: 100%;
+font-family: 'Numans', sans-serif;
+}
+
+.container{
+height: 100%;
+align-content: fill;
+}
+
+.container2 h1{
+color: white;
+}
+
+
+.card{
+height: 370px;
+margin-top: auto;
+margin-bottom: auto;
+right: 0px;
+width: 350px;
+background-color: rgba(255, 255, 255, 0.5) !important;
+-webkit-box-shadow: 3px 7px 6px 2px #000000; 
+box-shadow: 3px 7px 6px 2px #000000;
+}
+
+/* for signup form */
+.card2{
+    height: 520px;
+    margin-top: auto;
+    margin-bottom: auto;
+    right: 0px;
+    width: 350px;
+    background-color: rgba(255, 255, 255, 0.5) !important;
+    -webkit-box-shadow: 3px 7px 6px 2px #000000; 
+    box-shadow: 3px 7px 6px 2px #000000;
+    }
+
+
+.card-header h3{
+color: black;
+font-weight: bold;
+
+}
+
+.input-group-prepend span{
+width: 50px;
+background-color: #721e1e;
+color: white;
+border:2 !important;
+}
+
+input:focus{
+    outline: 0 0 0 0  !important;
+    box-shadow: 0 0 0 0 !important;
+    
+    }
+
+.title-of-page{
+font-family: 'Numans', sans-serif;
+    font-weight: bold;
+    margin: 90px auto;
+    margin-left: 160px;
+    color: #99eeb4;
+    text-align: center;
+   
+}
+.remember{
+color: black;
+}
+
+.remember input
+{
+width: 20px;
+height: 20px;
+margin-left: 15px;
+margin-right: 5px;
+}
+
+.login_btn{
+color: rgb(253, 252, 252);
+background-color: #721e1e;
+width: 150px;
+}
+
+.login_btn:hover{
+color: burlywood;
+background-color: rgb(24, 23, 23);
+}
+
+.links{
+color: white;
+}
+
+.links a{
+margin-left: 4px;
+}
+
