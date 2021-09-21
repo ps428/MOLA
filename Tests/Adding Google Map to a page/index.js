@@ -26,9 +26,10 @@ function initMap() {
           infoWindow.setPosition(pos);
           infoWindow.setContent('Location found.');
           map.setCenter(pos);
-          console.log(user_lat, user_lng)
+        //   console.log(user_lat, user_lng)
 
           add_human_marker(user_lat, user_lng, map)
+          update_location(user_lat, user_lng)
 
       }, function() {
           handleLocationError(true, infoWindow, map.getCenter());
@@ -126,8 +127,8 @@ function add_abmulances(user_lat, user_lng, map) {
   var ambulances = [{
           // around user location
           "title": 'Appolo PTV',
-          "lat": user_lat + Math.random()/500,
-          "lng": user_lng + Math.random()/500,
+          "lat": user_lat + Math.random() / 500,
+          "lng": user_lng + Math.random() / 500,
           "driver_name": "Mr Che Gueverra",
           "driver_contact": 9292929212,
           "description": 'Max ambulance..available.',
@@ -138,8 +139,8 @@ function add_abmulances(user_lat, user_lng, map) {
       {
           // around user location
           "title": 'MAX ICU',
-          "lat": user_lat + Math.random()/1000,
-          "lng": user_lng + Math.random()/300,
+          "lat": user_lat + Math.random() / 1000,
+          "lng": user_lng + Math.random() / 300,
           "driver_name": "Mr Che Gueverra",
           "driver_contact": 9292929212,
           "description": 'Max ambulance..available.',
@@ -150,8 +151,8 @@ function add_abmulances(user_lat, user_lng, map) {
       {
           // around user location
           "title": 'MAX Super Fast',
-          "lat": user_lat - Math.random()/500,
-          "lng": user_lng - Math.random()/1000,
+          "lat": user_lat - Math.random() / 500,
+          "lng": user_lng - Math.random() / 1000,
           "driver_name": "Mr Che Gueverra",
           "driver_contact": 9292929212,
           "description": 'Max ambulance..available.',
@@ -160,22 +161,22 @@ function add_abmulances(user_lat, user_lng, map) {
           "icon": icon_super_fast
       },
       {
-        // around user location
-        "title": 'Appolo Super Fast',
-        "lat": user_lat - Math.random()/500,
-        "lng": user_lng - Math.random()/500,
-        "driver_name": "Mr Che Gueverra",
-        "driver_contact": 9292929212,
-        "description": 'Max ambulance..available.',
-        "status": 'available',
-        "type": "super_fast",
-        "icon": icon_super_fast
-    },
-    {
+          // around user location
+          "title": 'Appolo Super Fast',
+          "lat": user_lat - Math.random() / 500,
+          "lng": user_lng - Math.random() / 500,
+          "driver_name": "Mr Che Gueverra",
+          "driver_contact": 9292929212,
+          "description": 'Max ambulance..available.',
+          "status": 'available',
+          "type": "super_fast",
+          "icon": icon_super_fast
+      },
+      {
           // around user location
           "title": 'MAX ICU',
-          "lat": user_lat - Math.random()/700,
-          "lng": user_lng + Math.random()/1000,
+          "lat": user_lat - Math.random() / 700,
+          "lng": user_lng + Math.random() / 1000,
           "driver_name": "Mr Che Gueverra",
           "driver_contact": 9292929212,
           "description": 'Max ambulance..available.',
@@ -186,8 +187,8 @@ function add_abmulances(user_lat, user_lng, map) {
       {
           // around user location
           "title": 'AIIMS PTV',
-          "lat": user_lat + Math.random()/400,
-          "lng": user_lng - Math.random()/1000,
+          "lat": user_lat + Math.random() / 400,
+          "lng": user_lng - Math.random() / 1000,
           "driver_name": "Mr Che Gueverra",
           "driver_contact": 9292929212,
           "description": 'Max ambulance..available.',
@@ -233,4 +234,35 @@ window.onload = function() {
   // coordinates = initMap();
   // console.log(coordinates)
   //  add_human_marker(coordinates[0], coordinates[1]);
+}
+
+// Import the functions you need from the SDKs you need
+
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyB9ZUieHupPYW48HaHkAtlDLe0E3M1HFHo",
+  authDomain: "mola-acfe4.firebaseapp.com",
+  databaseURL: "https://mola-acfe4-default-rtdb.firebaseio.com",
+  projectId: "mola-acfe4",
+  storageBucket: "mola-acfe4.appspot.com",
+  messagingSenderId: "1095605622920",
+  appId: "1:1095605622920:web:401b89e5cf03ef997ba73d",
+  measurementId: "G-RNCT5GL5TW"
+};
+firebase.initializeApp(firebaseConfig);
+
+// Initialize Firebase
+let user_location = firebase.database().ref('usercoordinates')
+
+function update_location(user_lat, user_lng)
+{
+    let coordinates = user_location.push();
+    coordinates.set({
+        lat: user_lat,
+        lng: user_lng
+    });    
 }
