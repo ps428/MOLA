@@ -104,3 +104,30 @@ color: white;
 margin-left: 4px;
 }
 
+#map {
+    height: 550px;
+    /* The height is 400 pixels */
+    width: 65%;
+    /* The width is the width of the web page */
+    margin-top: 3.5%;
+    margin-right: 2%;
+    border-radius: 1cm;
+    border-width: 2cm;
+    border-color: #000000;
+  }
+ 
+.user_intro{
+    height: 120px;
+    margin-top: auto;
+    border-radius: 1cm;
+    text-align: justify;
+    padding: 1%;
+    text-justify: auto;
+    margin-bottom: auto;
+    margin-right: 2%;
+    right: 0px;
+    width: 350px;
+    background-color: rgba(255, 255, 255, 0.5) !important;
+    -webkit-box-shadow: 3px 7px 6px 2px #000000; 
+    box-shadow: 3px 7px 6px 2px #000000;
+}

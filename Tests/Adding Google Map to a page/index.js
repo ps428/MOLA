@@ -6,7 +6,7 @@ function initMap() {
   });
 
   var map = new google.maps.Map(document.getElementById("map"), {
-      zoom: 17,
+      zoom: 16,
       // center: new google.maps.LatLng(26.2195, 72.94225),
   });
 
@@ -29,7 +29,7 @@ function initMap() {
         //   console.log(user_lat, user_lng)
 
           add_human_marker(user_lat, user_lng, map)
-          update_location(user_lat, user_lng)
+        //   update_location(user_lat, user_lng)
 
       }, function() {
           handleLocationError(true, infoWindow, map.getCenter());
@@ -243,26 +243,26 @@ window.onload = function() {
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyB9ZUieHupPYW48HaHkAtlDLe0E3M1HFHo",
-  authDomain: "mola-acfe4.firebaseapp.com",
-  databaseURL: "https://mola-acfe4-default-rtdb.firebaseio.com",
-  projectId: "mola-acfe4",
-  storageBucket: "mola-acfe4.appspot.com",
-  messagingSenderId: "1095605622920",
-  appId: "1:1095605622920:web:401b89e5cf03ef997ba73d",
-  measurementId: "G-RNCT5GL5TW"
-};
-firebase.initializeApp(firebaseConfig);
+// const firebaseConfig = {
+//   apiKey: "AIzaSyB9ZUieHupPYW48HaHkAtlDLe0E3M1HFHo",
+//   authDomain: "mola-acfe4.firebaseapp.com",
+//   databaseURL: "https://mola-acfe4-default-rtdb.firebaseio.com",
+//   projectId: "mola-acfe4",
+//   storageBucket: "mola-acfe4.appspot.com",
+//   messagingSenderId: "1095605622920",
+//   appId: "1:1095605622920:web:401b89e5cf03ef997ba73d",
+//   measurementId: "G-RNCT5GL5TW"
+// };
+// firebase.initializeApp(firebaseConfig);
 
-// Initialize Firebase
-let user_location = firebase.database().ref('usercoordinates')
+// // Initialize Firebase
+// let user_location = firebase.database().ref('usercoordinates')
 
-function update_location(user_lat, user_lng)
-{
-    let coordinates = user_location.push();
-    coordinates.set({
-        lat: user_lat,
-        lng: user_lng
-    });    
-}
+// function update_location(user_lat, user_lng)
+// {
+//     let coordinates = user_location.push();
+//     coordinates.set({
+//         lat: user_lat,
+//         lng: user_lng
+//     });    
+// }
