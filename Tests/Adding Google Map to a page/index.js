@@ -6,7 +6,7 @@ function initMap() {
   });
 
   var map = new google.maps.Map(document.getElementById("map"), {
-      zoom: 16,
+      zoom: 17,
       // center: new google.maps.LatLng(26.2195, 72.94225),
   });
 
@@ -61,7 +61,7 @@ function add_human_marker(user_lat, user_lng, map) {
       url: "assets/human.png", // url
       // url: "assets/ambulance_ptv.png", // url
       // url: "assets/ambulance_icu.png", // url
-      scaledSize: new google.maps.Size(15, 25), // scaled size
+      scaledSize: new google.maps.Size(30, 40), // scaled size
       origin: new google.maps.Point(0, 0), // origin
       anchor: new google.maps.Point(0, 0) // anchor
   };
@@ -94,10 +94,10 @@ function add_human_marker(user_lat, user_lng, map) {
 function add_abmulances(user_lat, user_lng, map) {
 
   var icon_super_fast = {
-      url: "assets/ambulance_super_fast.jpeg", // url
+      url: "assets/ambulance_super_fast.png", // url
       // url: "assets/ambulance_ptv.png", // url
       // url: "assets/ambulance_icu.png", // url
-      scaledSize: new google.maps.Size(30, 20), // scaled size
+      scaledSize: new google.maps.Size(40, 40), // scaled size
       origin: new google.maps.Point(0, 0), // origin
       anchor: new google.maps.Point(0, 0) // anchor
   };
@@ -106,7 +106,7 @@ function add_abmulances(user_lat, user_lng, map) {
       url: "assets/ambulance_icu.png", // url
       // url: "assets/ambulance_ptv.png", // url
       // url: "assets/ambulance_icu.png", // url
-      scaledSize: new google.maps.Size(30, 20), // scaled size
+      scaledSize: new google.maps.Size(40, 40), // scaled size
       origin: new google.maps.Point(0, 0), // origin
       anchor: new google.maps.Point(0, 0) // anchor
   };
@@ -115,7 +115,7 @@ function add_abmulances(user_lat, user_lng, map) {
       url: "assets/ambulance_ptv.png", // url
       // url: "assets/ambulance_ptv.png", // url
       // url: "assets/ambulance_icu.png", // url
-      scaledSize: new google.maps.Size(30, 20), // scaled size
+      scaledSize: new google.maps.Size(40, 40), // scaled size
       origin: new google.maps.Point(0, 0), // origin
       anchor: new google.maps.Point(0, 0) // anchor
   };
