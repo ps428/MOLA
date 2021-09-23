@@ -18,6 +18,7 @@ align-content: fill;
 
 .container2 h1{
 color: white;
+
 }
 
 
@@ -104,3 +105,60 @@ color: white;
 margin-left: 4px;
 }
 
+#map {
+    height: 550px;
+    /* The height is 400 pixels */
+    width: 65%;
+    /* The width is the width of the web page */
+    margin-top: 3.5%;
+    margin-right: 2%;
+    border-radius: 0.5cm;
+    border-width: 2cm;
+    border-color: #000000;
+    background-color: #000000;
+    padding: 2cm;
+  }
+ 
+.user_intro{
+    height: 380px;
+    margin-top: auto;
+    border-radius: 0.35cm;
+    text-align: justify;
+    padding: 1%;
+    text-justify: auto;
+    margin-bottom: auto;
+    margin-right: 2%;
+    right: 0px;
+    width: 350px;
+    background-color: rgba(255, 255, 255, 0.5) !important;
+    -webkit-box-shadow: 3px 7px 6px 2px #000000; 
+    box-shadow: 3px 7px 6px 2px #000000;
+    
+}
+
+.user_title-of-page{
+    font-family: 'Numans', sans-serif;
+        font-weight: bold;
+        margin: 40px auto;
+        margin-left: 10px;
+        color: #99eeb4;
+        text-align: center;
+       
+    }
+
+.scrollable{
+    margin:4px, 4px;
+    padding:4px;
+    height: 200px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    text-align:justify;
+    
+}
+
+.card-text{
+    border: 1px solid #800000;
+    border-radius: 0.2cm;
+    padding: 10px;
+
+}
