@@ -3,7 +3,24 @@
   <head>
     <title>Home Page</title>
 
-    <script src="index_signup.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-database-compat.js"></script>
+    <script>
+      const firebaseApp = firebase.initializeApp({
+        apiKey: "AIzaSyDNBJBKa0inzSjHz8MYjfBkE66o99k-S60",
+        authDomain: "mola-afb82.firebaseapp.com",
+        databaseURL: "https://mola-afb82-default-rtdb.firebaseio.com",
+        projectId: "mola-afb82",
+        storageBucket: "mola-afb82.appspot.com",
+        messagingSenderId: "42452640257",
+        appId: "1:42452640257:web:642cec53e7bec0408ad600",
+        measurementId: "G-FBPSVBQ638",
+      });
+    </script>
+
+    <script src="index_function.js"></script>
 
     <!--Bootsrap 4 CDN-->
     <link
@@ -129,8 +146,9 @@
               </div>
               <div class="form-group">
                 <input
-                  type="submit"
+                  type="Label"
                   value="Register"
+                  onclick="registerUser()"
                   class="btn float-right login_btn"
                   id="submit"
                 />
