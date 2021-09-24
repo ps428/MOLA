@@ -29,10 +29,13 @@
   </head>
   <body background="ambulance.png">
     <div class="user_map_container">
+      <div class="user-map-heading">
+        <div class="user-heading-text">
+          <h1>User Map View</h1>
+        </div>
+      </div>
       <div class="d-flex justify-content-center h-100">
-        <div class="user_title-of-page"></div>
         <card class="user_intro">
-          <br />
           <form method="POST" id="searchForm">
             <div class="input-group form-group">
               <div class="input-group-prepend">
@@ -72,10 +75,16 @@
         </card>
         <div id="map"></div>
       </div>
+      
     </div>
     <script
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC5DhDiQCZmUAyW8yvr-bjJWxTgML6FJAM&callback=initMap&libraries=&v=weekly&channel=2"
       async
     ></script>
+	<div class="footer">
+        <div class="footer-text">
+          <p>MOLA: My Online Local Ambulance</p>
+        </div>
+      </div>
   </body>
 </html>
