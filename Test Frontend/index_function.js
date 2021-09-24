@@ -205,7 +205,7 @@ function add_human_marker(user_lat, user_lng, map) {
     url: "assets/human.png", // url
     // url: "assets/ambulance_ptv.png", // url
     // url: "assets/ambulance_icu.png", // url
-    scaledSize: new google.maps.Size(30, 40), // scaled size
+    scaledSize: new google.maps.Size(40, 45), // scaled size
     origin: new google.maps.Point(0, 0), // origin
     anchor: new google.maps.Point(0, 0), // anchor
   };
@@ -263,14 +263,49 @@ function add_abmulances(user_lat, user_lng, map) {
     anchor: new google.maps.Point(0, 0), // anchor
   };
 
+  var icon_free = {
+    url: "assets/ambulance_free.png", // url
+    // url: "assets/ambulance_ptv.png", // url
+    // url: "assets/ambulance_icu.png", // url
+    scaledSize: new google.maps.Size(35, 25), // scaled size
+    origin: new google.maps.Point(0, 0), // origin
+    anchor: new google.maps.Point(0, 0), // anchor
+  };
+
+
   // The map, centered at Uluru
 
   // # From firebase, get available ambulance function
-  var ambulances = [{
+  var ambulances = [
+    {
+      // around user location
+      "title": 'Government Free',
+      "lat": user_lat + Math.random() / 100,
+      "lng": user_lng - Math.random() / 100,
+      "driver_name": "Mr Che Gueverra",
+      "driver_contact": 9292929212,
+      "description": 'Max ambulance..available.',
+      "status": 'available',
+      "type": "government_free",
+      "icon": icon_free
+    },  
+    {
+      // around user location
+      "title": 'Government Free',
+      "lat": user_lat + Math.random() / 100,
+      "lng": user_lng + Math.random() / 100,
+      "driver_name": "Mr Che Gueverra",
+      "driver_contact": 9292929212,
+      "description": 'Max ambulance..available.',
+      "status": 'available',
+      "type": "government_free",
+      "icon": icon_free
+    },
+    {
           // around user location
           "title": 'Appolo PTV',
-          "lat": user_lat + Math.random() / 100,
-          "lng": user_lng + Math.random() / 500,
+          "lat": user_lat - Math.random() / 100,
+          "lng": user_lng + Math.random() / 400,
           "driver_name": "Mr Che Gueverra",
           "driver_contact": 9292929212,
           "description": 'Max ambulance..available.',
@@ -294,7 +329,7 @@ function add_abmulances(user_lat, user_lng, map) {
           // around user location
           "title": 'MAX Super Fast',
           "lat": user_lat - Math.random() / 200,
-          "lng": user_lng - Math.random() / 300,
+          "lng": user_lng + Math.random() / 300,
           "driver_name": "Mr Che Gueverra",
           "driver_contact": 9292929212,
           "description": 'Max ambulance..available.',
