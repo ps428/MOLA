@@ -154,13 +154,8 @@ function initMap(user_id) {
   });
 
   var map = new google.maps.Map(document.getElementById("map"), {
-<<<<<<< HEAD
       zoom: 15,
       // center: new google.maps.LatLng(26.2195, 72.94225),
-=======
-    zoom: 16,
-    // center: new google.maps.LatLng(26.2195, 72.94225),
->>>>>>> 6881f6e2355e30525f8fe95e74b6d66396a972a5
   });
 
   var user_lat = 0.0;
@@ -271,7 +266,6 @@ function add_abmulances(user_lat, user_lng, map) {
   // The map, centered at Uluru
 
   // # From firebase, get available ambulance function
-<<<<<<< HEAD
   var ambulances = [{
           // around user location
           "title": 'Appolo PTV',
@@ -344,81 +338,6 @@ function add_abmulances(user_lat, user_lng, map) {
           "type": "ptv",
           "icon": icon_ptv
       },
-=======
-  var ambulances = [
-    {
-      // around user location
-      title: "Appolo PTV",
-      lat: user_lat + Math.random() / 500,
-      lng: user_lng + Math.random() / 500,
-      driver_name: "Mr Che Gueverra",
-      driver_contact: 9292929212,
-      description: "Max ambulance..available.",
-      status: "available",
-      type: "ptv",
-      icon: icon_ptv,
-    },
-    {
-      // around user location
-      title: "MAX ICU",
-      lat: user_lat + Math.random() / 1000,
-      lng: user_lng + Math.random() / 300,
-      driver_name: "Mr Che Gueverra",
-      driver_contact: 9292929212,
-      description: "Max ambulance..available.",
-      status: "available",
-      type: "icu",
-      icon: icon_icu,
-    },
-    {
-      // around user location
-      title: "MAX Super Fast",
-      lat: user_lat - Math.random() / 500,
-      lng: user_lng - Math.random() / 1000,
-      driver_name: "Mr Che Gueverra",
-      driver_contact: 9292929212,
-      description: "Max ambulance..available.",
-      status: "available",
-      type: "super_fast",
-      icon: icon_super_fast,
-    },
-    {
-      // around user location
-      title: "Appolo Super Fast",
-      lat: user_lat - Math.random() / 500,
-      lng: user_lng - Math.random() / 500,
-      driver_name: "Mr Che Gueverra",
-      driver_contact: 9292929212,
-      description: "Max ambulance..available.",
-      status: "available",
-      type: "super_fast",
-      icon: icon_super_fast,
-    },
-    {
-      // around user location
-      title: "MAX ICU",
-      lat: user_lat - Math.random() / 700,
-      lng: user_lng + Math.random() / 1000,
-      driver_name: "Mr Che Gueverra",
-      driver_contact: 9292929212,
-      description: "Max ambulance..available.",
-      status: "available",
-      type: "icu",
-      icon: icon_icu,
-    },
-    {
-      // around user location
-      title: "AIIMS PTV",
-      lat: user_lat + Math.random() / 400,
-      lng: user_lng - Math.random() / 1000,
-      driver_name: "Mr Che Gueverra",
-      driver_contact: 9292929212,
-      description: "Max ambulance..available.",
-      status: "available",
-      type: "ptv",
-      icon: icon_ptv,
-    },
->>>>>>> 6881f6e2355e30525f8fe95e74b6d66396a972a5
   ];
 
   // Adding human on map
