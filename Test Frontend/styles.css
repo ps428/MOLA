@@ -91,6 +91,7 @@ margin-right: 5px;
 .login_btn{
 color: rgb(253, 252, 252);
 background-color: #721e1e;
+border-radius: 0.15cm;
 width: 150px;
 }
 
@@ -172,7 +173,7 @@ margin-left: 4px;
 }
 
 .home-card{
-    height: 320px;
+    height: auto;
     margin-top: auto;
     margin-bottom: auto;
     width: 400px;
@@ -181,31 +182,63 @@ margin-left: 4px;
     box-shadow: 3px 7px 6px 2px #000000;
     border-radius: 5%;
     padding: 3%;
-    }
+    text-align: center;
+    margin-right: 30%;
 
-    .btn {
-        background: #ff1c1c;
-        background-image: -webkit-linear-gradient(top, #ff1c1c, #570b0b);
-        background-image: -moz-linear-gradient(top, #ff1c1c, #570b0b);
-        background-image: -ms-linear-gradient(top, #ff1c1c, #570b0b);
-        background-image: -o-linear-gradient(top, #ff1c1c, #570b0b);
-        background-image: linear-gradient(to bottom, #ff1c1c, #570b0b);
-        -webkit-border-radius: 28;
-        -moz-border-radius: 28;
-        border-radius: 28px;
-        font-family: Arial;
-        color: #fffcfc;
-        font-size: 20px;
-        padding: 10px 20px 10px 20px;
-        text-decoration: none;
-      }
-      
-      .btn:hover {
-        background: #3cb0fd;
-        background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
-        background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
-        background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
-        background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
-        background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
-        text-decoration: none;
-      }
+}
+
+
+
+.home_hospital_btn{
+    color: rgb(253, 252, 252);
+    background-color: #721e1e;
+    width: auto;
+    border-radius: 0.15cm;
+    }
+    
+.home_hospital_btn:hover{
+    color: burlywood;
+    background-color: rgb(58, 54, 54);
+}
+
+
+.home_user_btn{
+    color: rgb(253, 252, 252);
+    border-radius: 0.15cm;
+    background-color: #721e1e;
+    width: auto;
+    }
+    
+.home_user_btn:hover{
+    color: burlywood;
+    background-color: rgb(58, 54, 54);
+}
+
+/* 
+.btn {
+    background: #30e9f0;
+    background-image: -webkit-linear-gradient(top, #ff1c1c, #570b0b);
+    background-image: -moz-linear-gradient(top, #ff1c1c, #570b0b);
+    background-image: -ms-linear-gradient(top, #ff1c1c, #570b0b);
+    background-image: -o-linear-gradient(top, #ff1c1c, #570b0b);
+    background-image: linear-gradient(to bottom, #ff1c1c, #570b0b);
+    -webkit-border-radius: 28;
+    -moz-border-radius: 28;
+    border-radius: 18px;
+    font-family: 'Poppins', sans-serif;
+    color: #fffcfc;
+    font-size: 20px;
+    padding: 10px 20px 10px 20px;
+    text-decoration: none;
+    margin: 2%;
+    }
+    
+.btn:hover {
+background: #3cb0fd;
+background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+text-decoration: none;
+} */
