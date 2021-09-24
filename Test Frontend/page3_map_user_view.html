@@ -1,17 +1,30 @@
-	
 <!DOCTYPE html>
 <html>
-<head>
-	<title>User Map View</title>
-   
-	<!--Bootsrap 4 CDN-->
-    <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase.js"></script>
-    <script src ="index_function.js"></script>
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    
-    <!--Fontawesome CDN-->
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+  <head>
+    <title>User Map View</title>
 
+    <!--Bootsrap 4 CDN-->
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase.js"></script>
+    <script src="index_function.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+      crossorigin="anonymous"
+    />
+
+    <!--Fontawesome CDN-->
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+      integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+      crossorigin="anonymous"
+    />
+
+<<<<<<< HEAD
 	<!--Custom styles-->
 	<link rel="stylesheet" type="text/css" href="styles.css">
 </head>
@@ -46,11 +59,60 @@
 		</card>
         	<div id="map"></div>
 		
+=======
+    <!--Custom styles-->
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+  </head>
+  <body background="ambulance.png">
+    <div class="user_map_container">
+      <div class="d-flex justify-content-center h-100">
+        <div class="user_title-of-page"></div>
+        <card class="user_intro">
+          <br />
+          <form method="POST" id="searchForm">
+            <div class="input-group form-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"
+                  ><i class="fas fa-search"></i
+                ></span>
+              </div>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Search Query"
+                id="searchQuery"
+              />
+            </div>
+            <div class="form-group">
+              <input
+                type="submit"
+                value="Search"
+                class="btn float-right login_btn"
+              />
+            </div>
+          </form>
+          <br />
+          <br />
+          <h3>Resuts are:</h3>
+          <div class="scrollable">
+            <p class="card-text">
+              Hello there, it is a testing pageHello there, it is a testing
+              pageHello there, it is a testing pageHello there, it is a testing
+              pageHello there, it is a testing pageHello there, it is a testing
+              pageHello there, it is a testing pageHello there, it is a testing
+              pageHello there, it is a testing pageHello there, it is a testing
+              page
+            </p>
+            <br />
+          </div>
+        </card>
+        <div id="map"></div>
+      </div>
+>>>>>>> 6881f6e2355e30525f8fe95e74b6d66396a972a5
     </div>
-</div>
-<script
-src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC5DhDiQCZmUAyW8yvr-bjJWxTgML6FJAM&callback=initMap&libraries=&v=weekly&channel=2"
-async
-></script>
-</body>
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC5DhDiQCZmUAyW8yvr-bjJWxTgML6FJAM&callback=initMap&libraries=&v=weekly&channel=2"
+      async
+    ></script>
+  </body>
 </html>
