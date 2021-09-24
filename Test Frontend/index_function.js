@@ -14,6 +14,7 @@ function formSubmit() {
     .signInWithEmailAndPassword(username, password)
     .then((userCredential) => {
       window.location.href = "../Test Frontend/page3_map_user_view.html";
+
     })
     .catch((error) => {
       var errorMessage = error.message;
@@ -138,4 +139,10 @@ function validatePhone(mobileNumber) {
   } else {
     return false;
   }
+}
+
+//  Map functions
+function show_map(user_id)
+{ 
+  
 }
