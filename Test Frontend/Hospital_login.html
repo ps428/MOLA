@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Hospital Login</title>
+	<!-- <script src = "index_firebase.js"></script> -->
+	<script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app-compat.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-firestore-compat.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-auth-compat.js"></script>
+	<script>
+		const firebaseApp = firebase.initializeApp({apiKey: "AIzaSyDNBJBKa0inzSjHz8MYjfBkE66o99k-S60",
+			authDomain: "mola-afb82.firebaseapp.com",
+			databaseURL: "https://mola-afb82-default-rtdb.firebaseio.com",
+			projectId: "mola-afb82",
+			storageBucket: "mola-afb82.appspot.com",
+			messagingSenderId: "42452640257",
+			appId: "1:42452640257:web:642cec53e7bec0408ad600",
+			measurementId: "G-FBPSVBQ638",});
+	</script>
+	<script src = "index_function.js"></script>
+	<!--Bootsrap 4 CDN-->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    
+    <!--Fontawesome CDN-->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+	<!--Custom styles-->
+	<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body background="ambulance.png">
+	<script type="module">
+	
+
+		// TODO: Add SDKs for Firebase products that you want to use
+		// https://firebase.google.com/docs/web/setup#available-libraries
+	
+		// Your web app's Firebase configuration
+		// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+
+	</script>
+
+<div class="container">
+	<div class="d-flex justify-content-center h-100">
+		<div class= "title-of-page">
+			<h1></h1>
+		</div>
+		<div class="card">
+			<div class="card-header">
+				<h3>Hospital Login
+				</h3>
+			
+			</div>
+			<div class="card-body">
+				<!-- <form action="" method="POST" id="loginform"> -->
+					<div class="input-group form-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fas fa-user"></i></span>
+						</div>
+						<input type="text" class="form-control" placeholder="Hospital ID" id="username">
+					</div>
+					<div class="input-group form-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fas fa-key"></i></span>
+						</div>
+						<input type="password" class="form-control" placeholder="password" id="password">
+					</div>
+					<div class="row align-items-center remember">
+						<input type="checkbox">Remember Me
+					</div>
+					<div class="form-group">
+						<input type="submit" value="Login" onclick="formSubmit()"	class="btn float-right login_btn" id="submitButton">
+
+						</input>
+					</div>
+				<!-- </form> -->
+			</div>
+			<div class="card-footer">
+				
+				<div class="d-flex justify-content-center">
+					<a href="#">Forgot your password?</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+ 
+<div class="footer">
+	<div class="footer-text">
+			<p>MOLA: My Online Local Ambulance</p>
+	</div>
+</div>
+
+
+</body>
+</html>
