@@ -458,6 +458,7 @@ function generate_path(map, myLatLng1, myLatLng2)
     strokeWeight: 2
   });
 
+  console.log("Distance: ",haversine_distance(myLatLng1, myLatLng2)," km")
   //NEEDS BILLING SO NOT USING IT
   // var display = new google.maps.DirectionsRenderer();
   // var services = new google.maps.DirectionsService();
@@ -478,11 +479,11 @@ function generate_path(map, myLatLng1, myLatLng2)
 
 //function to get distance by longitudes and some math
 function haversine_distance(mk1, mk2) {
-  var R = 3958.8; // Radius of the Earth in miles
-  var rlat1 = mk1.position.lat() * (Math.PI/180); // Convert degrees to radians
-  var rlat2 = mk2.position.lat() * (Math.PI/180); // Convert degrees to radians
+  var R = 6371.0710; // Radius of the Earth in km
+  var rlat1 = mk1.lat * (Math.PI/180); // Convert degrees to radians
+  var rlat2 = mk2.lat * (Math.PI/180); // Convert degrees to radians
   var difflat = rlat2-rlat1; // Radian difference (latitudes)
-  var difflon = (mk2.position.lng()-mk1.position.lng()) * (Math.PI/180); // Radian difference (longitudes)
+  var difflon = (mk2.lng-mk1.lng) * (Math.PI/180); // Radian difference (longitudes)
 
   var d = 2 * R * Math.asin(Math.sqrt(Math.sin(difflat/2)*Math.sin(difflat/2)+Math.cos(rlat1)*Math.cos(rlat2)*Math.sin(difflon/2)*Math.sin(difflon/2)));
   return d;
