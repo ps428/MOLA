@@ -414,9 +414,10 @@ function generate_results_table(ambulances)
 
   table.appendChild(tr);
 
+  addCacheAmbulanceID(ambulances[0])
+
   for (i = 0; i < ambulances.length; i++) {
     ambulanceData = ambulances[i]
-
     if(ambulanceData.status != "available")
       continue
 
@@ -477,7 +478,7 @@ function generate_path(map, myLatLng1, myLatLng2)
   pathBetween.setMap(map);
 }
 
-//function to get distance by longitudes and some math
+//function to get distance by longitudes and some math: USED
 function haversine_distance(mk1, mk2) {
   var R = 6371.0710; // Radius of the Earth in km
   var rlat1 = mk1.lat * (Math.PI/180); // Convert degrees to radians
@@ -487,4 +488,16 @@ function haversine_distance(mk1, mk2) {
 
   var d = 2 * R * Math.asin(Math.sqrt(Math.sin(difflat/2)*Math.sin(difflat/2)+Math.cos(rlat1)*Math.cos(rlat2)*Math.sin(difflon/2)*Math.sin(difflon/2)));
   return d;
+}
+
+
+//FOR DEALING WITH CACHE IN FUTURE PART, CHECKBOX PE CLICK KARNE KE BAAD KE LIE
+function addCacheAmbulanceID(ambulanceData)
+{
+  localStorage.setItem('ambulanceID',ambulanceData);
+  
+  setTimeout(()=>{
+    let myName = localStorage.getItem('ambulanceID');
+    console.log(myName)
+  },5000) 
 }
