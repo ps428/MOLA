@@ -357,6 +357,17 @@ function add_ambulances(ambulances, user_lat, user_lng, map) {
         });
     })(marker, marker_data);
   }
+
+  var ambulanceListData = document.getElementById('ambulanceList')
+  for (i = 0; i < ambulances.length; i++) {
+    ambulanceData = ambulances[i]
+    var newData = "Ambulance Type: "+ambulanceData.type
+    var newNode = document.createTextNode(newData)
+    ambulanceListData.appendChild(newNode)
+    console.log(ambulanceListData)
+  }
+
+
   // console.log(features[i].position)
 
   // The marker, positioned at Uluru
