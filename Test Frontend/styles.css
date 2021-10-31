@@ -141,7 +141,7 @@ input:focus {
 
 .scrollable {
   padding: 4px;
-  height: 180px;
+  height: 280px;
   overflow-x: hidden;
   overflow-y: auto;
   text-align: justify;

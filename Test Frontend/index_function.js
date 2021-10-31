@@ -172,6 +172,16 @@ function initMap(user_id) {
         };
         user_lat = position.coords.latitude;
         user_lng = position.coords.longitude;
+        
+
+        // var pos_tmp_for_path = {
+        //   lng: position.coords.longitude+0.002,
+        //   lat: position.coords.latitude+0.07,
+        // };
+        // just to test path lines
+        // myLatLng1 = pos
+        // myLatLng2 = pos_tmp_for_path
+        // generate_path(map, myLatLng1, myLatLng2)
 
         // pos = new google.maps.LatLng(human.lat, human.lng)
         infoWindow.setPosition(pos);
@@ -269,6 +279,11 @@ async function get_ambulance_data(user_lat, user_lng, map){
    
   setTimeout( () => {
     add_ambulances(ambulances, user_lat, user_lng, map);
+
+    myLatLng1 = {lat: user_lat-0.001, lng: user_lng+0.001}
+    myLatLng2 = {lat:ambulances[1].lat-0.001, lng:ambulances[1].lng+0.001}
+    generate_path(map, myLatLng1, myLatLng2)
+
   },3000
   )
   
@@ -324,6 +339,10 @@ function add_ambulances(ambulances, user_lat, user_lng, map) {
  
   for (i = 0; i < ambulances.length; i++) {
     marker_data = ambulances[i];
+
+    if(marker_data.status != "available")
+      continue
+
     console.log(marker_data.icon)
     lat_long = new google.maps.LatLng(marker_data.lat, marker_data.lng);
 
@@ -358,18 +377,113 @@ function add_ambulances(ambulances, user_lat, user_lng, map) {
     })(marker, marker_data);
   }
 
-  var ambulanceListData = document.getElementById('ambulanceList')
-  for (i = 0; i < ambulances.length; i++) {
-    ambulanceData = ambulances[i]
-    var newData = "Ambulance Type: "+ambulanceData.type
-    var newNode = document.createTextNode(newData)
-    ambulanceListData.appendChild(newNode)
-    console.log(ambulanceListData)
-  }
-
+  generate_results_table(ambulances)
+ 
 
   // console.log(features[i].position)
 
   // The marker, positioned at Uluru
 }
 
+function generate_results_table(ambulances)
+{
+  var ambulanceListData = document.getElementById('ambulanceList')
+
+  var table = document.createElement('table');
+  var tr = document.createElement('tr');   
+  var td0 = document.createElement('th');
+  var td1 = document.createElement('th');
+  var td2 = document.createElement('th');
+  var td3 = document.createElement('th');
+  
+  var text0 = document.createTextNode("*");
+  var text1 = document.createTextNode("Title");
+  var text2 = document.createTextNode("Type");
+  var text3 = document.createTextNode("Driver Contact");
+
+
+  td0.appendChild(text0);
+  td1.appendChild(text1);
+  td2.appendChild(text2);
+  td3.appendChild(text3);
+ 
+  tr.appendChild(td0);
+  tr.appendChild(td1);
+  tr.appendChild(td2);
+  tr.appendChild(td3);
+
+  table.appendChild(tr);
+
+  for (i = 0; i < ambulances.length; i++) {
+    ambulanceData = ambulances[i]
+
+    if(ambulanceData.status != "available")
+      continue
+
+    var tr = document.createElement('tr');   
+    var td0 = document.createElement('input');
+    var td1 = document.createElement('td');
+    var td2 = document.createElement('td');
+    var td3 = document.createElement('td');
+    
+    td0.setAttribute('type','checkbox')
+
+    var text1 = document.createTextNode(ambulanceData.title);
+    var text2 = document.createTextNode(ambulanceData.type);
+    var text3 = document.createTextNode(ambulanceData.driver_contact);
+
+    td1.appendChild(text1);
+    td2.appendChild(text2);
+    td3.appendChild(text3);
+
+    tr.appendChild(td0);
+    tr.appendChild(td1);
+    tr.appendChild(td2);
+    tr.appendChild(td3);
+
+    table.appendChild(tr);
+
+  }
+  ambulanceListData.appendChild(table)
+
+}
+
+
+function generate_path(map, myLatLng1, myLatLng2)
+{
+  var pathBetween = new google.maps.Polyline({
+    path: [myLatLng1,myLatLng2],
+    strokeColor: '#FF0000',
+    strokeOpacity: 1.0,
+    strokeWeight: 2
+  });
+
+  //NEEDS BILLING SO NOT USING IT
+  // var display = new google.maps.DirectionsRenderer();
+  // var services = new google.maps.DirectionsService();
+  // display.setMap(map);
+  //     var request ={
+  //         origin : myLatLng1,
+  //         destination:myLatLng2,
+  //         travelMode: 'DRIVING'
+  //     };
+  //     services.route(request,function(result,status){
+  //         if(status =='OK'){
+  //             display.setDirections(result);
+  //         }
+  //     });
+
+  pathBetween.setMap(map);
+}
+
+//function to get distance by longitudes and some math
+function haversine_distance(mk1, mk2) {
+  var R = 3958.8; // Radius of the Earth in miles
+  var rlat1 = mk1.position.lat() * (Math.PI/180); // Convert degrees to radians
+  var rlat2 = mk2.position.lat() * (Math.PI/180); // Convert degrees to radians
+  var difflat = rlat2-rlat1; // Radian difference (latitudes)
+  var difflon = (mk2.position.lng()-mk1.position.lng()) * (Math.PI/180); // Radian difference (longitudes)
+
+  var d = 2 * R * Math.asin(Math.sqrt(Math.sin(difflat/2)*Math.sin(difflat/2)+Math.cos(rlat1)*Math.cos(rlat2)*Math.sin(difflon/2)*Math.sin(difflon/2)));
+  return d;
+}
