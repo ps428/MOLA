@@ -115,6 +115,20 @@ input:focus {
   padding: 2cm;
 }
 
+#liveMap {
+  height: 500px;
+  /* The height is 400 pixels */
+  width: 65%;
+  /* The width is the width of the web page */
+  margin-top: 1.5%;
+  margin-right: 2%;
+  border-radius: 0.5cm;
+  border-width: 2cm;
+  border-color: #000000;
+  background-color: #000000;
+  padding: 2cm;
+}
+
 .user_intro {
   height: 370px;
   margin-top: 1.5%;
@@ -206,6 +220,18 @@ input:focus {
   margin-top: 0.7%;
   height: 60px;
   width: 330px;
+  text-align: center;
+  padding: 4px;
+  border-radius: 0.25cm;
+}
+.user-map-heading-booking {
+  background-color: rgba(182, 225, 228, 0.5) !important;
+  font-family: "Lora", serif;
+  margin-left: 37%;
+  margin-right: 37%;
+  margin-top: 0.7%;
+  height: 60px;
+  width: 530px;
   text-align: center;
   padding: 4px;
   border-radius: 0.25cm;

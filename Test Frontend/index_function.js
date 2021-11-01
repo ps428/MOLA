@@ -17,7 +17,7 @@ function formSubmit() {
       window.location.href = "../Test Frontend/page3_map_user_view.html";
       // Map passing user credentials
       const user = firebase.auth().currentUser;
-      addCacheUserData(user);
+      addCacheUserData(user.uid);
       initMap(user);
     })
     .catch((error) => {
@@ -149,7 +149,7 @@ function validatePhone(mobileNumber) {
 
 //  Map functions
 function initMap(user_id) {
-  console.log(user_id);
+
   // The location of Uluru
   var infoWindow = new google.maps.InfoWindow({
     map: map,
@@ -487,14 +487,19 @@ function bookNowWindow(marker_data, user_lat_lng, map, markerId) {
   distance = haversine_distance(user_lat_lng, ambulance_lat_lng)
 
   cost = parseInt(1000)+parseFloat((distance*200).toFixed(2))
+  ETAMinutes = parseInt(parseInt(5) + parseFloat((distance*10).toFixed(2)))
+  ETASeconds = parseInt(parseFloat((distance*60).toFixed(2)))
+
   distance_value = document.createElement('h7')
-  distance_value.innerHTML = "<br>Distance is <b>" + distance.toFixed(3) + '</b> KM' + '<br>Expected Rate: <b>'+cost +'INR</b> '
+  distance_value.innerHTML = "<br>Distance is <b>" + distance.toFixed(3) + ' KM</b>' + 
+                             '<br>Expected Rate: <b>'+cost +' INR</b>' +
+                             '<br>Estimated Time of Arrival (ETA): <b>'+ETAMinutes+' Minutes '+ETASeconds+' Seconds</b><br>'
 
   setTimeout(
     () => {
       document.getElementById('driverDetails'+markerId).appendChild(distance_value)
       document.getElementById('bookNowWindow'+markerId).innerHTML = 'Book Now'
-      document.getElementById('bookNowWindow'+markerId).onclick = () => makeBooking(marker_data)
+      document.getElementById('bookNowWindow'+markerId).onclick = () => makeBooking(markerId)
     }
     , 1000
   )
@@ -562,28 +567,28 @@ function haversine_distance(mk1, mk2) {
 
 // function bookNow(ambulances, )
 
-function makeBooking(markerData)
+function makeBooking(markerId)
 {
-  
-  console.log("making boooking now")
+  addCacheAmbulanceID(markerId);
+  window.location.href = "../Test Frontend/page4_user_booking.html";
 }
 
 
 //FOR DEALING WITH CACHE IN FUTURE PART, CHECKBOX PE CLICK KARNE KE BAAD KE LIE
-function addCacheAmbulanceID(ambulanceData) {
-  localStorage.setItem("ambulanceID", ambulanceData);
+function addCacheAmbulanceID(ambulanceID) {
+  localStorage.setItem("ambulanceID", ambulanceID);
 
-  setTimeout(() => {
-    let myName = localStorage.getItem('ambulanceID');
-    console.log(myName)
-  }, 1000)
+  // setTimeout(() => {
+  //   let myName = localStorage.getItem('ambulanceID');
+  //   console.log(myName)
+  // }, 1000)
 }
 
 function addCacheUserData(userData) {
   localStorage.setItem('userID', userData);
 
-  setTimeout(() => {
-    let myName = localStorage.getItem('userID');
-    console.log(myName)
-  }, 9000)
+  // setTimeout(() => {
+  //   let myName = localStorage.getItem('userID');
+  //   console.log(myName)
+  // }, 9000)
 }

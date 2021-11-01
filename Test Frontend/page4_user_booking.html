@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>User Map View</title>
+    <title>User Book Ambulance</title>
 
     <!--Bootsrap 4 CDN-->
 
@@ -22,7 +22,7 @@
       });
     </script>
 
-<script src="index_function.js"></script>
+<script src="booking.js"></script>
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
@@ -45,7 +45,7 @@
     <div class="user_map_container">
       <div class="user-map-heading">
         <div class="user-heading-text">
-          <h1>User Map View</h1>
+          <h1>User Book Ambulance</h1>
         </div>
       </div>
       <div class="d-flex justify-content-center h-100">
@@ -57,18 +57,15 @@
             </div>
             
           </form>
-          <h3>Resuts are:</h3>
+          <h3>Booking Deatils:</h3>
           <div class="scrollable">
-            <p class="card-text" id="ambulanceList">
+            <p class="card-text" id="bookingDetails">
               
             </p>
-            <div class="form-group">
-              <button class="btn float-right login_btn" id="bookNow">Book Now</button>
-                
-            </div>
+        
           </div>
         </card>
-        <div id="map"></div>
+        <div id="liveMap"></div>
       </div>
       
     </div>
