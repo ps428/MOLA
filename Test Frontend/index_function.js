@@ -359,14 +359,9 @@ function add_ambulances(ambulances, user_lat, user_lng, map) {
           content: "",
         });
 
-<<<<<<< HEAD
 
         infoPane = document.createElement('div');
         infoPane.id = "infoPane"
-=======
-        infoPane = document.createElement("div");
-        infoPane.id = "infoPane";
->>>>>>> 978b83737db7f4e328154edea663d36030ea4cf3
 
         title = document.createElement("h4");
         title.innerHTML = marker_data.title;
@@ -374,23 +369,15 @@ function add_ambulances(ambulances, user_lat, user_lng, map) {
         description = document.createElement("h6");
         description.innerHTML = marker_data.description;
 
-<<<<<<< HEAD
         driver = document.createElement('h7')
         driver.innerHTML = marker_data.driver_name + ": " + marker_data.driver_contact
         driver.id = "driverDetails"+marker.id
-=======
-        driver = document.createElement("h7");
-        driver.innerHTML =
-          marker_data.driver_name + ": " + marker_data.driver_contact;
-        driver.id = "driverDetails" + marker.id;
->>>>>>> 978b83737db7f4e328154edea663d36030ea4cf3
 
         newLine = document.createElement("br");
 
         checkButton = document.createElement("button");
         // checkButton.type = 'button';
 
-<<<<<<< HEAD
         checkButton.onclick = () => 
         {
           
@@ -417,30 +404,6 @@ function add_ambulances(ambulances, user_lat, user_lng, map) {
         infoPane.appendChild(newLine)
         infoPane.appendChild(newLine)
         infoPane.appendChild(checkButton)
-=======
-        checkButton.onclick = () => {
-          bookNowWindow(marker_data, user_lat_lng, map, marker.id);
-
-          lat = marker_data.lat;
-          lng = marker_data.lng;
-          ambulance_lat_lng = { lat: lat - 0.001, lng: lng + 0.001 };
-
-          if (pathBetween != null) removeLine(pathBetween, map);
-          console.log(pathBetween);
-
-          pathBetween = generate_path(map, user_lat_lng, ambulance_lat_lng);
-        };
-        checkButton.innerHTML = "Check Distance";
-        checkButton.id = "bookNowWindow";
-        checkButton.className = "btn float-right login_btn";
-
-        infoPane.appendChild(title);
-        infoPane.appendChild(description);
-        infoPane.appendChild(driver);
-        infoPane.appendChild(newLine);
-        infoPane.appendChild(newLine);
-        infoPane.appendChild(checkButton);
->>>>>>> 978b83737db7f4e328154edea663d36030ea4cf3
 
         //Wrap the contentq inside an HTML DIV in order to set height and width of InfoWindow.
         infoWindow.setContent(infoPane);
@@ -450,12 +413,8 @@ function add_ambulances(ambulances, user_lat, user_lng, map) {
     })(marker, marker_data);
   }
 
-<<<<<<< HEAD
   // generate_results_table(ambulances)
 
-=======
-  generate_results_table(ambulances);
->>>>>>> 978b83737db7f4e328154edea663d36030ea4cf3
 
   // console.log(features[i].position)
 
@@ -521,7 +480,6 @@ function generate_results_table(ambulances) {
   ambulanceListData.appendChild(table);
 }
 
-<<<<<<< HEAD
 function bookNowWindow(marker_data, user_lat_lng, map, markerId) {
   lat = marker_data.lat
   lng = marker_data.lng
@@ -544,33 +502,6 @@ function bookNowWindow(marker_data, user_lat_lng, map, markerId) {
 
 
   addCacheAmbulanceID(markerId)
-=======
-function bookNowWindow(marker_data, user_lat_lng, map, id) {
-  lat = marker_data.lat;
-  lng = marker_data.lng;
-  ambulance_lat_lng = { lat: lat - 0.001, lng: lng + 0.001 };
-  distance = haversine_distance(user_lat_lng, ambulance_lat_lng);
-
-  cost = parseInt(1000) + parseFloat((distance * 200).toFixed(2));
-  distance_value = document.createElement("h7");
-  distance_value.innerHTML =
-    "<br>Distance is <b>" +
-    distance.toFixed(3) +
-    "</b> KM" +
-    "<br>Expected Rate: <b>" +
-    cost +
-    "INR</b> ";
-
-  setTimeout(() => {
-    document.getElementById("driverDetails" + id).appendChild(distance_value);
-    document.getElementById("bookNowWindow").innerHTML = "Book Now";
-  }, 1000);
-  console.log(distance);
-  // bookButton = document.getElementById('bookNowWindow');
-  // bookButton.innerHTML = "Book This"
-
-  type = marker_data.type;
->>>>>>> 978b83737db7f4e328154edea663d36030ea4cf3
 }
 
 function generate_path(map, myLatLng1, myLatLng2) {
@@ -643,15 +574,9 @@ function addCacheAmbulanceID(ambulanceData) {
   localStorage.setItem("ambulanceID", ambulanceData);
 
   setTimeout(() => {
-<<<<<<< HEAD
     let myName = localStorage.getItem('ambulanceID');
     console.log(myName)
   }, 1000)
-=======
-    let myName = localStorage.getItem("ambulanceID");
-    console.log(myName);
-  }, 5000);
->>>>>>> 978b83737db7f4e328154edea663d36030ea4cf3
 }
 
 function addCacheUserData(userData) {
