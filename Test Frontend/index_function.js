@@ -3,7 +3,7 @@
 function formSubmit() {
   //console.log("hello");
   // Get Values from the DOM
-
+  localStorage.clear();
   var password = document.querySelector("#password").value;
   var username = document.querySelector("#username").value;
   //window.alert("message: " + password + " " + username);
@@ -17,6 +17,7 @@ function formSubmit() {
       window.location.href = "../Test Frontend/page3_map_user_view.html";
       // Map passing user credentials
       const user = firebase.auth().currentUser;
+      addCacheUserData(user);
       initMap(user);
     })
     .catch((error) => {
@@ -28,6 +29,7 @@ function formSubmit() {
 }
 
 function registerUser() {
+  localStorage.clear();
   let Fname = document.querySelector("#FName").value;
   let Lname = document.querySelector("#LName").value;
   let username = document.querySelector("#username").value;
@@ -360,6 +362,7 @@ function add_ambulances(ambulances, user_lat, user_lng, map) {
       title: marker_data.title,
       position: lat_long,
       icon: icon,
+      id: i,
       map: map,
     });
 
@@ -371,7 +374,7 @@ function add_ambulances(ambulances, user_lat, user_lng, map) {
           content: "",
         });
 
-        
+
         infoPane = document.createElement('div');
         infoPane.id = "infoPane"
 
@@ -383,7 +386,7 @@ function add_ambulances(ambulances, user_lat, user_lng, map) {
 
         driver = document.createElement('h7')
         driver.innerHTML = marker_data.driver_name + ": " + marker_data.driver_contact
-        driver.id = "driverDetails"
+        driver.id = "driverDetails"+marker.id
 
         newLine = document.createElement('br')        
 
@@ -394,7 +397,7 @@ function add_ambulances(ambulances, user_lat, user_lng, map) {
         checkButton.onclick = () => 
         {
           
-          bookNowWindow(marker_data, user_lat_lng, map)
+          bookNowWindow(marker_data, user_lat_lng, map, marker.id)
 
           lat = marker_data.lat
           lng = marker_data.lng
@@ -408,7 +411,7 @@ function add_ambulances(ambulances, user_lat, user_lng, map) {
 
         }
         checkButton.innerHTML = "Check Distance"
-        checkButton.id = "bookNowWindow"
+        checkButton.id = "bookNowWindow"+marker.id
         checkButton.className = "btn float-right login_btn"
       
         infoPane.appendChild(title)
@@ -427,7 +430,7 @@ function add_ambulances(ambulances, user_lat, user_lng, map) {
     })(marker, marker_data);
   }
 
-  generate_results_table(ambulances)
+  // generate_results_table(ambulances)
 
 
   // console.log(features[i].position)
@@ -497,7 +500,7 @@ function generate_results_table(ambulances) {
   ambulanceListData.appendChild(table)
 }
 
-function bookNowWindow(marker_data, user_lat_lng, map) {
+function bookNowWindow(marker_data, user_lat_lng, map, markerId) {
   lat = marker_data.lat
   lng = marker_data.lng
   ambulance_lat_lng = { lat: lat - 0.001, lng: lng + 0.001 }
@@ -509,18 +512,16 @@ function bookNowWindow(marker_data, user_lat_lng, map) {
 
   setTimeout(
     () => {
-      document.getElementById('driverDetails').appendChild(distance_value)
-      document.getElementById('bookNowWindow').innerHTML = 'Book Now'
-
+      document.getElementById('driverDetails'+markerId).appendChild(distance_value)
+      document.getElementById('bookNowWindow'+markerId).innerHTML = 'Book Now'
+      document.getElementById('bookNowWindow'+markerId).onclick = () => makeBooking(marker_data)
     }
     , 1000
   )
   console.log(distance)
-  // bookButton = document.getElementById('bookNowWindow');
-  // bookButton.innerHTML = "Book This"
 
 
-  type = marker_data.type
+  addCacheAmbulanceID(markerId)
 }
 
 function generate_path(map, myLatLng1, myLatLng2) {
@@ -571,6 +572,13 @@ function haversine_distance(mk1, mk2) {
 
 // function bookNow(ambulances, )
 
+function makeBooking(markerData)
+{
+  
+  console.log("making boooking now")
+}
+
+
 //FOR DEALING WITH CACHE IN FUTURE PART, CHECKBOX PE CLICK KARNE KE BAAD KE LIE
 function addCacheAmbulanceID(ambulanceData) {
   localStorage.setItem('ambulanceID', ambulanceData);
@@ -578,5 +586,14 @@ function addCacheAmbulanceID(ambulanceData) {
   setTimeout(() => {
     let myName = localStorage.getItem('ambulanceID');
     console.log(myName)
-  }, 5000)
+  }, 1000)
+}
+
+function addCacheUserData(userData) {
+  localStorage.setItem('userID', userData);
+
+  setTimeout(() => {
+    let myName = localStorage.getItem('userID');
+    console.log(myName)
+  }, 9000)
 }

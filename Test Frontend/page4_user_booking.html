@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>User Map View</title>
+
+    <!--Bootsrap 4 CDN-->
+
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-database-compat.js"></script>
+    <script>
+      const firebaseApp = firebase.initializeApp({
+        apiKey: "AIzaSyDNBJBKa0inzSjHz8MYjfBkE66o99k-S60",
+        authDomain: "mola-afb82.firebaseapp.com",
+        databaseURL: "https://mola-afb82-default-rtdb.firebaseio.com",
+        projectId: "mola-afb82",
+        storageBucket: "mola-afb82.appspot.com",
+        messagingSenderId: "42452640257",
+        appId: "1:42452640257:web:642cec53e7bec0408ad600",
+        measurementId: "G-FBPSVBQ638",
+      });
+    </script>
+
+<script src="index_function.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+      crossorigin="anonymous"
+    />
+    
+    <!--Fontawesome CDN-->
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+      integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+      crossorigin="anonymous"
+    />
+
+    <!--Custom styles-->
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+  </head>
+  <body background="ambulance.png">
+    <div class="user_map_container">
+      <div class="user-map-heading">
+        <div class="user-heading-text">
+          <h1>User Map View</h1>
+        </div>
+      </div>
+      <div class="d-flex justify-content-center h-100">
+        <card class="user_intro">
+          <form method="POST" id="searchForm">
+            <div class="input-group form-group">
+              <div class="input-group-prepend">
+               </div>
+            </div>
+            
+          </form>
+          <h3>Resuts are:</h3>
+          <div class="scrollable">
+            <p class="card-text" id="ambulanceList">
+              
+            </p>
+            <div class="form-group">
+              <button class="btn float-right login_btn" id="bookNow">Book Now</button>
+                
+            </div>
+          </div>
+        </card>
+        <div id="map"></div>
+      </div>
+      
+    </div>
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC5DhDiQCZmUAyW8yvr-bjJWxTgML6FJAM&callback=initMap&libraries=&v=weekly&channel=2"
+      async
+    ></script>
+	<div class="footer">
+        <div class="footer-text">
+          <p>MOLA: My Online Local Ambulance</p>
+        </div>
+      </div>
+  </body>
+</html>
