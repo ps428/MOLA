@@ -277,12 +277,13 @@ async function get_ambulance_data(user_lat, user_lng, map) {
       lat: ambulances[1].lat - 0.001,
       lng: ambulances[1].lng + 0.001,
     };
-    generate_path(map, myLatLng1, myLatLng2);
+    // generate_path(map, myLatLng1, myLatLng2)
   }, 3000);
 }
 
 function add_ambulances(ambulances, user_lat, user_lng, map) {
-  console.log(user_lat, user_lng);
+  user_lat_lng = { lat: user_lat - 0.001, lng: user_lng + 0.001 };
+
   var icon_super_fast = {
     url: "assets/ambulance_super_fast.png", // url
     // url: "assets/ambulance_ptv.png", // url
@@ -326,13 +327,13 @@ function add_ambulances(ambulances, user_lat, user_lng, map) {
   // Adding Ambulances on map
 
   console.log(ambulances, "-----");
+  let pathBetween = null;
 
   for (i = 0; i < ambulances.length; i++) {
     marker_data = ambulances[i];
 
     if (marker_data.status != "available") continue;
 
-    console.log(marker_data.icon);
     lat_long = new google.maps.LatLng(marker_data.lat, marker_data.lng);
 
     if (marker_data.icon == "icon_super_fast") icon = icon_super_fast;
@@ -344,6 +345,7 @@ function add_ambulances(ambulances, user_lat, user_lng, map) {
       title: marker_data.title,
       position: lat_long,
       icon: icon,
+      id: i,
       map: map,
     });
 
@@ -354,14 +356,53 @@ function add_ambulances(ambulances, user_lat, user_lng, map) {
         infoWindow = new google.maps.InfoWindow({
           content: "",
         });
+
+        infoPane = document.createElement("div");
+        infoPane.id = "infoPane";
+
+        title = document.createElement("h4");
+        title.innerHTML = marker_data.title;
+
+        description = document.createElement("h6");
+        description.innerHTML = marker_data.description;
+
+        driver = document.createElement("h7");
+        driver.innerHTML =
+          marker_data.driver_name + ": " + marker_data.driver_contact;
+        driver.id = "driverDetails" + marker.id;
+
+        newLine = document.createElement("br");
+
+        checkButton = document.createElement("button");
+        // checkButton.type = 'button';
+
+        checkButton.onclick = () => {
+          bookNowWindow(marker_data, user_lat_lng, map, marker.id);
+
+          lat = marker_data.lat;
+          lng = marker_data.lng;
+          ambulance_lat_lng = { lat: lat - 0.001, lng: lng + 0.001 };
+
+          if (pathBetween != null) removeLine(pathBetween, map);
+          console.log(pathBetween);
+
+          pathBetween = generate_path(map, user_lat_lng, ambulance_lat_lng);
+        };
+        checkButton.innerHTML = "Check Distance";
+        checkButton.id = "bookNowWindow";
+        checkButton.className = "btn float-right login_btn";
+
+        infoPane.appendChild(title);
+        infoPane.appendChild(description);
+        infoPane.appendChild(driver);
+        infoPane.appendChild(newLine);
+        infoPane.appendChild(newLine);
+        infoPane.appendChild(checkButton);
+
         //Wrap the contentq inside an HTML DIV in order to set height and width of InfoWindow.
-        infoWindow.setContent(
-          "<div style = 'width:300px;min-height:50px'>" +
-            marker_data.description +
-            "</div>"
-        );
+        infoWindow.setContent(infoPane);
+
         infoWindow.open(map, marker);
-        console.log("open_window");
       });
     })(marker, marker_data);
   }
@@ -400,7 +441,7 @@ function generate_results_table(ambulances) {
 
   table.appendChild(tr);
 
-  addCacheAmbulanceID(ambulances[0]);
+  // addCacheAmbulanceID(ambulances[0])
 
   for (i = 0; i < ambulances.length; i++) {
     ambulanceData = ambulances[i];
@@ -432,6 +473,33 @@ function generate_results_table(ambulances) {
   ambulanceListData.appendChild(table);
 }
 
+function bookNowWindow(marker_data, user_lat_lng, map, id) {
+  lat = marker_data.lat;
+  lng = marker_data.lng;
+  ambulance_lat_lng = { lat: lat - 0.001, lng: lng + 0.001 };
+  distance = haversine_distance(user_lat_lng, ambulance_lat_lng);
+
+  cost = parseInt(1000) + parseFloat((distance * 200).toFixed(2));
+  distance_value = document.createElement("h7");
+  distance_value.innerHTML =
+    "<br>Distance is <b>" +
+    distance.toFixed(3) +
+    "</b> KM" +
+    "<br>Expected Rate: <b>" +
+    cost +
+    "INR</b> ";
+
+  setTimeout(() => {
+    document.getElementById("driverDetails" + id).appendChild(distance_value);
+    document.getElementById("bookNowWindow").innerHTML = "Book Now";
+  }, 1000);
+  console.log(distance);
+  // bookButton = document.getElementById('bookNowWindow');
+  // bookButton.innerHTML = "Book This"
+
+  type = marker_data.type;
+}
+
 function generate_path(map, myLatLng1, myLatLng2) {
   var pathBetween = new google.maps.Polyline({
     path: [myLatLng1, myLatLng2],
@@ -440,23 +508,29 @@ function generate_path(map, myLatLng1, myLatLng2) {
     strokeWeight: 2,
   });
 
-  console.log("Distance: ", haversine_distance(myLatLng1, myLatLng2), " km");
-  //NEEDS BILLING SO NOT USING IT
-  // var display = new google.maps.DirectionsRenderer();
-  // var services = new google.maps.DirectionsService();
-  // display.setMap(map);
-  //     var request ={
-  //         origin : myLatLng1,
-  //         destination:myLatLng2,
-  //         travelMode: 'DRIVING'
-  //     };
-  //     services.route(request,function(result,status){
-  //         if(status =='OK'){
-  //             display.setDirections(result);
-  //         }
-  //     });
+  addLine(pathBetween, map);
+  // setTimeout(
+  //   ()=>removeLine(pathBetween, map), 5000
+  // )
+  return pathBetween;
+}
 
+function addLine(pathBetween, map) {
   pathBetween.setMap(map);
+}
+
+function removeLine(pathBetween, map) {
+  pathBetween.setMap(null);
+}
+
+function remove_path(map, myLatLng1, myLatLng2) {
+  var pathBetween = new google.maps.Polyline({
+    path: [myLatLng1, myLatLng2],
+    strokeColor: "#FF0000",
+    strokeOpacity: 1.0,
+    strokeWeight: 2,
+  });
+  pathBetween.setMap(null);
 }
 
 //function to get distance by longitudes and some math: USED
@@ -481,6 +555,8 @@ function haversine_distance(mk1, mk2) {
     );
   return d;
 }
+
+// function bookNow(ambulances, )
 
 //FOR DEALING WITH CACHE IN FUTURE PART, CHECKBOX PE CLICK KARNE KE BAAD KE LIE
 function addCacheAmbulanceID(ambulanceData) {
