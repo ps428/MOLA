@@ -147,6 +147,8 @@ function validatePhone(mobileNumber) {
 
 //  Map functions
 function initMap(user_id) {
+ 
+ 
   console.log(user_id);
   // The location of Uluru
   var infoWindow = new google.maps.InfoWindow({
@@ -170,6 +172,16 @@ function initMap(user_id) {
         };
         user_lat = position.coords.latitude;
         user_lng = position.coords.longitude;
+        
+
+        // var pos_tmp_for_path = {
+        //   lng: position.coords.longitude+0.002,
+        //   lat: position.coords.latitude+0.07,
+        // };
+        // just to test path lines
+        // myLatLng1 = pos
+        // myLatLng2 = pos_tmp_for_path
+        // generate_path(map, myLatLng1, myLatLng2)
 
         // pos = new google.maps.LatLng(human.lat, human.lng)
         infoWindow.setPosition(pos);
@@ -199,7 +211,7 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
   );
 }
 
-function add_human_marker(user_lat, user_lng, map) {
+async function add_human_marker(user_lat, user_lng, map) {
   // Human icon extraction
   var human_icon = {
     url: "assets/human.png", // url
@@ -231,11 +243,54 @@ function add_human_marker(user_lat, user_lng, map) {
     icon: marker_data.icon,
     map: map,
   });
-
-  add_abmulances(user_lat, user_lng, map);
+  
+ get_ambulance_data(user_lat, user_lng, map);
+  
+  
 }
 
-function add_abmulances(user_lat, user_lng, map) {
+async function get_ambulance_data(user_lat, user_lng, map){
+
+  ambulance_data =  {
+    // around user location
+    "title": 'AIIMS PTV',
+    // "lat": user_lat + Math.random() / 400,
+    // "lng": user_lng - Math.random() / 100,
+    "driver_name": "Mr Che Gueverra",
+    "driver_contact": 9292929212,
+    "description": 'Max ambulance..available.',
+    "status": 'available',
+    "type": "ptv",
+    "icon": 'icon_ptv'
+  }
+
+
+  ref = firebase.database().ref("ambulances").orderByKey();
+  var ambulances = [];
+   
+  ref.on('value', function(snapshot) {
+    snapshot.forEach(function(childSnapshot) {
+      var childData = childSnapshot.val();
+      // console.log(childData);
+      ambulances.push(childData)
+    });
+  });
+
+   
+  setTimeout( () => {
+    add_ambulances(ambulances, user_lat, user_lng, map);
+
+    myLatLng1 = {lat: user_lat-0.001, lng: user_lng+0.001}
+    myLatLng2 = {lat:ambulances[1].lat-0.001, lng:ambulances[1].lng+0.001}
+    generate_path(map, myLatLng1, myLatLng2)
+
+  },3000
+  )
+  
+}
+
+function add_ambulances(ambulances, user_lat, user_lng, map) {
+
   var icon_super_fast = {
     url: "assets/ambulance_super_fast.png", // url
     // url: "assets/ambulance_ptv.png", // url
@@ -275,131 +330,174 @@ function add_abmulances(user_lat, user_lng, map) {
 
   // The map, centered at Uluru
 
-  // # From firebase, get available ambulance function
-  var ambulances = [
-    {
-      // around user location
-      "title": 'Government Free',
-      "lat": user_lat + Math.random() / 100,
-      "lng": user_lng - Math.random() / 100,
-      "driver_name": "Mr Che Gueverra",
-      "driver_contact": 9292929212,
-      "description": 'Max ambulance..available.',
-      "status": 'available',
-      "type": "government_free",
-      "icon": icon_free
-    },  
-    {
-      // around user location
-      "title": 'Government Free',
-      "lat": user_lat + Math.random() / 100,
-      "lng": user_lng + Math.random() / 100,
-      "driver_name": "Mr Che Gueverra",
-      "driver_contact": 9292929212,
-      "description": 'Max ambulance..available.',
-      "status": 'available',
-      "type": "government_free",
-      "icon": icon_free
-    },
-    {
-          // around user location
-          "title": 'Appolo PTV',
-          "lat": user_lat - Math.random() / 100,
-          "lng": user_lng + Math.random() / 400,
-          "driver_name": "Mr Che Gueverra",
-          "driver_contact": 9292929212,
-          "description": 'Max ambulance..available.',
-          "status": 'available',
-          "type": "ptv",
-          "icon": icon_ptv
-      },
-      {
-          // around user location
-          "title": 'MAX ICU',
-          "lat": user_lat + Math.random() / 100,
-          "lng": user_lng + Math.random() / 300,
-          "driver_name": "Mr Che Gueverra",
-          "driver_contact": 9292929212,
-          "description": 'Max ambulance..available.',
-          "status": 'available',
-          "type": "icu",
-          "icon": icon_icu
-      },
-      {
-          // around user location
-          "title": 'MAX Super Fast',
-          "lat": user_lat - Math.random() / 200,
-          "lng": user_lng + Math.random() / 300,
-          "driver_name": "Mr Che Gueverra",
-          "driver_contact": 9292929212,
-          "description": 'Max ambulance..available.',
-          "status": 'available',
-          "type": "super_fast",
-          "icon": icon_super_fast
-      },
-      {
-          // around user location
-          "title": 'Appolo Super Fast',
-          "lat": user_lat - Math.random() / 200,
-          "lng": user_lng - Math.random() / 200,
-          "driver_name": "Mr Che Gueverra",
-          "driver_contact": 9292929212,
-          "description": 'Max ambulance..available.',
-          "status": 'available',
-          "type": "super_fast",
-          "icon": icon_super_fast
-      },
-      {
-          // around user location
-          "title": 'MAX ICU',
-          "lat": user_lat - Math.random() / 100,
-          "lng": user_lng + Math.random() / 300,
-          "driver_name": "Mr Che Gueverra",
-          "driver_contact": 9292929212,
-          "description": 'Max ambulance..available.',
-          "status": 'available',
-          "type": "icu",
-          "icon": icon_icu
-      },
-      {
-          // around user location
-          "title": 'AIIMS PTV',
-          "lat": user_lat + Math.random() / 400,
-          "lng": user_lng - Math.random() / 100,
-          "driver_name": "Mr Che Gueverra",
-          "driver_contact": 9292929212,
-          "description": 'Max ambulance..available.',
-          "status": 'available',
-          "type": "ptv",
-          "icon": icon_ptv
-      },
-  ];
-
+  
   // Adding human on map
 
   // Adding Ambulances on map
+
+  console.log(ambulances,"-----")
+ 
   for (i = 0; i < ambulances.length; i++) {
     marker_data = ambulances[i];
+
+    if(marker_data.status != "available")
+      continue
+
+    console.log(marker_data.icon)
     lat_long = new google.maps.LatLng(marker_data.lat, marker_data.lng);
 
+    if(marker_data.icon == "icon_super_fast")
+      icon = icon_super_fast
+    if(marker_data.icon == "icon_icu")
+      icon = icon_icu
+    if(marker_data.icon == "icon_ptv")
+      icon = icon_ptv
+    if(marker_data.icon == "icon_free")
+      icon = icon_free
+   
     const marker = new google.maps.Marker({
       title: marker_data.title,
       position: lat_long,
-      icon: marker_data.icon,
+      icon: icon,
       map: map,
     });
 
     // DON'T REMOVE THESE COMMENTS, THESE ARE FOR ADDING A ON CLICK FUNCTION, WILL ACTIVATE IT AFTER FIRST DEMO
     // Attach click event to the marker.
-    //   (function (marker, marker_data) {
-    //     google.maps.event.addListener(marker, "click", function (e) {
-    //         //Wrap the contentq inside an HTML DIV in order to set height and width of InfoWindow.
-    //         infoWindow.setContent("<div style = 'width:200px;min-height:40px'>" + marker_data.description + "</div>");
-    //         infoWindow.open(map, marker);
-    //     });
-    // })(marker, marker_data);
+      (function (marker, marker_data) {
+        google.maps.event.addListener(marker, "click", function (e) {
+            infoWindow = new google.maps.InfoWindow({
+              content: "",
+            });
+            //Wrap the contentq inside an HTML DIV in order to set height and width of InfoWindow.
+            infoWindow.setContent("<div style = 'width:300px;min-height:50px'>" + marker_data.description + "</div>");
+            infoWindow.open(map, marker);
+            console.log('open_window')
+        });
+    })(marker, marker_data);
   }
+
+  generate_results_table(ambulances)
+ 
+
   // console.log(features[i].position)
 
   // The marker, positioned at Uluru
+}
+
+function generate_results_table(ambulances)
+{
+  var ambulanceListData = document.getElementById('ambulanceList')
+
+  var table = document.createElement('table');
+  var tr = document.createElement('tr');   
+  var td0 = document.createElement('th');
+  var td1 = document.createElement('th');
+  var td2 = document.createElement('th');
+  var td3 = document.createElement('th');
+  
+  var text0 = document.createTextNode("*");
+  var text1 = document.createTextNode("Title");
+  var text2 = document.createTextNode("Type");
+  var text3 = document.createTextNode("Driver Contact");
+
+
+  td0.appendChild(text0);
+  td1.appendChild(text1);
+  td2.appendChild(text2);
+  td3.appendChild(text3);
+ 
+  tr.appendChild(td0);
+  tr.appendChild(td1);
+  tr.appendChild(td2);
+  tr.appendChild(td3);
+
+  table.appendChild(tr);
+
+  addCacheAmbulanceID(ambulances[0])
+
+  for (i = 0; i < ambulances.length; i++) {
+    ambulanceData = ambulances[i]
+    if(ambulanceData.status != "available")
+      continue
+
+    var tr = document.createElement('tr');   
+    var td0 = document.createElement('input');
+    var td1 = document.createElement('td');
+    var td2 = document.createElement('td');
+    var td3 = document.createElement('td');
+    
+    td0.setAttribute('type','checkbox')
+
+    var text1 = document.createTextNode(ambulanceData.title);
+    var text2 = document.createTextNode(ambulanceData.type);
+    var text3 = document.createTextNode(ambulanceData.driver_contact);
+
+    td1.appendChild(text1);
+    td2.appendChild(text2);
+    td3.appendChild(text3);
+
+    tr.appendChild(td0);
+    tr.appendChild(td1);
+    tr.appendChild(td2);
+    tr.appendChild(td3);
+
+    table.appendChild(tr);
+
+  }
+  ambulanceListData.appendChild(table)
+
+}
+
+
+function generate_path(map, myLatLng1, myLatLng2)
+{
+  var pathBetween = new google.maps.Polyline({
+    path: [myLatLng1,myLatLng2],
+    strokeColor: '#FF0000',
+    strokeOpacity: 1.0,
+    strokeWeight: 2
+  });
+
+  console.log("Distance: ",haversine_distance(myLatLng1, myLatLng2)," km")
+  //NEEDS BILLING SO NOT USING IT
+  // var display = new google.maps.DirectionsRenderer();
+  // var services = new google.maps.DirectionsService();
+  // display.setMap(map);
+  //     var request ={
+  //         origin : myLatLng1,
+  //         destination:myLatLng2,
+  //         travelMode: 'DRIVING'
+  //     };
+  //     services.route(request,function(result,status){
+  //         if(status =='OK'){
+  //             display.setDirections(result);
+  //         }
+  //     });
+
+  pathBetween.setMap(map);
+}
+
+//function to get distance by longitudes and some math: USED
+function haversine_distance(mk1, mk2) {
+  var R = 6371.0710; // Radius of the Earth in km
+  var rlat1 = mk1.lat * (Math.PI/180); // Convert degrees to radians
+  var rlat2 = mk2.lat * (Math.PI/180); // Convert degrees to radians
+  var difflat = rlat2-rlat1; // Radian difference (latitudes)
+  var difflon = (mk2.lng-mk1.lng) * (Math.PI/180); // Radian difference (longitudes)
+
+  var d = 2 * R * Math.asin(Math.sqrt(Math.sin(difflat/2)*Math.sin(difflat/2)+Math.cos(rlat1)*Math.cos(rlat2)*Math.sin(difflon/2)*Math.sin(difflon/2)));
+  return d;
+}
+
+
+//FOR DEALING WITH CACHE IN FUTURE PART, CHECKBOX PE CLICK KARNE KE BAAD KE LIE
+function addCacheAmbulanceID(ambulanceData)
+{
+  localStorage.setItem('ambulanceID',ambulanceData);
+  
+  setTimeout(()=>{
+    let myName = localStorage.getItem('ambulanceID');
+    console.log(myName)
+  },5000) 
 }
