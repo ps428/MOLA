@@ -1,60 +1,61 @@
 // Initialize and add the map
 
-function bookingPage()
-{
-    initMap();
+function bookingPage() {
+  initMap();
 }
 function initMap() {
-    // The location of Uluru
-    var infoWindow = new google.maps.InfoWindow({
-        map: map
-    });
-  
-    var map = new google.maps.Map(document.getElementById("liveMap"), {
-        zoom: 15,
-        // center: new google.maps.LatLng(26.2195, 72.94225),
-    });
-  
-    var user_lat = 0.0
-    var user_lng = 0.0
-  
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position) {
-            var pos = {
-                "lng": position.coords.longitude,
-                "lat": position.coords.latitude,
-            };
-            user_lat = position.coords.latitude
-            user_lng = position.coords.longitude
-  
-            // pos = new google.maps.LatLng(human.lat, human.lng)
-            infoWindow.setPosition(pos);
-            infoWindow.setContent('Location found.');
-            map.setCenter(pos);
-          //   console.log(user_lat, user_lng)
-  
-            add_human_marker(user_lat, user_lng, map)
-          //   update_location(user_lat, user_lng)
-  
-        }, function() {
-            handleLocationError(true, infoWindow, map.getCenter());
-        });
-  
-    } else {
-        // Browser doesn't support Geolocation
-        handleLocationError(false, infoWindow, map.getCenter());
-    }
-  
-    function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+  // The location of Uluru
+  var infoWindow = new google.maps.InfoWindow({
+    map: map,
+  });
+
+  var map = new google.maps.Map(document.getElementById("liveMap"), {
+    zoom: 15,
+    // center: new google.maps.LatLng(26.2195, 72.94225),
+  });
+
+  var user_lat = 0.0;
+  var user_lng = 0.0;
+
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      function (position) {
+        var pos = {
+          lng: position.coords.longitude,
+          lat: position.coords.latitude,
+        };
+        user_lat = position.coords.latitude;
+        user_lng = position.coords.longitude;
+
+        // pos = new google.maps.LatLng(human.lat, human.lng)
         infoWindow.setPosition(pos);
-        infoWindow.setContent(browserHasGeolocation ?
-            'Error: The Geolocation service failed.' :
-            'Error: Your browser doesn\'t support geolocation.');
-    }
-   
+        infoWindow.setContent("Location found.");
+        map.setCenter(pos);
+        //   console.log(user_lat, user_lng)
+
+        add_human_marker(user_lat, user_lng, map);
+        //   update_location(user_lat, user_lng)
+      },
+      function () {
+        handleLocationError(true, infoWindow, map.getCenter());
+      }
+    );
+  } else {
+    // Browser doesn't support Geolocation
+    handleLocationError(false, infoWindow, map.getCenter());
   }
-  
-async function add_human_marker( user_lat, user_lng, map) {
+
+  function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+    infoWindow.setPosition(pos);
+    infoWindow.setContent(
+      browserHasGeolocation
+        ? "Error: The Geolocation service failed."
+        : "Error: Your browser doesn't support geolocation."
+    );
+  }
+}
+
+async function add_human_marker(user_lat, user_lng, map) {
   // Human icon extraction
   var human_icon = {
     url: "assets/human.png", // url
@@ -90,29 +91,24 @@ async function add_human_marker( user_lat, user_lng, map) {
   setAmbulance(map, user_lat, user_lng);
 }
 
-
 async function setAmbulance(map, user_lat, user_lng) {
-  
-  ambulanceID = localStorage.getItem('ambulanceID');
-  let ambulanceData = []
+  ambulanceID = localStorage.getItem("ambulanceID");
+  let ambulanceData = [];
 
-  ref = firebase.database().ref("ambulances/"+ambulanceID);
+  ref = firebase.database().ref("ambulances/" + ambulanceID);
   ref.on("value", function (snapshot) {
     ambulanceData.push(snapshot.val());
   });
 
-  firebase.database().ref("ambulances/"+ambulanceID+"/status").set("unavailable");
+  firebase
+    .database()
+    .ref("ambulances/" + ambulanceID + "/status")
+    .set("unavailable");
 
-  
-  setTimeout(
-    () =>
-    {
-        console.log(ambulanceData)
-        add_ambulances(ambulanceData[0], user_lat, user_lng, map)
-    }, 3000
-
-  )
-  
+  setTimeout(() => {
+    console.log(ambulanceData);
+    add_ambulances(ambulanceData[0], user_lat, user_lng, map);
+  }, 3000);
 }
 
 function add_ambulances(ambulanceData, user_lat, user_lng, map) {
@@ -160,144 +156,152 @@ function add_ambulances(ambulanceData, user_lat, user_lng, map) {
 
   // Adding Ambulances on map
 
+  marker_data = ambulanceData;
 
-    marker_data = ambulanceData;
+  user_lat_lng = { lat: user_lat - 0.001, lng: user_lng + 0.001 };
+  ambulance_lat_lng = {
+    lat: marker_data.lat - 0.001,
+    lng: marker_data.lng + 0.001,
+  };
 
-    user_lat_lng = {lat: user_lat- 0.001, lng: user_lng+0.001}
-    ambulance_lat_lng = {lat: marker_data.lat-0.001, lng: marker_data.lng+0.001}
+  generate_path(map, user_lat_lng, ambulance_lat_lng);
+  distance = haversine_distance(user_lat_lng, ambulance_lat_lng);
 
-    generate_path(map, user_lat_lng, ambulance_lat_lng)
-    distance = haversine_distance(user_lat_lng, ambulance_lat_lng)
+  ambulance_lat_long = new google.maps.LatLng(marker_data.lat, marker_data.lng);
 
-    ambulance_lat_long = new google.maps.LatLng(marker_data.lat, marker_data.lng);
-    
-    console.log(ambulance_lat_long, user_lat, user_lng)
-    if (marker_data.icon == "icon_super_fast") icon = icon_super_fast;
-    if (marker_data.icon == "icon_icu") icon = icon_icu;
-    if (marker_data.icon == "icon_ptv") icon = icon_ptv;
-    if (marker_data.icon == "icon_free") icon = icon_free;
+  console.log(ambulance_lat_long, user_lat, user_lng);
+  if (marker_data.icon == "icon_super_fast") icon = icon_super_fast;
+  if (marker_data.icon == "icon_icu") icon = icon_icu;
+  if (marker_data.icon == "icon_ptv") icon = icon_ptv;
+  if (marker_data.icon == "icon_free") icon = icon_free;
 
-    const marker = new google.maps.Marker({
-      title: marker_data.title,
-      position: ambulance_lat_long,
-      icon: icon,
-      map: map,
-    });
-  
-    addBookingDetails(marker_data, distance, user_lat_lng, ambulance_lat_lng)
+  const marker = new google.maps.Marker({
+    title: marker_data.title,
+    position: ambulance_lat_long,
+    icon: icon,
+    map: map,
+  });
+
+  addBookingDetails(marker_data, distance, user_lat_lng, ambulance_lat_lng);
 }
 
-function addBookingDetails(marker_data, distance, user_lat_lng, ambulance_lat_lng)
-{
+function addBookingDetails(
+  marker_data,
+  distance,
+  user_lat_lng,
+  ambulance_lat_lng
+) {
   var bookingDetails = document.getElementById("bookingDetails");
 
-  estimatedCost = parseInt(1000)+parseFloat((distance*200).toFixed(2))
-  ETAMinutes = parseInt(parseInt(5) + parseFloat((distance*10).toFixed(2)))
-  ETASeconds = parseInt(parseFloat((distance*60).toFixed(2)))
-  
-  ambulanceTitle = marker_data.title
-  ambulanceType = marker_data.type
-  driverName = marker_data.driver_name
-  driverContact = marker_data.driver_contact
-  ambulanceDescription = marker_data.description
+  estimatedCost = parseInt(1000) + parseFloat((distance * 200).toFixed(2));
+  ETAMinutes = parseInt(parseInt(5) + parseFloat((distance * 10).toFixed(2)));
+  ETASeconds = parseInt(parseFloat((distance * 60).toFixed(2)));
+
+  ambulanceTitle = marker_data.title;
+  ambulanceType = marker_data.type;
+  driverName = marker_data.driver_name;
+  driverContact = marker_data.driver_contact;
+  ambulanceDescription = marker_data.description;
 
   var title = document.createElement("h5");
-  title.innerHTML = "TITLE: "+ambulanceTitle
+  title.innerHTML = "TITLE: " + ambulanceTitle;
 
   var type = document.createElement("h5");
-  type.innerHTML = "Type: "+ ambulanceType
+  type.innerHTML = "Type: " + ambulanceType;
 
-  var description = document.createElement("h7")
-  description.innerHTML = "Description: "+ ambulanceDescription
+  var description = document.createElement("h7");
+  description.innerHTML = "Description: " + ambulanceDescription;
 
-  var driver = document.createElement('h7');
-  driver.innerHTML = "Driver: "+driverName
+  var driver = document.createElement("h7");
+  driver.innerHTML = "Driver: " + driverName;
 
-  var contact = document.createElement('h7');
-  contact.innerHTML = "Contact: "+driverContact
-  
-  var cost = document.createElement('h7')
-  cost.innerHTML = "Estimated Cost: "+estimatedCost
+  var contact = document.createElement("h7");
+  contact.innerHTML = "Contact: " + driverContact;
 
-  var ETA = document.createElement('h4');
-  ETA.innerHTML = "Estimated Time of Arrival (ETA): " + ETAMinutes + " Minutes "+ETASeconds + " Seconds"
+  var cost = document.createElement("h7");
+  cost.innerHTML = "Estimated Cost: " + estimatedCost;
 
-  var distan = document.createElement('h5')
-  distan.innerHTML = "Distance: "+distance.toFixed(2)+" KM"
+  var ETA = document.createElement("h4");
+  ETA.innerHTML =
+    "Estimated Time of Arrival (ETA): " +
+    ETAMinutes +
+    " Minutes " +
+    ETASeconds +
+    " Seconds";
 
-  var newline2 = document.createElement('br')
-  var newline3 = document.createElement('br')
-  var newline4 = document.createElement('br')
-  
-  bookingDetails.appendChild(title)
-  bookingDetails.appendChild(type)
-  bookingDetails.appendChild(description)
-  bookingDetails.appendChild(newline2)
-  bookingDetails.appendChild(driver)
-  bookingDetails.appendChild(newline3)
-  bookingDetails.appendChild(contact)
-  bookingDetails.appendChild(newline4)
-  bookingDetails.appendChild(cost)
-  bookingDetails.appendChild(ETA)
-  bookingDetails.appendChild(distan)
+  var distan = document.createElement("h5");
+  distan.innerHTML = "Distance: " + distance.toFixed(2) + " KM";
 
-  userID = localStorage.getItem('userID')
-  ambulanceID = localStorage.getItem('ambulanceID')
+  var newline2 = document.createElement("br");
+  var newline3 = document.createElement("br");
+  var newline4 = document.createElement("br");
+
+  bookingDetails.appendChild(title);
+  bookingDetails.appendChild(type);
+  bookingDetails.appendChild(description);
+  bookingDetails.appendChild(newline2);
+  bookingDetails.appendChild(driver);
+  bookingDetails.appendChild(newline3);
+  bookingDetails.appendChild(contact);
+  bookingDetails.appendChild(newline4);
+  bookingDetails.appendChild(cost);
+  bookingDetails.appendChild(ETA);
+  bookingDetails.appendChild(distan);
+
+  userID = localStorage.getItem("userID");
+  ambulanceID = localStorage.getItem("ambulanceID");
 
   bookingDetails = {
-      userID: userID,
-      ambulanceID: ambulanceID,
-      cost: estimatedCost,
-      distance: distance.toFixed(2),
-      ETA: ETAMinutes+" Minutes "+ETASeconds+ " Seconds",
-      userLocation: user_lat_lng, 
-      ambulanceLocation: ambulance_lat_lng
-  }
+    userID: userID,
+    ambulanceID: ambulanceID,
+    cost: estimatedCost,
+    distance: distance.toFixed(2),
+    ETA: ETAMinutes + " Minutes " + ETASeconds + " Seconds",
+    userLocation: user_lat_lng,
+    ambulanceLocation: ambulance_lat_lng,
+  };
 
-  bookingDB = firebase.database().ref("bookings/"+userID);
-  bookingDB.set(bookingDetails)
-
+  bookingDB = firebase.database().ref("bookings/" + userID);
+  bookingDB.set(bookingDetails);
 }
 
 function generate_path(map, myLatLng1, myLatLng2) {
-    var pathBetween = new google.maps.Polyline({
-      path: [myLatLng1, myLatLng2],
-      strokeColor: "#FF0000",
-      strokeOpacity: 1.0,
-      strokeWeight: 2,
-    });
-  
-    addLine(pathBetween, map);
-    // setTimeout(
-    //   ()=>removeLine(pathBetween, map), 5000
-    // )
-    return pathBetween;
-  }
-  
-  function addLine(pathBetween, map) {
-    pathBetween.setMap(map);
-  }
-  
+  var pathBetween = new google.maps.Polyline({
+    path: [myLatLng1, myLatLng2],
+    strokeColor: "#FF0000",
+    strokeOpacity: 1.0,
+    strokeWeight: 2,
+  });
 
-  function haversine_distance(mk1, mk2) {
-    var R = 6371.071; // Radius of the Earth in km
-    var rlat1 = mk1.lat * (Math.PI / 180); // Convert degrees to radians
-    var rlat2 = mk2.lat * (Math.PI / 180); // Convert degrees to radians
-    var difflat = rlat2 - rlat1; // Radian difference (latitudes)
-    var difflon = (mk2.lng - mk1.lng) * (Math.PI / 180); // Radian difference (longitudes)
-  
-    var d =
-      2 *
-      R *
-      Math.asin(
-        Math.sqrt(
-          Math.sin(difflat / 2) * Math.sin(difflat / 2) +
-            Math.cos(rlat1) *
-              Math.cos(rlat2) *
-              Math.sin(difflon / 2) *
-              Math.sin(difflon / 2)
-        )
-      );
-    return d;
-  }
-  
+  addLine(pathBetween, map);
+  // setTimeout(
+  //   ()=>removeLine(pathBetween, map), 5000
+  // )
+  return pathBetween;
+}
+
+function addLine(pathBetween, map) {
+  pathBetween.setMap(map);
+}
+
+function haversine_distance(mk1, mk2) {
+  var R = 6371.071; // Radius of the Earth in km
+  var rlat1 = mk1.lat * (Math.PI / 180); // Convert degrees to radians
+  var rlat2 = mk2.lat * (Math.PI / 180); // Convert degrees to radians
+  var difflat = rlat2 - rlat1; // Radian difference (latitudes)
+  var difflon = (mk2.lng - mk1.lng) * (Math.PI / 180); // Radian difference (longitudes)
+
+  var d =
+    2 *
+    R *
+    Math.asin(
+      Math.sqrt(
+        Math.sin(difflat / 2) * Math.sin(difflat / 2) +
+          Math.cos(rlat1) *
+            Math.cos(rlat2) *
+            Math.sin(difflon / 2) *
+            Math.sin(difflon / 2)
+      )
+    );
+  return d;
+}

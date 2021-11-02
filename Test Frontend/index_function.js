@@ -23,16 +23,11 @@ function formSubmit() {
       } else {
         localStorage.removeItem("ambulanceID");
         var checkbox = document.getElementById("rememberMe");
-
-        console.log(localStorage.getItem("currentUserEmail"));
         localStorage.removeItem("currentUserEmail");
-        console.log(localStorage.getItem("currentUserEmail"));
-        console.log(localStorage.getItem("currentUserPassword"));
         localStorage.removeItem("currentUserPassword");
-        console.log(localStorage.getItem("currentUserPassword"));
         console.log(checkbox.checked);
         if (checkbox.checked == true) {
-          addUserDataCache(username, password);
+          addRememberDataCache(username, password);
         }
         window.location.href = "../Test Frontend/page3_map_user_view.html";
 
@@ -62,13 +57,13 @@ function getUserData() {
   }
 }
 
-function addUserDataCache(email, password) {
+function addRememberDataCache(email, password) {
   localStorage.setItem("currentUserEmail", email);
   localStorage.setItem("currentUserPassword", password);
 }
 
 function registerUser() {
-  localStorage.clear();
+  localStorage.removeItem("ambulanceID");
   let Fname = document.querySelector("#FName").value;
   let Lname = document.querySelector("#LName").value;
   let username = document.querySelector("#username").value;
