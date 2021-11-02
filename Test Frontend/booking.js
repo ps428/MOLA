@@ -195,7 +195,7 @@ function addBookingDetails(
 
   estimatedCost = parseInt(1000) + parseFloat((distance * 200).toFixed(2));
   ETAMinutes = parseInt(parseInt(5) + parseFloat((distance * 10).toFixed(2)));
-  ETASeconds = parseInt(parseFloat((distance * 60).toFixed(2)));
+  ETASeconds = parseInt(parseFloat((distance * 60).toFixed(2)))%60;
 
   ambulanceTitle = marker_data.title;
   ambulanceType = marker_data.type;
@@ -261,7 +261,7 @@ function addBookingDetails(
     ambulanceLocation: ambulance_lat_lng,
   };
 
-  bookingDB = firebase.database().ref("bookings/" + userID);
+  bookingDB = firebase.database().ref("bookings/" + userID +'/'+ambulanceID);
   bookingDB.set(bookingDetails);
 }
 
