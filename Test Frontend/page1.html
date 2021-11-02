@@ -26,7 +26,7 @@
 	<!--Custom styles-->
 	<link rel="stylesheet" type="text/css" href="styles.css">
 </head>
-<body background="ambulance.png">
+<body background="ambulance.png" onload="javascript:getUserData()">
 	<script type="module">
 	
 
@@ -64,7 +64,7 @@
 						<input type="password" class="form-control" placeholder="password" id="password">
 					</div>
 					<div class="row align-items-center remember">
-						<input type="checkbox">Remember Me
+						<input type="checkbox" id="rememberMe">Remember Me
 					</div>
 					<div class="form-group">
 						<input type="submit" value="Login" onclick="formSubmit()"	class="btn float-right login_btn" id="submitButton">

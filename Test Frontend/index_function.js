@@ -3,7 +3,7 @@
 function formSubmit() {
   //console.log("hello");
   // Get Values from the DOM
-  localStorage.clear();
+  localStorage.removeItem("ambulanceID");
   var password = document.querySelector("#password").value;
   var username = document.querySelector("#username").value;
   //window.alert("message: " + password + " " + username);
@@ -16,11 +16,26 @@ function formSubmit() {
     .then((userCredential) => {
       //
       // Map passing user credentials
+
       const user = firebase.auth().currentUser;
       if (user.emailVerified == false) {
-        window.alert("Kindly confirm your mail.");
+        window.alert("Kindly confirm your e-mail.");
       } else {
+        localStorage.removeItem("ambulanceID");
+        var checkbox = document.getElementById("rememberMe");
+
+        console.log(localStorage.getItem("currentUserEmail"));
+        localStorage.removeItem("currentUserEmail");
+        console.log(localStorage.getItem("currentUserEmail"));
+        console.log(localStorage.getItem("currentUserPassword"));
+        localStorage.removeItem("currentUserPassword");
+        console.log(localStorage.getItem("currentUserPassword"));
+        console.log(checkbox.checked);
+        if (checkbox.checked == true) {
+          addUserDataCache(username, password);
+        }
         window.location.href = "../Test Frontend/page3_map_user_view.html";
+
         addCacheUserData(user.uid);
         initMap(user);
       }
@@ -31,6 +46,25 @@ function formSubmit() {
         window.alert("Not able to log in. Check the Credentials!");
       //window.alert(errorMessage);
     });
+}
+
+function getUserData() {
+  const user = localStorage.getItem("currentUserEmail");
+  var checkbox = document.getElementById("rememberMe");
+  if (user != null) {
+    var usernameField = document.getElementById("username");
+    var passwordField = document.getElementById("password");
+
+    usernameField.value = user;
+    passwordField.value = localStorage.getItem("currentUserPassword");
+
+    checkbox.checked = true;
+  }
+}
+
+function addUserDataCache(email, password) {
+  localStorage.setItem("currentUserEmail", email);
+  localStorage.setItem("currentUserPassword", password);
 }
 
 function registerUser() {
