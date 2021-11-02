@@ -153,6 +153,143 @@ function registerUser() {
     });
 }
 
+
+function hformSubmit() {
+  //console.log("hello");
+  // Get Values from the DOM
+  localStorage.removeItem("ambulanceID");
+  var password = document.querySelector("#hpassword").value;
+  var username = document.querySelector("#husername").value;
+  //window.alert("message: " + password + " " + username);
+
+  //send message values
+  // here username corresponds to email id of the user
+  firebase
+    .auth()
+    .signInWithEmailAndPassword(username, password)
+    .then((userCredential) => {
+      //
+      // Map passing user credentials
+
+      const user = firebase.auth().currentUser;
+      if (user.emailVerified == false) {
+        window.alert("Kindly confirm your e-mail.");
+      } else {
+        localStorage.removeItem("ambulanceID");
+        var checkbox = document.getElementById("rememberMe");
+        localStorage.removeItem("currentUserEmail");
+        localStorage.removeItem("currentUserPassword");
+        console.log(checkbox.checked);
+        if (checkbox.checked == true) {
+          addRememberDataCache(username, password);
+        }
+        window.location.href = "../Test Frontend/page3_map_user_view.html";
+
+        addCacheUserData(user.uid);
+        initMap(user);
+      }
+    })
+    .catch((error) => {
+      var errorMessage = error.message;
+      if (errorMessage != "google is not defined")
+        window.alert("Not able to log in. Check the Credentials!");
+      //window.alert(errorMessage);
+    });
+}
+
+
+function registerHospital() {
+  localStorage.removeItem("ambulanceID");
+  let Fname = document.querySelector("#hFName").value;
+  let Lname = document.querySelector("#hLName").value;
+  let username = document.querySelector("#husername").value;
+  let password = document.querySelector("#hpassword").value;
+  let cPassword = document.querySelector("#hconfirmPassword").value;
+  let mobileNumber = document.querySelector("#hmobileNumber").value;
+  let mail = document.querySelector("#hmail").value;
+
+  let name = Fname + " " + Lname;
+
+  if (
+    validateField(name) == false ||
+    validateField(username) == false ||
+    validateField(password) == false ||
+    validateField(cPassword) == false ||
+    validateField(mobileNumber) == false ||
+    validateField(mail) == false
+  ) {
+    window.alert("Ensure all fields are filled.");
+    return;
+  }
+
+  if (validatePhone(mobileNumber) == false) {
+    window.alert("Ensure Phone Number consists of 10 digits.");
+    return;
+  }
+
+  if (validateEmail(mail) == false) {
+    window.alert("Enter correct email.");
+    return;
+  }
+
+  if (validatePassword(password) == false) {
+    window.alert(
+      "Password should be atleast of 6 characters including a lower-case, an upper-case and a special symbol."
+    );
+    return;
+  }
+
+  if (password != cPassword) {
+    window.alert("Passwords do not match.");
+    return;
+  }
+
+  firebase
+    .auth()
+    .createUserWithEmailAndPassword(mail, password)
+    .then((userCredential) => {
+      // Signed in
+      const user = firebase.auth().currentUser;
+
+      user
+        .sendEmailVerification()
+        .then(function () {
+          window.alert("Verification has been sent to your email!");
+        })
+        .catch(function (error) {
+          console.log(error);
+          window.alert("Some error!");
+        });
+
+      var user_data = {
+        name: name,
+        username: username,
+        mobileNumber: mobileNumber,
+        mail: mail,
+      };
+
+      firebase
+        .database()
+        .ref("Hospital/" + user.uid)
+        .set(user_data, function (error) {
+          if (error) {
+            alert("Data could not be saved." + error);
+          } else {
+            window.location.href = "../Test Frontend/Hospital_login.html";
+            alert("Data saved successfully.");
+          }
+        });
+
+      window.alert("User Created");
+    })
+    .catch((error) => {
+      var errorMessage = error.message;
+      window.alert(errorMessage);
+      // ..
+    });
+}
+
+
 function validateEmail(email) {
   expression = /^[^@]+@\w+(\.\w+)+\w$/;
   if (expression.test(email) == true) {
@@ -604,10 +741,10 @@ function haversine_distance(mk1, mk2) {
     Math.asin(
       Math.sqrt(
         Math.sin(difflat / 2) * Math.sin(difflat / 2) +
-          Math.cos(rlat1) *
-            Math.cos(rlat2) *
-            Math.sin(difflon / 2) *
-            Math.sin(difflon / 2)
+        Math.cos(rlat1) *
+        Math.cos(rlat2) *
+        Math.sin(difflon / 2) *
+        Math.sin(difflon / 2)
       )
     );
   return d;
