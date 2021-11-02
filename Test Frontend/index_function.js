@@ -14,11 +14,16 @@ function formSubmit() {
     .auth()
     .signInWithEmailAndPassword(username, password)
     .then((userCredential) => {
-      window.location.href = "../Test Frontend/page3_map_user_view.html";
+      //
       // Map passing user credentials
       const user = firebase.auth().currentUser;
-      addCacheUserData(user.uid);
-      initMap(user);
+      if (user.emailVerified == false) {
+        window.alert("Kindly confirm your mail.");
+      } else {
+        window.location.href = "../Test Frontend/page3_map_user_view.html";
+        addCacheUserData(user.uid);
+        initMap(user);
+      }
     })
     .catch((error) => {
       var errorMessage = error.message;
@@ -37,6 +42,7 @@ function registerUser() {
   let cPassword = document.querySelector("#confirmPassword").value;
   let mobileNumber = document.querySelector("#mobileNumber").value;
   let mail = document.querySelector("#mail").value;
+
   let name = Fname + " " + Lname;
 
   if (
@@ -79,6 +85,17 @@ function registerUser() {
     .then((userCredential) => {
       // Signed in
       const user = firebase.auth().currentUser;
+
+      user
+        .sendEmailVerification()
+        .then(function () {
+          window.alert("Verification has been sent to your email!");
+        })
+        .catch(function (error) {
+          console.log(error);
+          window.alert("Some error!");
+        });
+
       var user_data = {
         name: name,
         username: username,
@@ -149,7 +166,6 @@ function validatePhone(mobileNumber) {
 
 //  Map functions
 function initMap(user_id) {
-
   // The location of Uluru
   var infoWindow = new google.maps.InfoWindow({
     map: map,
@@ -331,8 +347,8 @@ function add_ambulances(ambulances, user_lat, user_lng, map) {
   console.log(ambulances, "-----");
   let pathBetween = null;
 
-  for (i = 1; i <=ambulances.length; i++) {
-    marker_data = ambulances[i-1];
+  for (i = 1; i <= ambulances.length; i++) {
+    marker_data = ambulances[i - 1];
 
     if (marker_data.status != "available") continue;
 
@@ -359,9 +375,8 @@ function add_ambulances(ambulances, user_lat, user_lng, map) {
           content: "",
         });
 
-
-        infoPane = document.createElement('div');
-        infoPane.id = "infoPane"
+        infoPane = document.createElement("div");
+        infoPane.id = "infoPane";
 
         title = document.createElement("h4");
         title.innerHTML = marker_data.title;
@@ -369,41 +384,38 @@ function add_ambulances(ambulances, user_lat, user_lng, map) {
         description = document.createElement("h6");
         description.innerHTML = marker_data.description;
 
-        driver = document.createElement('h7')
-        driver.innerHTML = marker_data.driver_name + ": " + marker_data.driver_contact
-        driver.id = "driverDetails"+marker.id
+        driver = document.createElement("h7");
+        driver.innerHTML =
+          marker_data.driver_name + ": " + marker_data.driver_contact;
+        driver.id = "driverDetails" + marker.id;
 
         newLine = document.createElement("br");
 
         checkButton = document.createElement("button");
         // checkButton.type = 'button';
 
-        checkButton.onclick = () => 
-        {
-          
-          bookNowWindow(marker_data, user_lat_lng, map, marker.id)
+        checkButton.onclick = () => {
+          bookNowWindow(marker_data, user_lat_lng, map, marker.id);
 
-          lat = marker_data.lat
-          lng = marker_data.lng
-          ambulance_lat_lng = { lat: lat - 0.001, lng: lng + 0.001 }
+          lat = marker_data.lat;
+          lng = marker_data.lng;
+          ambulance_lat_lng = { lat: lat - 0.001, lng: lng + 0.001 };
 
-          if(pathBetween != null)
-            removeLine(pathBetween, map)
-          console.log(pathBetween)
+          if (pathBetween != null) removeLine(pathBetween, map);
+          console.log(pathBetween);
 
-          pathBetween =  generate_path(map, user_lat_lng, ambulance_lat_lng);
+          pathBetween = generate_path(map, user_lat_lng, ambulance_lat_lng);
+        };
+        checkButton.innerHTML = "Check Distance";
+        checkButton.id = "bookNowWindow" + marker.id;
+        checkButton.className = "btn float-right login_btn";
 
-        }
-        checkButton.innerHTML = "Check Distance"
-        checkButton.id = "bookNowWindow"+marker.id
-        checkButton.className = "btn float-right login_btn"
-      
-        infoPane.appendChild(title)
-        infoPane.appendChild(description)
-        infoPane.appendChild(driver)
-        infoPane.appendChild(newLine)
-        infoPane.appendChild(newLine)
-        infoPane.appendChild(checkButton)
+        infoPane.appendChild(title);
+        infoPane.appendChild(description);
+        infoPane.appendChild(driver);
+        infoPane.appendChild(newLine);
+        infoPane.appendChild(newLine);
+        infoPane.appendChild(checkButton);
 
         //Wrap the contentq inside an HTML DIV in order to set height and width of InfoWindow.
         infoWindow.setContent(infoPane);
@@ -414,7 +426,6 @@ function add_ambulances(ambulances, user_lat, user_lng, map) {
   }
 
   // generate_results_table(ambulances)
-
 
   // console.log(features[i].position)
 
@@ -481,32 +492,40 @@ function generate_results_table(ambulances) {
 }
 
 function bookNowWindow(marker_data, user_lat_lng, map, markerId) {
-  lat = marker_data.lat
-  lng = marker_data.lng
-  ambulance_lat_lng = { lat: lat - 0.001, lng: lng + 0.001 }
-  distance = haversine_distance(user_lat_lng, ambulance_lat_lng)
+  lat = marker_data.lat;
+  lng = marker_data.lng;
+  ambulance_lat_lng = { lat: lat - 0.001, lng: lng + 0.001 };
+  distance = haversine_distance(user_lat_lng, ambulance_lat_lng);
 
-  cost = parseInt(1000)+parseFloat((distance*200).toFixed(2))
-  ETAMinutes = parseInt(parseInt(5) + parseFloat((distance*10).toFixed(2)))
-  ETASeconds = parseInt(parseFloat((distance*60).toFixed(2)))
+  cost = parseInt(1000) + parseFloat((distance * 200).toFixed(2));
+  ETAMinutes = parseInt(parseInt(5) + parseFloat((distance * 10).toFixed(2)));
+  ETASeconds = parseInt(parseFloat((distance * 60).toFixed(2)));
 
-  distance_value = document.createElement('h7')
-  distance_value.innerHTML = "<br>Distance is <b>" + distance.toFixed(3) + ' KM</b>' + 
-                             '<br>Expected Rate: <b>'+cost +' INR</b>' +
-                             '<br>Estimated Time of Arrival (ETA): <b>'+ETAMinutes+' Minutes '+ETASeconds+' Seconds</b><br>'
+  distance_value = document.createElement("h7");
+  distance_value.innerHTML =
+    "<br>Distance is <b>" +
+    distance.toFixed(3) +
+    " KM</b>" +
+    "<br>Expected Rate: <b>" +
+    cost +
+    " INR</b>" +
+    "<br>Estimated Time of Arrival (ETA): <b>" +
+    ETAMinutes +
+    " Minutes " +
+    ETASeconds +
+    " Seconds</b><br>";
 
-  setTimeout(
-    () => {
-      document.getElementById('driverDetails'+markerId).appendChild(distance_value)
-      document.getElementById('bookNowWindow'+markerId).innerHTML = 'Book Now'
-      document.getElementById('bookNowWindow'+markerId).onclick = () => makeBooking(markerId)
-    }
-    , 1000
-  )
-  console.log(distance)
+  setTimeout(() => {
+    document
+      .getElementById("driverDetails" + markerId)
+      .appendChild(distance_value);
+    document.getElementById("bookNowWindow" + markerId).innerHTML = "Book Now";
+    document.getElementById("bookNowWindow" + markerId).onclick = () =>
+      makeBooking(markerId);
+  }, 1000);
+  console.log(distance);
 
-
-  addCacheAmbulanceID(markerId)
+  addCacheAmbulanceID(markerId);
 }
 
 function generate_path(map, myLatLng1, myLatLng2) {
@@ -567,12 +586,10 @@ function haversine_distance(mk1, mk2) {
 
 // function bookNow(ambulances, )
 
-function makeBooking(markerId)
-{
+function makeBooking(markerId) {
   addCacheAmbulanceID(markerId);
   window.location.href = "../Test Frontend/page4_user_booking.html";
 }
-
 
 //FOR DEALING WITH CACHE IN FUTURE PART, CHECKBOX PE CLICK KARNE KE BAAD KE LIE
 function addCacheAmbulanceID(ambulanceID) {
@@ -585,7 +602,7 @@ function addCacheAmbulanceID(ambulanceID) {
 }
 
 function addCacheUserData(userData) {
-  localStorage.setItem('userID', userData);
+  localStorage.setItem("userID", userData);
 
   // setTimeout(() => {
   //   let myName = localStorage.getItem('userID');
