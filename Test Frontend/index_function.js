@@ -331,8 +331,8 @@ function add_ambulances(ambulances, user_lat, user_lng, map) {
   console.log(ambulances, "-----");
   let pathBetween = null;
 
-  for (i = 0; i < ambulances.length; i++) {
-    marker_data = ambulances[i];
+  for (i = 1; i <=ambulances.length; i++) {
+    marker_data = ambulances[i-1];
 
     if (marker_data.status != "available") continue;
 
