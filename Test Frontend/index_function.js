@@ -798,7 +798,7 @@ function generate_path(map, myLatLng1, myLatLng2) {
     strokeWeight: 2,
   });
 
-  addLine(pathBetween, map);
+  // addLine(pathBetween, map);
   // setTimeout(
   //   ()=>removeLine(pathBetween, map), 5000
   // )

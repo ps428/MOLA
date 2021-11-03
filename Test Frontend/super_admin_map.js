@@ -23,31 +23,12 @@ function initMap(user_id) {
     map.setCenter(pos);
     //   console.log(user_lat, user_lng)
 
-    get_ambulance_data(map);
+    addOnMap(map);
     //   update_location(user_lat, user_lng)
 }
 
-async function get_ambulance_data(map) {
-    hospitalID = localStorage.getItem('hospitalID')
 
-    hospitalUsername = []
-
-    ref = firebase.database().ref("Hospital/" + hospitalID);
-    ref.on("value", function (snapshot) {
-        hospitalUsername.push(snapshot.val());
-    });
-
-
-    setTimeout(
-        () => {
-            console.log(hospitalUsername[0].username)
-            username = hospitalUsername[0].username
-            addOnMap(map, username)
-        },3000
-    )
-}
-
-function addOnMap(map, username) {
+function addOnMap(map) {
     ambulance_data = {
         // around user location
         title: "AIIMS PTV",
@@ -69,7 +50,6 @@ function addOnMap(map, username) {
         snapshot.forEach(function (childSnapshot) {
             var childData = childSnapshot.val();
             // console.log(childData);
-            if (childData.hospital == username)
                 ambulances.push(childData);
         });
     });

@@ -206,47 +206,30 @@ function addBookingDetails(
   var title = document.createElement("h5");
   title.innerHTML = "TITLE: " + ambulanceTitle;
 
-  var type = document.createElement("h5");
-  type.innerHTML = "Type: " + ambulanceType;
+  innerHTML = "Type: " + ambulanceType;
 
-  var description = document.createElement("h7");
-  description.innerHTML = "Description: " + ambulanceDescription;
+  innerHTML += "<br>Description: " + ambulanceDescription;
 
-  var driver = document.createElement("h7");
-  driver.innerHTML = "Driver: " + driverName;
+  innerHTML += "<br>Driver: " + driverName;
 
-  var contact = document.createElement("h7");
-  contact.innerHTML = "Contact: " + driverContact;
+  innerHTML += "<br>Contact: " + driverContact;
 
-  var cost = document.createElement("h7");
-  cost.innerHTML = "Estimated Cost: " + estimatedCost;
+  innerHTML += "<br>Estimated Cost: <b>" + estimatedCost;
 
-  var ETA = document.createElement("h4");
-  ETA.innerHTML =
-    "Estimated Time of Arrival (ETA): " +
+  innerHTML +=
+    "</b><br>Estimated Time of Arrival (ETA):<b> " +
     ETAMinutes +
     " Minutes " +
     ETASeconds +
-    " Seconds";
+    " Seconds</b>";
 
-  var distan = document.createElement("h5");
-  distan.innerHTML = "Distance: " + distance.toFixed(2) + " KM";
+  innerHTML +="<br>Distance: " + distance.toFixed(2) + " KM";
 
-  var newline2 = document.createElement("br");
-  var newline3 = document.createElement("br");
-  var newline4 = document.createElement("br");
-
+  p = document.createElement('p')
+  p.innerHTML = innerHTML
+  
   bookingDetails.appendChild(title);
-  bookingDetails.appendChild(type);
-  bookingDetails.appendChild(description);
-  bookingDetails.appendChild(newline2);
-  bookingDetails.appendChild(driver);
-  bookingDetails.appendChild(newline3);
-  bookingDetails.appendChild(contact);
-  bookingDetails.appendChild(newline4);
-  bookingDetails.appendChild(cost);
-  bookingDetails.appendChild(ETA);
-  bookingDetails.appendChild(distan);
+  bookingDetails.appendChild(p);
 
   userID = localStorage.getItem("userID");
   ambulanceID = localStorage.getItem("ambulanceID");
@@ -278,7 +261,7 @@ function generate_path(map, myLatLng1, myLatLng2) {
     strokeWeight: 2,
   });
 
-  addLine(pathBetween, map);
+  // addLine(pathBetween, map);
   // setTimeout(
   //   ()=>removeLine(pathBetween, map), 5000
   // )
