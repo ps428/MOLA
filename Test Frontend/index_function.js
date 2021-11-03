@@ -662,11 +662,30 @@ function generate_your_rides() {
           rides.push(childData);
         });
 
-        console.log(rides);
-        console.log(rides.length);
+        var data = "";
 
         for (let i = 1; i < rides.length; i++) {
-          // show rides 
+          var ambID = rides[i].ambulanceID;
+          var ambName = "";
+          firebase
+            .database()
+            .ref("ambulances/" + ambID)
+            .on("value", (snapshot) => {
+              const dataValue = snapshot.val();
+              ambName = dataValue.title;
+
+              data += "<h4><b>" + ambName + "</b></h4>";
+              data += "<b>Time: </b>" + rides[i].ETA + "<br>";
+              ///data += rides[i].ambulanceID + "<br>";
+              data += "<b>Distance: </b>" + rides[i].distance + "<br>";
+              data += "<b>Cost: Rs. </b>" + rides[i].cost + "<br>";
+              if (i != rides.length - 1) {
+                data += "<br>";
+              }
+              //data += rides[i].userID + "<br><br>";
+
+              document.getElementById("Your Rides").innerHTML = data;
+            });
         }
       });
     }
