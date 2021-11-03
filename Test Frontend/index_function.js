@@ -115,6 +115,8 @@ function registerUser() {
       // Signed in
       const user = firebase.auth().currentUser;
 
+      console.log(user.displayName);
+
       user
         .sendEmailVerification()
         .then(function () {
@@ -131,6 +133,19 @@ function registerUser() {
         mobileNumber: mobileNumber,
         mail: mail,
       };
+
+      user
+        .updateProfile({
+          displayName: name,
+        })
+        .then(() => {
+          // Update successful
+          // ...
+        })
+        .catch((error) => {
+          // An error occurred
+          // ...
+        });
 
       firebase
         .database()
