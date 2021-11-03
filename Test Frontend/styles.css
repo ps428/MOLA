@@ -225,10 +225,11 @@ input:focus {
   margin-right: 37%;
   margin-top: 0.7%;
   height: 60px;
-  width: 330px;
+  width: 450px;
   text-align: center;
   padding: 4px;
   border-radius: 0.25cm;
+  box-shadow: 3px 7px 6px 2px #000000;
 }
 .user-map-heading-booking {
   background-color: rgba(182, 225, 228, 0.5) !important;
