@@ -1,6 +1,7 @@
+//can use this to generate random ambulances, places ambulances at three locations, completely customisable
 ambulance_data = {
     // around user location
-    title: "AIIMS PTV",//random
+    title: "AIIMS",//random
     "lat": 27.00,//random
     "lng": 77.00,//random
     hospital: 'aiims',//var
@@ -14,11 +15,43 @@ ambulance_data = {
 
 icons = ['ptv', 'icu', 'super_fast', 'free']
 
+hospitals = ['aiims','apollo','max']
+
+lats = [28.4127, 29.3075, 28.4863]
+lngs = [77.3134, 78.5080, 77.5146]
 
 
-for (i = 28; i < 50; i++) {
-    ref = firebase.database().ref("ambulances/" + i).set({
-        status: 'available'
-    })
+for (i = 28; i <= 50; i++) {
+    pos_icon = parseInt((Math.random()*5))
+    hospital_pos = parseInt((Math.random()*4))
+    pos_lat_lng = parseInt((Math.random()*4))
+    if(pos_icon==4)
+        pos_icon=0
+    if(hospital_pos==3)
+        hospital_pos=0
+    if(pos_lat_lng==3)
+        pos_lat_lng=0
+        console.log(icons[pos_icon], pos_icon,"pos")
+    console.log(hospitals[hospital_pos], hospital_pos)
+    
+    var plusOrMinusLat = Math.random() < 0.5 ? -1.0 : 1.0;
+    var plusOrMinusLng = Math.random() < 0.5 ? -1.0 : 1.0;
+
+    var_lat = Math.random()/50.0*plusOrMinusLat;
+    var_lng = Math.random()/50.0*plusOrMinusLng;
+    
+
+    ref = firebase.database().ref("ambulances/" + i).update({
+        title:hospitals[hospital_pos],
+        lat: lats[pos_lat_lng] + var_lat,
+        lng : lngs[pos_lat_lng] + var_lng,
+        hospital: hospitals[hospital_pos],
+        icon: 'icon_' + icons[pos_icon],
+        status: 'available',
+        type : icons[pos_icon],
+        driver_name: "Mr. Driver",
+        driver_contact: 1010101010,
+        description: "Available Ambulance"
+    });
 
 }
