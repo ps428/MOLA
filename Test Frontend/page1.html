@@ -39,7 +39,32 @@
 
 	</script>
 
+<script>
+	function myFunction() {
+	  var counter = localStorage.getItem('Logout');
+		console.log("hey");
+	  if(counter!=null){
+		console.log("hey1");
+		  return counter;
+	  }else{
+		console.log("hey2");
+		  return 0;
+	  }
+	}
+
+	var check = window.myFunction(10, 2); 
+	if(check==1){
+		console.log("hey3");
+      history.pushState(null, null, null);
+      window.addEventListener("popstate", function () {
+        history.pushState(null, null, null);
+      });
+	}
+	</script>
+
+
 <ul>
+	<li><a href="../Test Frontend/page0_home.html" target="_blank">Back</a></li>
 	<li style="float:right"><a href="../Test Frontend/contactUs.html" target="_blank">Contact Us</a></li>
 	<li style="float:right"><a href="../Test Frontend/aboutUs.html" target="_blank">About</a></li>
   </ul>

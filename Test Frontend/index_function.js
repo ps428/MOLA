@@ -29,6 +29,7 @@ function formSubmit() {
         if (checkbox.checked == true) {
           addRememberDataCache(username, password);
         }
+        localStorage.removeItem("Logout");
         window.location.href = "../Test Frontend/page3_map_user_view.html";
 
         addCacheUserData(user.uid);
@@ -168,11 +169,13 @@ function registerUser() {
     });
 }
 
+function logoutCache() {
+  localStorage.setItem("Logout", 1);
+}
 
 function hformSubmit() {
   //console.log("hello");
   // Get Values from the DOM
-  localStorage.removeItem("ambulanceID");
   var password = document.querySelector("#hpassword").value;
   var username = document.querySelector("#husername").value;
   //window.alert("message: " + password + " " + username);
@@ -190,10 +193,9 @@ function hformSubmit() {
       if (user.emailVerified == false) {
         window.alert("Kindly confirm your e-mail.");
       } else {
-        localStorage.removeItem("ambulanceID");
         var checkbox = document.getElementById("rememberMe");
-        localStorage.removeItem("currentUserEmail");
-        localStorage.removeItem("currentUserPassword");
+        localStorage.removeItem("currentHUserEmail");
+        localStorage.removeItem("currentHUserPassword");
         console.log(checkbox.checked);
         if (checkbox.checked == true) {
           addRememberDataCache(username, password);
@@ -212,9 +214,21 @@ function hformSubmit() {
     });
 }
 
+function getHospitalData() {
+  const user = localStorage.getItem("currentHUserEmail");
+  var checkbox = document.getElementById("rememberMe");
+  if (user != null) {
+    var usernameField = document.getElementById("husername");
+    var passwordField = document.getElementById("hpassword");
+
+    usernameField.value = user;
+    passwordField.value = localStorage.getItem("currentHUserPassword");
+
+    checkbox.checked = true;
+  }
+}
 
 function registerHospital() {
-  localStorage.removeItem("ambulanceID");
   let Fname = document.querySelector("#hFName").value;
   let Lname = document.querySelector("#hLName").value;
   let username = document.querySelector("#husername").value;
@@ -303,7 +317,6 @@ function registerHospital() {
       // ..
     });
 }
-
 
 function validateEmail(email) {
   expression = /^[^@]+@\w+(\.\w+)+\w$/;
@@ -613,6 +626,47 @@ function add_ambulances(ambulances, user_lat, user_lng, map) {
   // The marker, positioned at Uluru
 }
 
+function generate_your_rides() {
+  ride_data = {
+    // around user location
+    ETA: "209 Minutes 29 Seconds",
+    ambulanceID: "18",
+    ambulanceLocation: {
+      lat: 28.4690865,
+      lng: 77.50523840000001,
+    },
+    cost: 5098.6,
+    distance: "20.49",
+    userID: "6LYJ6kfz29YMMHRXgabiuoR2jwB3",
+    userLocation: {
+      lat: 28.4690865,
+      lng: 77.50523840000001,
+    },
+  };
+
+  firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+      var uid = user.uid;
+      const rides = [ride_data];
+      var ambulancesBooked = firebase.database().ref("bookings/" + uid);
+
+      ambulancesBooked.on("value", (snapshot) => {
+        snapshot.forEach(function (childSnapshot) {
+          var childData = childSnapshot.val();
+          rides.push(childData);
+        });
+
+        console.log(rides);
+        console.log(rides.length);
+
+        for (let i = 1; i < rides.length; i++) {
+          // show rides 
+        }
+      });
+    }
+  });
+}
+
 function generate_results_table(ambulances) {
   var ambulanceListData = document.getElementById("ambulanceList");
 
@@ -679,8 +733,10 @@ function bookNowWindow(marker_data, user_lat_lng, map, markerId) {
   distance = haversine_distance(user_lat_lng, ambulance_lat_lng);
 
   cost = parseInt(1000) + parseFloat((distance * 200).toFixed(2));
-  ETAMinutes = parseInt(parseInt(5) + parseFloat((distance * 10).toFixed(2)));
-  ETASeconds = parseInt(parseFloat((distance * 60).toFixed(2)));
+  ETAMinutes = parseInt(
+    parseInt(5) + (parseFloat((distance * 10).toFixed(2)) % 60)
+  );
+  ETASeconds = parseInt(parseFloat((distance * 60).toFixed(2)) % 60);
 
   distance_value = document.createElement("h7");
   distance_value.innerHTML =
@@ -756,10 +812,10 @@ function haversine_distance(mk1, mk2) {
     Math.asin(
       Math.sqrt(
         Math.sin(difflat / 2) * Math.sin(difflat / 2) +
-        Math.cos(rlat1) *
-        Math.cos(rlat2) *
-        Math.sin(difflon / 2) *
-        Math.sin(difflon / 2)
+          Math.cos(rlat1) *
+            Math.cos(rlat2) *
+            Math.sin(difflon / 2) *
+            Math.sin(difflon / 2)
       )
     );
   return d;
