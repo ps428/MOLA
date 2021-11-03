@@ -168,6 +168,12 @@ input:focus {
   text-align: center;
 }
 
+.bookcard-text {
+  border: 1px solid #800000;
+  border-radius: 0.5cm;
+  padding: 10px;
+}
+
 .user_head {
   color: #721e1e;
   margin-left: 37%;
