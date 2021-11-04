@@ -635,6 +635,41 @@ function add_ambulances(ambulances, user_lat, user_lng, map) {
   // The marker, positioned at Uluru
 }
 
+function getServiceProviders() {
+  service_data = {
+    // around user location
+    mail: "testidforps@gmail.com",
+    mobileNumber: "8955445432",
+    name: "AIIMS Hospital",
+    username: "aiims",
+  };
+
+  var services = firebase.database().ref("Hospital/");
+  var serviceProviders = [service_data];
+
+  services.on("value", (snapshot) => {
+    snapshot.forEach(function (childSnapshot) {
+      var childData = childSnapshot.val();
+      console.log(childData);
+      serviceProviders.push(childData);
+    });
+
+    var data = "";
+
+    for (let i = 1; i < serviceProviders.length; i++) {
+      data += "<h4><b>" + serviceProviders[i].name + "</b></h4>";
+      data += "<b>Mail ID: </b>" + serviceProviders[i].mail + "<br>";
+      data += "<b>Contact: </b>" + serviceProviders[i].mobileNumber + "<br>";
+      if (i != serviceProviders.length - 1) {
+        data += "<br>";
+      }
+      //data += rides[i].userID + "<br><br>";
+
+      document.getElementById("Our Service Provider").innerHTML = data;
+    }
+  });
+}
+
 function generate_your_rides() {
   ride_data = {
     // around user location

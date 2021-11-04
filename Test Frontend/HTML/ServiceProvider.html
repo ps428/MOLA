@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>User Map View</title>
+    <title>Service Providers</title>
 
     <!--Bootsrap 4 CDN-->
 
@@ -19,13 +19,6 @@
         messagingSenderId: "42452640257",
         appId: "1:42452640257:web:642cec53e7bec0408ad600",
         measurementId: "G-FBPSVBQ638",
-      });
-    </script>
-
-    <script>
-      history.pushState(null, null, null);
-      window.addEventListener("popstate", function () {
-        history.pushState(null, null, null);
       });
     </script>
 
@@ -48,37 +41,31 @@
     <!--Custom styles-->
     <link rel="stylesheet" type="text/css" href="../styles.css" />
   </head>
-  <body background="../assets/ambulance.png">
-    <ul>
-      <li style="float: right">
-        <a href="../HTML/contactUs.html" target="_blank">Contact Us</a>
-      </li>
-      <li style="float: right">
-        <a href="../HTML/aboutUs.html" target="_blank">About</a>
-      </li>
-      <li style="float: right">
-        <a href="../HTML/page5_your_rides.html">Your Rides</a>
-      </li>
-      <li style="float: right">
-        <a href="../HTML/page1.html" onclick="logoutCache()" target="_blank"
-          >Logout</a
-        >
-      </li>
-    </ul>
+  <body
+    background="../assets/ambulance.png"
+    onload="javascript:getServiceProviders()"
+  >
     <div class="user_map_container">
       <div class="user-map-heading-booking">
         <div class="user-heading-text">
-          <h1>User Map View</h1>
+          <h1>Our Service Provider</h1>
         </div>
       </div>
       <div class="d-flex justify-content-center h-100">
-        <div id="map"></div>
+        <card class="user_intro">
+          <form method="POST" id="searchForm">
+            <div class="input-group form-group">
+              <div class="input-group-prepend"></div>
+            </div>
+          </form>
+          <div class="scrollable">
+            <p class="bookcard-text" id="Our Service Provider"></p>
+
+            <div class="form-group"></div>
+          </div>
+        </card>
       </div>
     </div>
-    <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC5DhDiQCZmUAyW8yvr-bjJWxTgML6FJAM&callback=initMap&libraries=&v=weekly&channel=2"
-      async
-    ></script>
     <div class="footer">
       <div class="footer-text">
         <p>MOLA: My Online Local Ambulance</p>
