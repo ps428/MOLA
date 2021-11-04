@@ -30,7 +30,7 @@ function formSubmit() {
           addRememberDataCache(username, password);
         }
         localStorage.removeItem("Logout");
-        window.location.href = "../Test Frontend/page3_map_user_view.html";
+        window.location.href = "../HTML/page3_map_user_view.html";
 
         addCacheUserData(user.uid);
         initMap(user);
@@ -67,7 +67,6 @@ function hospitalAddRememberDataCache(email, password) {
   localStorage.setItem("currentHospitalEmail", email);
   localStorage.setItem("currentHospitalPassword", password);
 }
-
 
 function registerUser() {
   localStorage.removeItem("ambulanceID");
@@ -161,7 +160,7 @@ function registerUser() {
           if (error) {
             alert("Data could not be saved." + error);
           } else {
-            window.location.href = "../Test Frontend/page1.html";
+            window.location.href = "../HTML/page1.html";
             alert("Data saved successfully.");
           }
         });
@@ -206,7 +205,7 @@ function hformSubmit() {
         if (checkbox.checked == true) {
           hospitalAddRememberDataCache(username, password);
         }
-        window.location.href = "../Test Frontend/Hospital_map_view.html";
+        window.location.href = "../HTML/Hospital_map_view.html";
 
         addCacheHospitalData(user.uid);
       }
@@ -215,7 +214,7 @@ function hformSubmit() {
       var errorMessage = error.message;
       if (errorMessage != "google is not defined")
         window.alert("Not able to log in. Check the Credentials!");
-      console.log(error)
+      console.log(error);
       //window.alert(errorMessage);
     });
 }
@@ -310,7 +309,7 @@ function registerHospital() {
           if (error) {
             alert("Data could not be saved." + error);
           } else {
-            window.location.href = "../Test Frontend/Hospital_login.html";
+            window.location.href = "../HTML/Hospital_login.html";
             alert("Data saved successfully.");
           }
         });
@@ -429,7 +428,7 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 async function add_human_marker(user_lat, user_lng, map) {
   // Human icon extraction
   var human_icon = {
-    url: "assets/human.png", // url
+    url: "../assets/human.png", // url
     // url: "assets/ambulance_ptv.png", // url
     // url: "assets/ambulance_icu.png", // url
     scaledSize: new google.maps.Size(40, 45), // scaled size
@@ -503,7 +502,7 @@ function add_ambulances(ambulances, user_lat, user_lng, map) {
   user_lat_lng = { lat: user_lat - 0.001, lng: user_lng + 0.001 };
 
   var icon_super_fast = {
-    url: "assets/ambulance_super_fast.png", // url
+    url: "../assets/ambulance_super_fast.png", // url
     // url: "assets/ambulance_ptv.png", // url
     // url: "assets/ambulance_icu.png", // url
     scaledSize: new google.maps.Size(40, 40), // scaled size
@@ -512,7 +511,7 @@ function add_ambulances(ambulances, user_lat, user_lng, map) {
   };
 
   var icon_icu = {
-    url: "assets/ambulance_icu.png", // url
+    url: "../assets/ambulance_icu.png", // url
     // url: "assets/ambulance_ptv.png", // url
     // url: "assets/ambulance_icu.png", // url
     scaledSize: new google.maps.Size(40, 40), // scaled size
@@ -521,7 +520,7 @@ function add_ambulances(ambulances, user_lat, user_lng, map) {
   };
 
   var icon_ptv = {
-    url: "assets/ambulance_ptv.png", // url
+    url: "../assets/ambulance_ptv.png", // url
     // url: "assets/ambulance_ptv.png", // url
     // url: "assets/ambulance_icu.png", // url
     scaledSize: new google.maps.Size(40, 40), // scaled size
@@ -530,7 +529,7 @@ function add_ambulances(ambulances, user_lat, user_lng, map) {
   };
 
   var icon_free = {
-    url: "assets/ambulance_free.png", // url
+    url: "../assets/ambulance_free.png", // url
     // url: "assets/ambulance_ptv.png", // url
     // url: "assets/ambulance_icu.png", // url
     scaledSize: new google.maps.Size(35, 25), // scaled size
@@ -586,7 +585,11 @@ function add_ambulances(ambulances, user_lat, user_lng, map) {
 
         driver = document.createElement("h7");
         driver.innerHTML =
-          marker_data.driver_name + ": " + marker_data.driver_contact + "<br>Ambulance ID: " + marker.id;
+          marker_data.driver_name +
+          ": " +
+          marker_data.driver_contact +
+          "<br>Ambulance ID: " +
+          marker.id;
         driver.id = "driverDetails" + marker.id;
 
         newLine = document.createElement("br");
@@ -837,10 +840,10 @@ function haversine_distance(mk1, mk2) {
     Math.asin(
       Math.sqrt(
         Math.sin(difflat / 2) * Math.sin(difflat / 2) +
-        Math.cos(rlat1) *
-        Math.cos(rlat2) *
-        Math.sin(difflon / 2) *
-        Math.sin(difflon / 2)
+          Math.cos(rlat1) *
+            Math.cos(rlat2) *
+            Math.sin(difflon / 2) *
+            Math.sin(difflon / 2)
       )
     );
   return d;
@@ -850,7 +853,7 @@ function haversine_distance(mk1, mk2) {
 
 function makeBooking(markerId) {
   addCacheAmbulanceID(markerId);
-  window.location.href = "../Test Frontend/page4_user_booking.html";
+  window.location.href = "../HTML/page4_user_booking.html";
 }
 
 //FOR DEALING WITH CACHE IN FUTURE PART, CHECKBOX PE CLICK KARNE KE BAAD KE LIE

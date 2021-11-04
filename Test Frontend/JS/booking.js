@@ -58,7 +58,7 @@ function initMap() {
 async function add_human_marker(user_lat, user_lng, map) {
   // Human icon extraction
   var human_icon = {
-    url: "assets/human.png", // url
+    url: "../assets/human.png", // url
     // url: "assets/ambulance_ptv.png", // url
     // url: "assets/ambulance_icu.png", // url
     scaledSize: new google.maps.Size(40, 45), // scaled size
@@ -115,7 +115,7 @@ function add_ambulances(ambulanceData, user_lat, user_lng, map) {
   user_lat_lng = { lat: user_lat - 0.001, lng: user_lng + 0.001 };
 
   var icon_super_fast = {
-    url: "assets/ambulance_super_fast.png", // url
+    url: "../assets/ambulance_super_fast.png", // url
     // url: "assets/ambulance_ptv.png", // url
     // url: "assets/ambulance_icu.png", // url
     scaledSize: new google.maps.Size(40, 40), // scaled size
@@ -124,7 +124,7 @@ function add_ambulances(ambulanceData, user_lat, user_lng, map) {
   };
 
   var icon_icu = {
-    url: "assets/ambulance_icu.png", // url
+    url: "../assets/ambulance_icu.png", // url
     // url: "assets/ambulance_ptv.png", // url
     // url: "assets/ambulance_icu.png", // url
     scaledSize: new google.maps.Size(40, 40), // scaled size
@@ -133,7 +133,7 @@ function add_ambulances(ambulanceData, user_lat, user_lng, map) {
   };
 
   var icon_ptv = {
-    url: "assets/ambulance_ptv.png", // url
+    url: "../assets/ambulance_ptv.png", // url
     // url: "assets/ambulance_ptv.png", // url
     // url: "assets/ambulance_icu.png", // url
     scaledSize: new google.maps.Size(40, 40), // scaled size
@@ -142,7 +142,7 @@ function add_ambulances(ambulanceData, user_lat, user_lng, map) {
   };
 
   var icon_free = {
-    url: "assets/ambulance_free.png", // url
+    url: "../assets/ambulance_free.png", // url
     // url: "assets/ambulance_ptv.png", // url
     // url: "assets/ambulance_icu.png", // url
     scaledSize: new google.maps.Size(35, 25), // scaled size

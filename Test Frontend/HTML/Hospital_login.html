@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>User Login</title>
+	<title>Hospital Login</title>
 	<!-- <script src = "index_firebase.js"></script> -->
 	<script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app-compat.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-firestore-compat.js"></script>
@@ -16,7 +16,7 @@
 			appId: "1:42452640257:web:642cec53e7bec0408ad600",
 			measurementId: "G-FBPSVBQ638",});
 	</script>
-	<script src = "index_function.js"></script>
+	<script src = "../JS/index_function.js"></script>
 	<!--Bootsrap 4 CDN-->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     
@@ -24,10 +24,9 @@
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
 	<!--Custom styles-->
-	<link rel="stylesheet" type="text/css" href="styles.css">
-
+	<link rel="stylesheet" type="text/css" href="../styles.css">
 </head>
-<body background="ambulance.png" onload="javascript:getUserData()">
+<body background="../assets/ambulance.png">
 	<script type="module">
 	
 
@@ -39,44 +38,20 @@
 
 	</script>
 
-<script>
-	function myFunction() {
-	  var counter = localStorage.getItem('Logout');
-		console.log("hey");
-	  if(counter!=null){
-		console.log("hey1");
-		  return counter;
-	  }else{
-		console.log("hey2");
-		  return 0;
-	  }
-	}
-
-	var check = window.myFunction(10, 2); 
-	if(check==1){
-		console.log("hey3");
-      history.pushState(null, null, null);
-      window.addEventListener("popstate", function () {
-        history.pushState(null, null, null);
-      });
-	}
-	</script>
-
-
 <ul>
-	<li><a href="../Test Frontend/page0_home.html" target="_blank">Back</a></li>
-	<li style="float:right"><a href="../Test Frontend/contactUs.html" target="_blank">Contact Us</a></li>
-	<li style="float:right"><a href="../Test Frontend/aboutUs.html" target="_blank">About</a></li>
+	<li><a href="../HTML/page0_home.html" target="_blank">Back</a></li>
+	<li style="float:right"><a href="../HTML/contactUs.html" target="_blank">Contact Us</a></li>
+	<li style="float:right"><a href="../HTML/aboutUs.html" target="_blank">About</a></li>
   </ul>
 
-<div class="container">
+<div class="container" onload="javascript:getHospitalData()">
 	<div class="d-flex justify-content-center h-100">
 		<div class= "title-of-page">
 			<h1></h1>
 		</div>
 		<div class="card">
 			<div class="card-header">
-				<h3>User Login
+				<h3>Hospital Login
 				</h3>
 			
 			</div>
@@ -86,19 +61,19 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-user"></i></span>
 						</div>
-						<input type="text" class="form-control" placeholder="Email ID" id="username">
+						<input type="text" class="form-control" placeholder="Hospital ID" id="husername">
 					</div>
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-key"></i></span>
 						</div>
-						<input type="password" class="form-control" placeholder="password" id="password">
+						<input type="password" class="form-control" placeholder="password" id="hpassword">
 					</div>
 					<div class="row align-items-center remember">
 						<input type="checkbox" id="rememberMe">Remember Me
 					</div>
 					<div class="form-group">
-						<input type="submit" value="Login" onclick="formSubmit()"	class="btn float-right login_btn" id="submitButton">
+						<input type="submit" value="Login" onclick="hformSubmit()"	class="btn float-right login_btn" id="hsubmitButton">
 
 						</input>
 					</div>
@@ -106,7 +81,7 @@
 			</div>
 			<div class="card-footer">
 				<div class="d-flex justify-content-center">
-					<a href="page2_sign_up.html">Sign Up!</a>
+					<a href="../HTML/Hospital_sign_up.html">Sign Up!</a>
 				</div>
 				<div class="d-flex justify-content-center">
 					<a href="#">Forgot your password?</a>
@@ -116,7 +91,7 @@
 	</div>
 </div>
 
-
+ 
 <div class="footer">
 	<div class="footer-text">
 			<p>MOLA: My Online Local Ambulance</p>

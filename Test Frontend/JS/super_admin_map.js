@@ -65,7 +65,7 @@ function addOnMap(map) {
 function add_ambulances(ambulances, map) {
 
     var icon_super_fast = {
-        url: "assets/ambulance_super_fast.png", // url
+        url: "../assets/ambulance_super_fast.png", // url
         // url: "assets/ambulance_ptv.png", // url
         // url: "assets/ambulance_icu.png", // url
         scaledSize: new google.maps.Size(40, 40), // scaled size
@@ -74,7 +74,7 @@ function add_ambulances(ambulances, map) {
     };
 
     var icon_icu = {
-        url: "assets/ambulance_icu.png", // url
+        url: "../assets/ambulance_icu.png", // url
         // url: "assets/ambulance_ptv.png", // url
         // url: "assets/ambulance_icu.png", // url
         scaledSize: new google.maps.Size(40, 40), // scaled size
@@ -83,7 +83,7 @@ function add_ambulances(ambulances, map) {
     };
 
     var icon_ptv = {
-        url: "assets/ambulance_ptv.png", // url
+        url: "../assets/ambulance_ptv.png", // url
         // url: "assets/ambulance_ptv.png", // url
         // url: "assets/ambulance_icu.png", // url
         scaledSize: new google.maps.Size(40, 40), // scaled size
@@ -92,7 +92,7 @@ function add_ambulances(ambulances, map) {
     };
 
     var icon_free = {
-        url: "assets/ambulance_free.png", // url
+        url: "../assets/ambulance_free.png", // url
         // url: "assets/ambulance_ptv.png", // url
         // url: "assets/ambulance_icu.png", // url
         scaledSize: new google.maps.Size(35, 25), // scaled size

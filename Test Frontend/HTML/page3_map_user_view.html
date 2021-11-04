@@ -1,18 +1,10 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <title>User Map View</title>
 
-<head>
-  <title>User Book Ambulance</title>
+    <!--Bootsrap 4 CDN-->
 
-  <!--Bootsrap 4 CDN-->
-
-    <script src="booking.js"></script>
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-      crossorigin="anonymous"
-    />
     <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-auth-compat.js"></script>
@@ -30,6 +22,20 @@
       });
     </script>
 
+    <script>
+      history.pushState(null, null, null);
+      window.addEventListener("popstate", function () {
+        history.pushState(null, null, null);
+      });
+    </script>
+
+    <script src="../JS/index_function.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+      crossorigin="anonymous"
+    />
 
     <!--Fontawesome CDN-->
     <link
@@ -40,22 +46,24 @@
     />
 
     <!--Custom styles-->
-    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <link rel="stylesheet" type="text/css" href="../styles.css" />
   </head>
-  <body background="ambulance.png">
+  <body background="../assets/ambulance.png">
     <ul>
       <li style="float: right">
-        <a href="../Test Frontend/contactUs.html" target="_blank">Contact Us</a>
+        <a href="../HTML/contactUs.html" target="_blank"
+          >Contact Us</a
+        >
       </li>
       <li style="float: right">
-        <a href="../Test Frontend/aboutUs.html" target="_blank">About</a>
+        <a href="../HTML/aboutUs.html" target="_blank">About</a>
       </li>
       <li style="float: right">
-        <a href="../Test Frontend/page5_your_rides.html">Your Rides</a>
+        <a href="../HTML/page5_your_rides.html">Your Rides</a>
       </li>
       <li style="float: right">
         <a
-          href="../Test Frontend/page1.html"
+          href="../HTML/page1.html"
           onclick="logoutCache()"
           target="_blank"
           >Logout</a
@@ -63,9 +71,9 @@
       </li>
     </ul>
     <div class="user_map_container">
-      <div class="user-map-heading">
+      <div class="user-map-heading-booking">
         <div class="user-heading-text">
-          <h1>User Booking</h1>
+          <h1>User Map View</h1>
         </div>
       </div>
       <div class="d-flex justify-content-center h-100">
@@ -75,12 +83,17 @@
               <div class="input-group-prepend"></div>
             </div>
           </form>
-          <h3>Booking Details:</h3>
+          <h3>Resuts are:</h3>
           <div class="scrollable">
-            <p class="card-text" id="bookingDetails"></p>
+            <p class="card-text" id="ambulanceList"></p>
+            <div class="form-group">
+              <button class="btn float-right login_btn" id="bookNow">
+                Book Now
+              </button>
+            </div>
           </div>
         </card>
-        <div id="liveMap"></div>
+        <div id="map"></div>
       </div>
     </div>
     <script

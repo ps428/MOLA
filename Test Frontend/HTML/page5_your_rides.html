@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Hospital Map View</title>
+    <title>Your Rides</title>
 
     <!--Bootsrap 4 CDN-->
 
@@ -22,14 +22,7 @@
       });
     </script>
 
-    <script>
-      history.pushState(null, null, null);
-      window.addEventListener("popstate", function () {
-        history.pushState(null, null, null);
-      });
-    </script>
-
-    <script src="hospitalMap.js"></script>
+    <script src="../JS/index_function.js"></script>
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
@@ -46,29 +39,16 @@
     />
 
     <!--Custom styles-->
-    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <link rel="stylesheet" type="text/css" href="../styles.css" />
   </head>
-  <body background="ambulance.png">
-    <ul>
-      <li style="float: right">
-        <a href="../Test Frontend/contactUs.html" target="_blank" href='../Test Frontend/contactUs.html'>Contact Us</a>
-      </li>
-      <li style="float: right">
-        <a href="../Test Frontend/aboutUs.html" target="_blank" href='../Test Frontend/aboutUs.html'>About</a>
-      </li>
-      <li style="float: right">
-        <a
-          href="../Test Frontend/Hospital_login.html"
-          onclick="logoutCache()"
-          target="_blank"
-          >Logout</a
-        >
-      </li>
-    </ul>
+  <body
+    background="../assets/ambulance.png"
+    onload="javascript:generate_your_rides()"
+  >
     <div class="user_map_container">
       <div class="user-map-heading-booking">
         <div class="user-heading-text">
-          <h1>Hospital Map View</h1>
+          <h1>Your Rides</h1>
         </div>
       </div>
       <div class="d-flex justify-content-center h-100">
@@ -78,23 +58,14 @@
               <div class="input-group-prepend"></div>
             </div>
           </form>
-          <h3>Resuts are:</h3>
           <div class="scrollable">
-            <p class="card-text" id="ambulanceList"></p>
-            <div class="form-group">
-              <button class="btn float-right login_btn" id="bookNow">
-                Book Now
-              </button>
-            </div>
+            <p class="bookcard-text" id="Your Rides"></p>
+
+            <div class="form-group"></div>
           </div>
         </card>
-        <div id="map"></div>
       </div>
     </div>
-    <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC5DhDiQCZmUAyW8yvr-bjJWxTgML6FJAM&callback=initMap&libraries=&v=weekly&channel=2"
-      async
-    ></script>
     <div class="footer">
       <div class="footer-text">
         <p>MOLA: My Online Local Ambulance</p>
