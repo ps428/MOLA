@@ -165,7 +165,7 @@ input:focus {
   border: 1px solid #800000;
   border-radius: 0.5cm;
   padding: 10px;
-  text-align: center;
+  /* text-align: center; */
 }
 
 .bookcard-text {

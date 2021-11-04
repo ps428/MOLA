@@ -63,6 +63,12 @@ function addRememberDataCache(email, password) {
   localStorage.setItem("currentUserPassword", password);
 }
 
+function hospitalAddRememberDataCache(email, password) {
+  localStorage.setItem("currentHospitalEmail", email);
+  localStorage.setItem("currentHospitalPassword", password);
+}
+
+
 function registerUser() {
   localStorage.removeItem("ambulanceID");
   let Fname = document.querySelector("#FName").value;
@@ -178,7 +184,7 @@ function hformSubmit() {
   // Get Values from the DOM
   var password = document.querySelector("#hpassword").value;
   var username = document.querySelector("#husername").value;
-  //window.alert("message: " + password + " " + username);
+  // window.alert("message: " + password + " " + username);
 
   //send message values
   // here username corresponds to email id of the user
@@ -194,35 +200,35 @@ function hformSubmit() {
         window.alert("Kindly confirm your e-mail.");
       } else {
         var checkbox = document.getElementById("rememberMe");
-        localStorage.removeItem("currentHUserEmail");
-        localStorage.removeItem("currentHUserPassword");
+        // localStorage.removeItem("currentHospitalEmail");
+        // localStorage.removeItem("currentHospitalPassword");
         console.log(checkbox.checked);
         if (checkbox.checked == true) {
-          addRememberDataCache(username, password);
+          hospitalAddRememberDataCache(username, password);
         }
-        window.location.href = "../Test Frontend/page3_map_user_view.html";
+        window.location.href = "../Test Frontend/Hospital_map_view.html";
 
-        addCacheUserData(user.uid);
-        initMap(user);
+        addCacheHospitalData(user.uid);
       }
     })
     .catch((error) => {
       var errorMessage = error.message;
       if (errorMessage != "google is not defined")
         window.alert("Not able to log in. Check the Credentials!");
+      console.log(error)
       //window.alert(errorMessage);
     });
 }
 
 function getHospitalData() {
-  const user = localStorage.getItem("currentHUserEmail");
+  const user = localStorage.getItem("currentHospitalEmail");
   var checkbox = document.getElementById("rememberMe");
   if (user != null) {
     var usernameField = document.getElementById("husername");
     var passwordField = document.getElementById("hpassword");
 
     usernameField.value = user;
-    passwordField.value = localStorage.getItem("currentHUserPassword");
+    passwordField.value = localStorage.getItem("currentHospitalPassword");
 
     checkbox.checked = true;
   }
@@ -580,7 +586,7 @@ function add_ambulances(ambulances, user_lat, user_lng, map) {
 
         driver = document.createElement("h7");
         driver.innerHTML =
-          marker_data.driver_name + ": " + marker_data.driver_contact;
+          marker_data.driver_name + ": " + marker_data.driver_contact + "<br>Ambulance ID: " + marker.id;
         driver.id = "driverDetails" + marker.id;
 
         newLine = document.createElement("br");
@@ -751,9 +757,9 @@ function bookNowWindow(marker_data, user_lat_lng, map, markerId) {
   ambulance_lat_lng = { lat: lat - 0.001, lng: lng + 0.001 };
   distance = haversine_distance(user_lat_lng, ambulance_lat_lng);
 
-  cost = parseInt(1000) + parseFloat((distance * 200).toFixed(2));
+  cost = (parseInt(1000) + parseFloat((distance * 200).toFixed(2))).toFixed(2);
   ETAMinutes = parseInt(
-    parseInt(5) + (parseFloat((distance * 10).toFixed(2)) % 60)
+    parseInt(5) + (parseFloat((distance * 10).toFixed(2)) % 55)
   );
   ETASeconds = parseInt(parseFloat((distance * 60).toFixed(2)) % 60);
 
@@ -792,7 +798,7 @@ function generate_path(map, myLatLng1, myLatLng2) {
     strokeWeight: 2,
   });
 
-  addLine(pathBetween, map);
+  // addLine(pathBetween, map);
   // setTimeout(
   //   ()=>removeLine(pathBetween, map), 5000
   // )
@@ -831,10 +837,10 @@ function haversine_distance(mk1, mk2) {
     Math.asin(
       Math.sqrt(
         Math.sin(difflat / 2) * Math.sin(difflat / 2) +
-          Math.cos(rlat1) *
-            Math.cos(rlat2) *
-            Math.sin(difflon / 2) *
-            Math.sin(difflon / 2)
+        Math.cos(rlat1) *
+        Math.cos(rlat2) *
+        Math.sin(difflon / 2) *
+        Math.sin(difflon / 2)
       )
     );
   return d;
@@ -855,6 +861,9 @@ function addCacheAmbulanceID(ambulanceID) {
   //   let myName = localStorage.getItem('ambulanceID');
   //   console.log(myName)
   // }, 1000)
+}
+function addCacheHospitalData(userData) {
+  localStorage.setItem("hospitalID", userData);
 }
 
 function addCacheUserData(userData) {
