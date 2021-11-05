@@ -44,6 +44,25 @@ function formSubmit() {
     });
 }
 
+function resetPassword() {
+  var emailID = document.querySelector("#resetPasswordEmail").value;
+  console.log(emailID);
+  firebase
+    .auth()
+    .sendPasswordResetEmail(emailID)
+    .then(() => {
+      window.alert("Reset Password Email Sent!");
+      window.location.href = "../HTML/page0.html";
+      // Password reset email sent!
+      // ..
+    })
+    .catch((error) => {
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      // ..
+    });
+}
+
 function getUserData() {
   const user = localStorage.getItem("currentUserEmail");
   var checkbox = document.getElementById("rememberMe");
@@ -140,19 +159,6 @@ function registerUser() {
         mail: mail,
       };
 
-      user
-        .updateProfile({
-          displayName: name,
-        })
-        .then(() => {
-          // Update successful
-          // ...
-        })
-        .catch((error) => {
-          // An error occurred
-          // ...
-        });
-
       firebase
         .database()
         .ref("user/" + user.uid)
@@ -176,10 +182,6 @@ function registerUser() {
 
 function logoutCache() {
   localStorage.setItem("Logout", 1);
-}
-
-function hlogoutCache() {
-  localStorage.setItem("hLogout", 1);
 }
 
 function hformSubmit() {
