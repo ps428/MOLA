@@ -6,12 +6,12 @@ function initMap(user_id) {
   });
 
   var map = new google.maps.Map(document.getElementById("map"), {
-    zoom: 5,
+    zoom: 4,
     // center: new google.maps.LatLng(26.2195, 72.94225),
   });
 
-  var user_lat = 27.0;
-  var user_lng = 77.0;
+  var user_lat = 24.0;
+  var user_lng = 79.0;
 
   var pos = {
     lng: user_lng,
@@ -159,7 +159,7 @@ function add_ambulances(ambulances, map) {
         title.innerHTML = marker_data.title;
 
         description = document.createElement("h6");
-        description.innerHTML = "Ambulance ID: "+i;
+        description.innerHTML = "Ambulance ID: "+marker.id;
 
         driver = document.createElement("h7");
         driver.innerHTML =
@@ -181,6 +181,8 @@ function add_ambulances(ambulances, map) {
       });
     })(marker, marker_data);
   }
+
+  
 }
 
 function logoutCache() {

@@ -33,7 +33,7 @@ function formSubmit() {
           addRememberDataCache(username, password);
         }
         localStorage.removeItem("Logout");
-        //window.location.href = "../HTML/page3_map_user_view.html";
+        window.location.href = "../HTML/page3_map_user_view.html";
 
         addCacheUserData(user.uid);
         initMap(user);
@@ -578,9 +578,8 @@ function add_ambulances(ambulances, user_lat, user_lng, map) {
 
   // Adding Ambulances on map
 
-  console.log(ambulances, "-----");
+  // console.log(ambulances, "-----");
   let pathBetween = null;
-
   for (i = 1; i <= ambulances.length; i++) {
     marker_data = ambulances[i - 1];
 
