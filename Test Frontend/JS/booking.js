@@ -10,7 +10,7 @@ function initMap() {
   });
 
   var map = new google.maps.Map(document.getElementById("liveMap"), {
-    zoom: 15,
+    zoom: 14,
     // center: new google.maps.LatLng(26.2195, 72.94225),
   });
 
@@ -158,10 +158,10 @@ function add_ambulances(ambulanceData, user_lat, user_lng, map) {
 
   marker_data = ambulanceData;
 
-  user_lat_lng = { lat: user_lat - 0.001, lng: user_lng + 0.001 };
+  user_lat_lng = { lat: user_lat - 0.0015, lng: user_lng + 0.0017 };
   ambulance_lat_lng = {
-    lat: marker_data.lat - 0.001,
-    lng: marker_data.lng + 0.001,
+    lat: marker_data.lat - 0.0015,
+    lng: marker_data.lng + 0.0015,
   };
 
   generate_path(map, user_lat_lng, ambulance_lat_lng);
@@ -267,10 +267,10 @@ function generate_path(map, myLatLng1, myLatLng2) {
     path: [myLatLng1, myLatLng2],
     strokeColor: "#FF0000",
     strokeOpacity: 1.0,
-    strokeWeight: 2,
+    strokeWeight: 5,
   });
 
-  // addLine(pathBetween, map);
+  addLine(pathBetween, map);
   // setTimeout(
   //   ()=>removeLine(pathBetween, map), 5000
   // )

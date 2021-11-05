@@ -102,11 +102,12 @@ input:focus {
 }
 
 #map {
-  height: 440px;
+  height: 400px;
   /* The height is 400 pixels */
   width: 65%;
   /* The width is the width of the web page */
   margin-top: 1.5%;
+  margin-left: 24%;
   margin-right: 2%;
   border-radius: 0.5cm;
   border-width: 2cm;
@@ -116,10 +117,11 @@ input:focus {
 }
 
 #liveMap {
-  height: 500px;
+  height: 400px;
   /* The height is 400 pixels */
   width: 65%;
   /* The width is the width of the web page */
+  margin-left: 2%;
   margin-top: 1.5%;
   margin-right: 2%;
   border-radius: 0.5cm;
@@ -135,8 +137,8 @@ input:focus {
   border-radius: 0.35cm;
   text-align: justify;
   padding: 1%;
-  margin-left: 4%;
-  margin-right: 2%;
+  margin-left: 2%;
+  margin-right: 0.5%;
   text-justify: auto;
   margin-bottom: auto;
   width: auto;
@@ -315,7 +317,7 @@ li a:hover {
 .About-us {
   align-items: center;
   height: auto;
-  margin-top: 8%;
+  margin-top: 5%;
   margin-bottom: auto;
   margin-left: 28%;
   margin-right: 28%;
@@ -329,4 +331,36 @@ li a:hover {
   padding: 20px;
   padding-left: 10px;
   padding-right: 10px;
+}
+
+.contact_us {
+  height: 220px;
+  margin-top: 3.5%;
+  border-radius: 0.35cm;
+  text-align: justify;
+  padding: 1%;
+  margin-left: 4%;
+  margin-right: 2%;
+  text-justify: auto;
+  margin-bottom: auto;
+  width: 400px;
+  background-color: rgba(255, 255, 255, 0.5) !important;
+  -webkit-box-shadow: 3px 7px 6px 2px #000000;
+  box-shadow: 3px 7px 6px 2px #000000;
+}
+
+
+
+.contact_us_booking {
+  background-color: rgba(182, 225, 228, 0.5) !important;
+  font-family: "Lora", serif;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 2.5%;
+  height: 60px;
+  width: fit-content;
+  text-align: center;
+  padding: 20px;
+  padding-top: 8px;
+  border-radius: 0.25cm;
 }
