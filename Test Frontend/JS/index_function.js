@@ -178,6 +178,10 @@ function logoutCache() {
   localStorage.setItem("Logout", 1);
 }
 
+function hlogoutCache() {
+  localStorage.setItem("hLogout", 1);
+}
+
 function hformSubmit() {
   //console.log("hello");
   // Get Values from the DOM
@@ -198,13 +202,14 @@ function hformSubmit() {
       if (user.emailVerified == false) {
         window.alert("Kindly confirm your e-mail.");
       } else {
-        var checkbox = document.getElementById("rememberMe");
-        // localStorage.removeItem("currentHospitalEmail");
-        // localStorage.removeItem("currentHospitalPassword");
+        var checkbox = document.getElementById("hrememberMe");
+        localStorage.removeItem("currentHospitalEmail");
+        localStorage.removeItem("currentHospitalPassword");
         console.log(checkbox.checked);
         if (checkbox.checked == true) {
           hospitalAddRememberDataCache(username, password);
         }
+        localStorage.removeItem("hLogout");
         window.location.href = "../HTML/Hospital_map_view.html";
 
         addCacheHospitalData(user.uid);
@@ -220,8 +225,13 @@ function hformSubmit() {
 }
 
 function getHospitalData() {
+  const counter = localStorage.getItem("hLogout");
+  if (counter == 1) {
+    window.alert("Thank you for visiting!");
+  }
   const user = localStorage.getItem("currentHospitalEmail");
-  var checkbox = document.getElementById("rememberMe");
+  console.log();
+  var checkbox = document.getElementById("hrememberMe");
   if (user != null) {
     var usernameField = document.getElementById("husername");
     var passwordField = document.getElementById("hpassword");
@@ -234,15 +244,14 @@ function getHospitalData() {
 }
 
 function registerHospital() {
-  let Fname = document.querySelector("#hFName").value;
-  let Lname = document.querySelector("#hLName").value;
+  let Hname = document.querySelector("#hName").value;
   let username = document.querySelector("#husername").value;
   let password = document.querySelector("#hpassword").value;
   let cPassword = document.querySelector("#hconfirmPassword").value;
   let mobileNumber = document.querySelector("#hmobileNumber").value;
   let mail = document.querySelector("#hmail").value;
 
-  let name = Fname + " " + Lname;
+  let name = Hname;
 
   if (
     validateField(name) == false ||
@@ -291,8 +300,8 @@ function registerHospital() {
           window.alert("Verification has been sent to your email!");
         })
         .catch(function (error) {
-          console.log(error);
-          window.alert("Some error!");
+          //console.log(error);
+          window.alert("Verification has been sent to your email!");
         });
 
       var user_data = {
@@ -589,7 +598,8 @@ function add_ambulances(ambulances, user_lat, user_lng, map) {
           ": " +
           marker_data.driver_contact +
           "<br>Ambulance ID: " +
-          marker.id +"<br>";
+          marker.id +
+          "<br>";
         driver.id = "driverDetails" + marker.id;
 
         newLine = document.createElement("br");
@@ -614,7 +624,7 @@ function add_ambulances(ambulances, user_lat, user_lng, map) {
         checkButton.className = "btn float-right login_btn";
 
         infoPane.appendChild(title);
-        infoPane.appendChild(description);
+        //infoPane.appendChild(description);
         infoPane.appendChild(driver);
         infoPane.appendChild(newLine);
         infoPane.appendChild(newLine);
@@ -665,7 +675,7 @@ function getServiceProviders() {
       }
       //data += rides[i].userID + "<br><br>";
 
-      document.getElementById("Our Service Provider").innerHTML = data;
+      document.getElementById("Our Partners").innerHTML = data;
     }
   });
 }
@@ -715,7 +725,7 @@ function generate_your_rides() {
               data += "<h4><b>" + ambName + "</b></h4>";
               data += "<b>Time: </b>" + rides[i].ETA + "<br>";
               ///data += rides[i].ambulanceID + "<br>";
-              data += "<b>Distance: </b>" + rides[i].distance + "<br>";
+              data += "<b>Distance: </b>" + rides[i].distance + " km<br>";
               data += "<b>Cost: Rs. </b>" + rides[i].cost + "<br>";
               if (i != rides.length - 1) {
                 data += "<br>";
