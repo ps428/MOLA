@@ -404,7 +404,7 @@ function initMap(user_id) {
   });
 
   var map = new google.maps.Map(document.getElementById("map"), {
-    zoom: 15,
+    zoom: 14,
     // center: new google.maps.LatLng(26.2195, 72.94225),
   });
 
