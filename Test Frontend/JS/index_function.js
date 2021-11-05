@@ -589,7 +589,7 @@ function add_ambulances(ambulances, user_lat, user_lng, map) {
           ": " +
           marker_data.driver_contact +
           "<br>Ambulance ID: " +
-          marker.id;
+          marker.id +"<br>";
         driver.id = "driverDetails" + marker.id;
 
         newLine = document.createElement("br");

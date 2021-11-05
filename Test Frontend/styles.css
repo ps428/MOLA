@@ -130,16 +130,13 @@ input:focus {
 }
 
 .user_intro {
-  height: 370px;
+  height: auto;
   margin-top: 1.5%;
   border-radius: 0.35cm;
   text-align: justify;
   padding: 1%;
   text-justify: auto;
   margin-bottom: auto;
-  margin-right: 2%;
-  margin-left: 2%;
-  right: 0px;
   width: auto;
   background-color: rgba(255, 255, 255, 0.5) !important;
   -webkit-box-shadow: 3px 7px 6px 2px #000000;
@@ -177,7 +174,7 @@ input:focus {
 
 .user_head {
   color: #721e1e;
-  margin-left: 37%;
+  margin-left: auto;
   margin-top: 1%;
 }
 
@@ -222,11 +219,11 @@ input:focus {
 .user-map-heading {
   background-color: rgba(182, 225, 228, 0.5) !important;
   font-family: "Lora", serif;
-  margin-left: 37%;
-  margin-right: 37%;
+  margin-left: auto;
+  margin-right: auto;
   margin-top: 0.7%;
   height: 60px;
-  width: 450px;
+  width: auto;
   text-align: center;
   padding: 4px;
   border-radius: 0.25cm;
@@ -235,13 +232,14 @@ input:focus {
 .user-map-heading-booking {
   background-color: rgba(182, 225, 228, 0.5) !important;
   font-family: "Lora", serif;
-  margin-left: 37%;
-  margin-right: 37%;
+  margin-left: auto;
+  margin-right: auto;
   margin-top: 0.7%;
   height: 60px;
-  width: 530px;
+  width: fit-content;
   text-align: center;
-  padding: 4px;
+  padding: 20px;
+  padding-top: 8px;
   border-radius: 0.25cm;
 }
 

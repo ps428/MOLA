@@ -21,7 +21,7 @@ lats = [28.4127, 29.3075, 28.4863]
 lngs = [77.3134, 78.5080, 77.5146]
 
 
-for (i = 28; i <= 50; i++) {
+for (i = 0; i <= 50; i++) {
     pos_icon = parseInt((Math.random()*5))
     hospital_pos = parseInt((Math.random()*4))
     pos_lat_lng = parseInt((Math.random()*4))
@@ -42,13 +42,6 @@ for (i = 28; i <= 50; i++) {
     
 
     ref = firebase.database().ref("ambulances/" + i).update({
-        title:hospitals[hospital_pos],
-        lat: lats[pos_lat_lng] + var_lat,
-        lng : lngs[pos_lat_lng] + var_lng,
-        hospital: hospitals[hospital_pos],
-        icon: 'icon_' + icons[pos_icon],
-        status: 'available',
-        type : icons[pos_icon],
         driver_name: "Mr. Driver",
         driver_contact: 1010101010,
         description: "Available Ambulance"
