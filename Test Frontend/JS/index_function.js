@@ -18,6 +18,9 @@ function formSubmit() {
       // Map passing user credentials
 
       const user = firebase.auth().currentUser;
+
+      console.log(user.email);
+      console.log(user.displayName);
       if (user.emailVerified == false) {
         window.alert("Kindly confirm your e-mail.");
       } else {
@@ -30,7 +33,7 @@ function formSubmit() {
           addRememberDataCache(username, password);
         }
         localStorage.removeItem("Logout");
-        window.location.href = "../HTML/page3_map_user_view.html";
+        //window.location.href = "../HTML/page3_map_user_view.html";
 
         addCacheUserData(user.uid);
         initMap(user);
@@ -139,39 +142,48 @@ function registerUser() {
     .then((userCredential) => {
       // Signed in
       const user = firebase.auth().currentUser;
-
-      console.log(user.displayName);
-
       user
-        .sendEmailVerification()
-        .then(function () {
-          window.alert("Verification has been sent to your email!");
+        .updateProfile({
+          displayName: name,
         })
-        .catch(function (error) {
-          console.log(error);
-          window.alert("Some error!");
+        .then(() => {
+          // Update successful
+          // ...
+          user
+            .sendEmailVerification()
+            .then(function () {
+              window.alert("Verification has been sent to your email!");
+            })
+            .catch(function (error) {
+              console.log(error);
+              window.alert("Verification has been sent to your email!");
+            });
+
+          var user_data = {
+            name: name,
+            username: username,
+            mobileNumber: mobileNumber,
+            mail: mail,
+          };
+
+          firebase
+            .database()
+            .ref("user/" + user.uid)
+            .set(user_data, function (error) {
+              if (error) {
+                alert("Data could not be saved." + error);
+              } else {
+                window.location.href = "../HTML/page1.html";
+                alert("Data saved successfully.");
+              }
+            });
+
+          window.alert("User Created");
+        })
+        .catch((error) => {
+          // An error occurred
+          // ...
         });
-
-      var user_data = {
-        name: name,
-        username: username,
-        mobileNumber: mobileNumber,
-        mail: mail,
-      };
-
-      firebase
-        .database()
-        .ref("user/" + user.uid)
-        .set(user_data, function (error) {
-          if (error) {
-            alert("Data could not be saved." + error);
-          } else {
-            window.location.href = "../HTML/page1.html";
-            alert("Data saved successfully.");
-          }
-        });
-
-      window.alert("User Created");
     })
     .catch((error) => {
       var errorMessage = error.message;
@@ -297,35 +309,45 @@ function registerHospital() {
       const user = firebase.auth().currentUser;
 
       user
-        .sendEmailVerification()
-        .then(function () {
-          window.alert("Verification has been sent to your email!");
+        .updateProfile({
+          displayName: name,
         })
-        .catch(function (error) {
-          //console.log(error);
-          window.alert("Verification has been sent to your email!");
+        .then(() => {
+          user
+            .sendEmailVerification()
+            .then(function () {
+              window.alert("Verification has been sent to your email!");
+            })
+            .catch(function (error) {
+              //console.log(error);
+              window.alert("Verification has been sent to your email!");
+            });
+
+          var user_data = {
+            name: name,
+            username: username,
+            mobileNumber: mobileNumber,
+            mail: mail,
+          };
+
+          firebase
+            .database()
+            .ref("Hospital/" + user.uid)
+            .set(user_data, function (error) {
+              if (error) {
+                alert("Data could not be saved." + error);
+              } else {
+                window.location.href = "../HTML/Hospital_login.html";
+                alert("Data saved successfully.");
+              }
+            });
+
+          window.alert("User Created");
+        })
+        .catch((error) => {
+          // An error occurred
+          // ...
         });
-
-      var user_data = {
-        name: name,
-        username: username,
-        mobileNumber: mobileNumber,
-        mail: mail,
-      };
-
-      firebase
-        .database()
-        .ref("Hospital/" + user.uid)
-        .set(user_data, function (error) {
-          if (error) {
-            alert("Data could not be saved." + error);
-          } else {
-            window.location.href = "../HTML/Hospital_login.html";
-            alert("Data saved successfully.");
-          }
-        });
-
-      window.alert("User Created");
     })
     .catch((error) => {
       var errorMessage = error.message;
