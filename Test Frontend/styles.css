@@ -313,16 +313,20 @@ li a:hover {
 }
 
 .About-us {
+  align-items: center;
   height: auto;
   margin-top: 8%;
   margin-bottom: auto;
-  margin-left: 38%;
-  border-radius: 5%;
-  width: 350px;
+  margin-left: 28%;
+  margin-right: 28%;
+  border-radius: 2%;
+  width: auto;
   background-color: rgba(255, 255, 255, 0.5) !important;
   -webkit-box-shadow: 3px 7px 6px 2px #000000;
   box-shadow: 3px 7px 6px 2px #000000;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2);
   color: black;
   padding: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
