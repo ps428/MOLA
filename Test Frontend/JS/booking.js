@@ -210,7 +210,7 @@ function addBookingDetails(
 
   innerHTML = "Type: " + ambulanceType;
 
-  innerHTML += "<br>Description: " + ambulanceDescription;
+  //innerHTML += "<br>Description: " + ambulanceDescription;
 
   innerHTML += "<br>Driver: " + driverName;
 
@@ -259,6 +259,7 @@ function addBookingDetails(
     ),
     2000
   );
+  setTimeout(alert("You can check your rides in 'Your Rides' section."), 2000);
 }
 
 function generate_path(map, myLatLng1, myLatLng2) {

@@ -26,7 +26,7 @@
 	<!--Custom styles-->
 	<link rel="stylesheet" type="text/css" href="../styles.css">
 </head>
-<body background="../assets/ambulance.png">
+<body background="../assets/ambulance.png" onload="javascript:getHospitalData()">
 	<script type="module">
 	
 
@@ -38,13 +38,38 @@
 
 	</script>
 
+<script>
+	function myFunction() {
+	  var counter = localStorage.getItem('hLogout');
+	  console.log(counter);
+		console.log("hey");
+	  if(counter!=null){
+		console.log("hey1");
+		  return counter;
+	  }else{
+		console.log("hey2");
+		  return 0;
+	  }
+	}
+
+	var check = window.myFunction(); 
+	if(check==1){
+		window.alert("Thanks for visiting!");
+		console.log("hey3");
+      history.pushState(null, null, null);
+      window.addEventListener("popstate", function () {
+        history.pushState(null, null, null);
+      });
+	}
+	</script>
+
 <ul>
-	<li><a href="../HTML/page0_home.html" target="_blank">Back</a></li>
+	<li><a href="../HTML/page0_home.html">Back</a></li>
 	<li style="float:right"><a href="../HTML/contactUs.html" target="_blank">Contact Us</a></li>
 	<li style="float:right"><a href="../HTML/aboutUs.html" target="_blank">About</a></li>
   </ul>
 
-<div class="container" onload="javascript:getHospitalData()">
+<div class="container" >
 	<div class="d-flex justify-content-center h-100">
 		<div class= "title-of-page">
 			<h1></h1>
@@ -70,7 +95,7 @@
 						<input type="password" class="form-control" placeholder="password" id="hpassword">
 					</div>
 					<div class="row align-items-center remember">
-						<input type="checkbox" id="rememberMe">Remember Me
+						<input type="checkbox" id="hrememberMe">Remember Me
 					</div>
 					<div class="form-group">
 						<input type="submit" value="Login" onclick="hformSubmit()"	class="btn float-right login_btn" id="hsubmitButton">

@@ -42,6 +42,7 @@
 <script>
 	function myFunction() {
 	  var counter = localStorage.getItem('Logout');
+	  console.log(counter);
 		console.log("hey");
 	  if(counter!=null){
 		console.log("hey1");
@@ -52,9 +53,10 @@
 	  }
 	}
 
-	var check = window.myFunction(10, 2); 
+	var check = window.myFunction(); 
 	if(check==1){
 		console.log("hey3");
+		window.alert("Thanks for visiting!");
       history.pushState(null, null, null);
       window.addEventListener("popstate", function () {
         history.pushState(null, null, null);
@@ -64,7 +66,7 @@
 
 
 <ul>
-	<li><a href="../HTML/page0_home.html" target="_blank">Back</a></li>
+	<li><a href="../HTML/page0_home.html">Back</a></li>
 	<li style="float:right"><a href="../HTML/contactUs.html" target="_blank">Contact Us</a></li>
 	<li style="float:right"><a href="../HTML/aboutUs.html" target="_blank">About</a></li>
   </ul>
