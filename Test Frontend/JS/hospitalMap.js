@@ -187,6 +187,7 @@ function add_ambulances(ambulances, map) {
             });
         })(marker, marker_data);
     }
+    
 }
 
 function logoutCache() {
