@@ -59,6 +59,8 @@ function resetPassword() {
     .catch((error) => {
       var errorCode = error.code;
       var errorMessage = error.message;
+      alert("ERROR: "+ error.message)
+      console.log(error.message)
       // ..
     });
 }

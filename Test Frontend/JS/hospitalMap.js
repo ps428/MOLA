@@ -159,7 +159,7 @@ function add_ambulances(ambulances, map) {
         title.innerHTML = marker_data.title;
 
         description = document.createElement("h6");
-        description.innerHTML = marker_data.description;
+        description.innerHTML = "Ambulance ID: "+i;
 
         driver = document.createElement("h7");
         driver.innerHTML =
