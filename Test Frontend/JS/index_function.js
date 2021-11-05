@@ -52,7 +52,7 @@ function resetPassword() {
     .sendPasswordResetEmail(emailID)
     .then(() => {
       window.alert("Reset Password Email Sent!");
-      window.location.href = "../HTML/page0.html";
+      window.location.href = "../HTML/page0_home.html";
       // Password reset email sent!
       // ..
     })
@@ -713,6 +713,11 @@ function generate_your_rides() {
         });
 
         var data = "";
+
+        if (rides.length == 1) {
+          document.getElementById("Your Rides").innerHTML =
+            "No Rides Booked Till Now.";
+        }
 
         for (let i = 1; i < rides.length; i++) {
           var ambID = rides[i].ambulanceID;
