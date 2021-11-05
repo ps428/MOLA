@@ -194,7 +194,9 @@ function addBookingDetails(
   var bookingDetails = document.getElementById("bookingDetails");
 
   estimatedCost = parseInt(1000) + parseFloat((distance * 200).toFixed(2));
-  ETAMinutes = parseInt(parseInt(5) + parseFloat((distance * 10).toFixed(2)));
+  ETAMinutes = parseInt(
+    parseInt(5) + (parseFloat((distance * 10).toFixed(2)) % 60)
+  );
   ETASeconds = parseInt(parseFloat((distance * 60).toFixed(2))) % 60;
 
   ambulanceTitle = marker_data.title;
@@ -223,11 +225,11 @@ function addBookingDetails(
     ETASeconds +
     " Seconds</b>";
 
-  innerHTML +="<br>Distance: " + distance.toFixed(2) + " KM";
+  innerHTML += "<br>Distance: " + distance.toFixed(2) + " KM";
 
-  p = document.createElement('p')
-  p.innerHTML = innerHTML
-  
+  p = document.createElement("p");
+  p.innerHTML = innerHTML;
+
   bookingDetails.appendChild(title);
   bookingDetails.appendChild(p);
 
@@ -244,13 +246,19 @@ function addBookingDetails(
     ambulanceLocation: ambulance_lat_lng,
   };
 
-  bookingDB = firebase.database().ref("bookings/" + userID + '/' + ambulanceID);
+  bookingDB = firebase.database().ref("bookings/" + userID + "/" + ambulanceID);
   bookingDB.set(bookingDetails);
 
   setTimeout(
-    alert('Your Booking is confirmed. Your ride will arrive in ' + ETAMinutes + ' minutes and ' + ETASeconds + ' seconds.')
-    , 2000
-  )
+    alert(
+      "Your Booking is confirmed. Your ride will arrive in " +
+        ETAMinutes +
+        " minutes and " +
+        ETASeconds +
+        " seconds."
+    ),
+    2000
+  );
 }
 
 function generate_path(map, myLatLng1, myLatLng2) {
@@ -285,10 +293,10 @@ function haversine_distance(mk1, mk2) {
     Math.asin(
       Math.sqrt(
         Math.sin(difflat / 2) * Math.sin(difflat / 2) +
-        Math.cos(rlat1) *
-        Math.cos(rlat2) *
-        Math.sin(difflon / 2) *
-        Math.sin(difflon / 2)
+          Math.cos(rlat1) *
+            Math.cos(rlat2) *
+            Math.sin(difflon / 2) *
+            Math.sin(difflon / 2)
       )
     );
   return d;
