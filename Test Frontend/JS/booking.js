@@ -265,9 +265,9 @@ function addBookingDetails(
 function generate_path(map, myLatLng1, myLatLng2) {
   var pathBetween = new google.maps.Polyline({
     path: [myLatLng1, myLatLng2],
-    strokeColor: "#FF0000",
+    strokeColor: "#ffff00",
     strokeOpacity: 1.0,
-    strokeWeight: 5,
+    strokeWeight: 2,
   });
 
   addLine(pathBetween, map);

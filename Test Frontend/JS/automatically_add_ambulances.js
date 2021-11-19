@@ -100,14 +100,7 @@ for (i = 0; i <= 50; i++) {
         pre = "Mrs."
 
     ref = firebase.database().ref("ambulances/" + i).update({
-        driver_name: pre + ' ' + firstName[i] + ' ' + names[i],
-        driver_contact: contacts[i],
-        description: "Available Ambulance: " +hospitals[hospital_pos].toUpperCase() + ' ' + icons[pos_icon].toUpperCase(),
-        hospital: hospitals[hospital_pos],
-        type: icons[pos_icon],
-        icon: 'icon_'+icons[pos_icon],
         status: 'available',
-        title: hospitals[hospital_pos].toUpperCase() + ' ' + icon[pos_icon].toUpperCase()
-    });
+         });
 
 }
