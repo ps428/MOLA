@@ -62,8 +62,8 @@ function resetPassword() {
     .catch((error) => {
       var errorCode = error.code;
       var errorMessage = error.message;
-      alert("ERROR: "+ error.message)
-      console.log(error.message)
+      alert("ERROR: " + error.message);
+      console.log(error.message);
       // ..
     });
 }
@@ -583,7 +583,7 @@ function add_ambulances(ambulances, user_lat, user_lng, map) {
 
   for (i = 1; i <= ambulances.length; i++) {
     marker_data = ambulances[i - 1];
-
+    console.log(ambulances[i].status);
     if (marker_data.status != "available") continue;
 
     lat_long = new google.maps.LatLng(marker_data.lat, marker_data.lng);
