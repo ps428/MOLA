@@ -535,7 +535,7 @@ async function get_ambulance_data(user_lat, user_lng, map) {
 
 function add_ambulances(ambulances, user_lat, user_lng, map) {
   user_lat_lng = { lat: user_lat - 0.001, lng: user_lng + 0.001 };
-
+  let arr = [0];
   var icon_super_fast = {
     url: "../assets/ambulance_super_fast.png", // url
     // url: "assets/ambulance_ptv.png", // url
@@ -580,10 +580,29 @@ function add_ambulances(ambulances, user_lat, user_lng, map) {
 
   // console.log(ambulances, "-----");
   let pathBetween = null;
-  for (i = 1; i <= ambulances.length; i++) {
+  var ref = firebase.database().ref().child("ambulances").push().key;
+  console.log(ambulances.length);
+  for (let i = 1; i < ambulances.length; i++) {
+    console.log(ambulances.length + "" + i);
     marker_data = ambulances[i - 1];
-    console.log(ambulances[i].status);
-    if (marker_data.status != "available") continue;
+    console.log(marker_data.status + i);
+    if (marker_data.status != "available") {
+      const prevTime = marker_data.booking_time;
+      if (prevTime != 0) {
+        const eta = marker_data.eta;
+        const currentTime = +new Date();
+        //console.log("currentTime" + currentTime);
+        const diffTime = currentTime - prevTime;
+        const minutes = parseInt(diffTime / 6000) % 60;
+        const ETAminutes = eta.substr(0, eta.indexOf(" "));
+
+        if (minutes >= ETAminutes) {
+          arr.push(i);
+        } else {
+          continue;
+        }
+      }
+    }
 
     lat_long = new google.maps.LatLng(marker_data.lat, marker_data.lng);
 
@@ -661,6 +680,20 @@ function add_ambulances(ambulances, user_lat, user_lng, map) {
         infoWindow.open(map, marker);
       });
     })(marker, marker_data);
+  }
+
+  console.log(arr);
+  for (let i = 1; i < arr.length; i++) {
+    let id = arr[i];
+    var updates = {};
+    updates["ambulances/" + id + "/status"] = "available";
+    updates["ambulances/" + id + "/booking_time"] = 0;
+
+    firebase
+      .database()
+      .ref()
+      .update(updates)
+      .then(function () {});
   }
 
   // generate_results_table(ambulances)
@@ -742,18 +775,40 @@ function generate_your_rides() {
             "No Rides Booked Till Now.";
         }
 
+        console.log(rides.length);
         for (let i = 1; i < rides.length; i++) {
           var ambID = rides[i].ambulanceID;
           var ambName = "";
+
           firebase
             .database()
             .ref("ambulances/" + ambID)
             .on("value", (snapshot) => {
               const dataValue = snapshot.val();
               ambName = dataValue.title;
+              ambTimeBooked = dataValue.booking_time;
+              let status = "";
+              console.log(ambTimeBooked + rides[i].ETA);
+              if (ambTimeBooked == 0) {
+                status = "Completed";
+              } else {
+                status = "Ongoing";
+              }
+
+              const timeBooked = rides[i].booking_time;
+
+              const date = new Date(timeBooked);
+              let datePartString = date.toDateString();
+              let timePartString = date.toTimeString();
+              let dateString = new String(timePartString);
+              dateString = dateString.substr(0, dateString.indexOf("GMT"));
 
               data += "<h4><b>" + ambName + "</b></h4>";
-              data += "<b>Time: </b>" + rides[i].ETA + "<br>";
+
+              data += "<b>Status: </b>" + status + "<br>";
+              data += "<b>Date: </b>" + datePartString + "<br>";
+              data += "<b>Time: </b>" + dateString + "<br>";
+              data += "<b>Duration: </b>" + rides[i].ETA + "<br>";
               ///data += rides[i].ambulanceID + "<br>";
               data += "<b>Distance: </b>" + rides[i].distance + " km<br>";
               data += "<b>Cost: Rs. </b>" + rides[i].cost + "<br>";

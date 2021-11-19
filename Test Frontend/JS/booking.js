@@ -236,6 +236,8 @@ function addBookingDetails(
   userID = localStorage.getItem("userID");
   ambulanceID = localStorage.getItem("ambulanceID");
 
+  const currentTime = +new Date();
+
   bookingDetails = {
     userID: userID,
     ambulanceID: ambulanceID,
@@ -244,10 +246,21 @@ function addBookingDetails(
     ETA: ETAMinutes + " Minutes " + ETASeconds + " Seconds",
     userLocation: user_lat_lng,
     ambulanceLocation: ambulance_lat_lng,
+    booking_time: currentTime,
   };
 
-  bookingDB = firebase.database().ref("bookings/" + userID + "/" + ambulanceID);
+  bookingDB = firebase.database().ref("bookings/" + userID + "/" + currentTime);
   bookingDB.set(bookingDetails);
+
+  firebase
+    .database()
+    .ref("ambulances/" + ambulanceID + "/eta")
+    .set(ETAMinutes + " " + ETASeconds);
+
+  firebase
+    .database()
+    .ref("ambulances/" + ambulanceID + "/booking_time")
+    .set(currentTime);
 
   setTimeout(
     alert(
