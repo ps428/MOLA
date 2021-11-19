@@ -249,7 +249,9 @@ function addBookingDetails(
     booking_time: currentTime,
   };
 
-  bookingDB = firebase.database().ref("bookings/" + userID + "/" + currentTime);
+  bookingDB = firebase
+    .database()
+    .ref("bookings/" + userID + "/" + -currentTime);
   bookingDB.set(bookingDetails);
 
   firebase
