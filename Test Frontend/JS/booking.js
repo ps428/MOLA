@@ -158,15 +158,15 @@ function add_ambulances(ambulanceData, user_lat, user_lng, map) {
 
   marker_data = ambulanceData;
 
-  user_lat_lng = { lat: user_lat - 0.0015, lng: user_lng + 0.0017 };
+  user_lat_lng = { lat: user_lat - 0.001, lng: user_lng + 0.001 };
   ambulance_lat_lng = {
-    lat: marker_data.lat - 0.0015,
-    lng: marker_data.lng + 0.0015,
+    lat: marker_data.lat - 0.001,
+    lng: marker_data.lng + 0.001,
   };
 
   generate_path(map, user_lat_lng, ambulance_lat_lng);
   distance = haversine_distance(user_lat_lng, ambulance_lat_lng);
-
+  console.log(distance);
   ambulance_lat_long = new google.maps.LatLng(marker_data.lat, marker_data.lng);
 
   console.log(ambulance_lat_long, user_lat, user_lng);
@@ -193,11 +193,13 @@ function addBookingDetails(
 ) {
   var bookingDetails = document.getElementById("bookingDetails");
 
-  estimatedCost = parseInt(1000) + parseFloat((distance * 200).toFixed(2));
+  estimatedCost = (
+    parseInt(1000) + parseFloat((distance * 200).toFixed(2))
+  ).toFixed(2);
   ETAMinutes = parseInt(
-    parseInt(5) + (parseFloat((distance * 10).toFixed(2)) % 60)
+    parseInt(5) + (parseFloat((distance * 10).toFixed(2)) % 55)
   );
-  ETASeconds = parseInt(parseFloat((distance * 60).toFixed(2))) % 60;
+  ETASeconds = parseInt(parseFloat((distance * 60).toFixed(2)) % 60);
 
   ambulanceTitle = marker_data.title;
   ambulanceType = marker_data.type;

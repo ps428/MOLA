@@ -889,7 +889,7 @@ function bookNowWindow(marker_data, user_lat_lng, map, markerId) {
   lng = marker_data.lng;
   ambulance_lat_lng = { lat: lat - 0.001, lng: lng + 0.001 };
   distance = haversine_distance(user_lat_lng, ambulance_lat_lng);
-
+  console.log(distance);
   cost = (parseInt(1000) + parseFloat((distance * 200).toFixed(2))).toFixed(2);
   ETAMinutes = parseInt(
     parseInt(5) + (parseFloat((distance * 10).toFixed(2)) % 55)
