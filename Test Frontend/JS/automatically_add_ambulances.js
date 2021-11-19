@@ -77,7 +77,7 @@ lats = [28.4127, 29.3075, 28.4863]
 lngs = [77.3134, 78.5080, 77.5146]
 
 
-for (i = 0; i <= 50; i++) {
+for (i = 1; i <= 50; i++) {
     pos_icon = parseInt((Math.random()*5))
     hospital_pos = parseInt((Math.random()*4))
     pos_lat_lng = parseInt((Math.random()*4))
@@ -98,9 +98,11 @@ for (i = 0; i <= 50; i++) {
     pre = "Mr."
     if(i<25)
         pre = "Mrs."
-
+    curr_time = new Date().getTime()
     ref = firebase.database().ref("ambulances/" + i).update({
         status: 'available',
+        eta: 0,
+        booking_time: curr_time
          });
 
 }
