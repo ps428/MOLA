@@ -253,8 +253,8 @@ function addBookingDetails(
 
   bookingDB = firebase
     .database()
-    .ref("bookings/" + userID + "/" + -currentTime);
-  bookingDB.set(bookingDetails);
+    .ref("bookings/" + userID + "/" + -currentTime)
+    .set(bookingDetails);
 
   firebase
     .database()

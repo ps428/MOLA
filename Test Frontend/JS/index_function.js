@@ -786,16 +786,22 @@ function generate_your_rides() {
             .on("value", (snapshot) => {
               const dataValue = snapshot.val();
               ambName = dataValue.title;
-              ambTimeBooked = dataValue.booking_time;
+              const timeBooked = rides[i].booking_time;
+              const currentTime = +new Date();
+              const diffTime = currentTime - timeBooked;
+              const minutes = parseInt(diffTime / 6000);
               let status = "";
-              console.log(ambTimeBooked + rides[i].ETA);
-              if (ambTimeBooked == 0) {
+              const ETAminutes = rides[i].ETA.substr(
+                0,
+                rides[i].ETA.indexOf(" ")
+              );
+              console.log(rides[i].ETA);
+
+              if (minutes >= ETAminutes) {
                 status = "Completed";
               } else {
                 status = "Ongoing";
               }
-
-              const timeBooked = rides[i].booking_time;
 
               const date = new Date(timeBooked);
               let datePartString = date.toDateString();
