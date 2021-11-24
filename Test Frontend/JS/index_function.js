@@ -738,7 +738,6 @@ function getServiceProviders() {
   });
 }
 
-
 function generate_your_rides() {
   ride_data = {
     // around user location
@@ -761,73 +760,76 @@ function generate_your_rides() {
     if (user) {
       var uid = user.uid;
       const rides = [ride_data];
-      var ambulancesBooked = firebase.database().ref("bookings/" + uid);
 
-      ambulancesBooked.on("value", (snapshot) => {
-        snapshot.forEach(function (childSnapshot) {
-          var childData = childSnapshot.val();
-          rides.push(childData);
+      firebase
+        .database()
+        .ref("bookings/" + uid)
+        .orderByChild("booking_time")
+        .on("value", (snapshot) => {
+          snapshot.forEach(function (childSnapshot) {
+            var childData = childSnapshot.val();
+            rides.push(childData);
+          });
+
+          var data = "";
+          rides.reverse();
+          if (rides.length == 1) {
+            document.getElementById("Your Rides").innerHTML =
+              "No Rides Booked Till Now.";
+          }
+
+          console.log(rides.length);
+          for (let i = 0; i < rides.length - 1; i++) {
+            var ambID = rides[i].ambulanceID;
+            var ambName = "";
+
+            firebase
+              .database()
+              .ref("ambulances/" + ambID)
+              .on("value", (snapshot) => {
+                const dataValue = snapshot.val();
+                ambName = dataValue.title;
+                const timeBooked = rides[i].booking_time;
+                const currentTime = +new Date();
+                const diffTime = currentTime - timeBooked;
+                const minutes = parseInt(diffTime / 6000);
+                let status = "";
+                const ETAminutes = rides[i].ETA.substr(
+                  0,
+                  rides[i].ETA.indexOf(" ")
+                );
+                console.log(rides[i].ETA);
+
+                if (minutes >= ETAminutes) {
+                  status = "Completed";
+                } else {
+                  status = "Ongoing";
+                }
+
+                const date = new Date(timeBooked);
+                let datePartString = date.toDateString();
+                let timePartString = date.toTimeString();
+                let dateString = new String(timePartString);
+                dateString = dateString.substr(0, dateString.indexOf("GMT"));
+
+                data += "<h4><b>" + ambName + "</b></h4>";
+
+                data += "<b>Status: </b>" + status + "<br>";
+                data += "<b>Date: </b>" + datePartString + "<br>";
+                data += "<b>Time: </b>" + dateString + "<br>";
+                data += "<b>Duration: </b>" + rides[i].ETA + "<br>";
+                ///data += rides[i].ambulanceID + "<br>";
+                data += "<b>Distance: </b>" + rides[i].distance + " km<br>";
+                data += "<b>Cost: Rs. </b>" + rides[i].cost + "<br>";
+                if (i != rides.length - 1) {
+                  data += "<br>";
+                }
+                //data += rides[i].userID + "<br><br>";
+
+                document.getElementById("Your Rides").innerHTML = data;
+              });
+          }
         });
-
-        var data = "";
-
-        if (rides.length == 1) {
-          document.getElementById("Your Rides").innerHTML =
-            "No Rides Booked Till Now.";
-        }
-
-        console.log(rides.length);
-        for (let i = 1; i < rides.length; i++) {
-          var ambID = rides[i].ambulanceID;
-          var ambName = "";
-
-          firebase
-            .database()
-            .ref("ambulances/" + ambID)
-            .on("value", (snapshot) => {
-              const dataValue = snapshot.val();
-              ambName = dataValue.title;
-              const timeBooked = rides[i].booking_time;
-              const currentTime = +new Date();
-              const diffTime = currentTime - timeBooked;
-              const minutes = parseInt(diffTime / 6000);
-              let status = "";
-              const ETAminutes = rides[i].ETA.substr(
-                0,
-                rides[i].ETA.indexOf(" ")
-              );
-              console.log(rides[i].ETA);
-
-              if (minutes >= ETAminutes) {
-                status = "Completed";
-              } else {
-                status = "Ongoing";
-              }
-
-              const date = new Date(timeBooked);
-              let datePartString = date.toDateString();
-              let timePartString = date.toTimeString();
-              let dateString = new String(timePartString);
-              dateString = dateString.substr(0, dateString.indexOf("GMT"));
-
-              data += "<h4><b>" + ambName + "</b></h4>";
-
-              data += "<b>Status: </b>" + status + "<br>";
-              data += "<b>Date: </b>" + datePartString + "<br>";
-              data += "<b>Time: </b>" + dateString + "<br>";
-              data += "<b>Duration: </b>" + rides[i].ETA + "<br>";
-              ///data += rides[i].ambulanceID + "<br>";
-              data += "<b>Distance: </b>" + rides[i].distance + " km<br>";
-              data += "<b>Cost: Rs. </b>" + rides[i].cost + "<br>";
-              if (i != rides.length - 1) {
-                data += "<br>";
-              }
-              //data += rides[i].userID + "<br><br>";
-
-              document.getElementById("Your Rides").innerHTML = data;
-            });
-        }
-      });
     }
   });
 }
