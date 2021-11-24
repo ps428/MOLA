@@ -718,7 +718,7 @@ function getServiceProviders() {
   services.on("value", (snapshot) => {
     snapshot.forEach(function (childSnapshot) {
       var childData = childSnapshot.val();
-      console.log(childData);
+      // console.log(childData);
       serviceProviders.push(childData);
     });
 
@@ -737,6 +737,7 @@ function getServiceProviders() {
     }
   });
 }
+
 
 function generate_your_rides() {
   ride_data = {
