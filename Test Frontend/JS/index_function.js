@@ -153,7 +153,7 @@ function registerAmbulanceData() {
     return;
   }
 
-  service_data = {
+  ambulanceData = {
     // around user location
     booking_time: 0,
     description: "Available Ambulance: MAX ICU",
@@ -169,13 +169,11 @@ function registerAmbulanceData() {
     type: "icu",
   };
 
-  var services = firebase.database().ref("ambulances/");
-  var serviceProviders = [service_data];
-  services.on("value", (snapshot) => {
-    snapshot.forEach(function (childSnapshot) {
-      var childData = childSnapshot.val();
-      serviceProviders.push(childData);
-    });
+  ambulances = firebase.database().ref("ambulances");
+
+  ambulances.on("value", (snapshot) => {
+    let count = snapshot.numChildren();
+    localStorage.setItem("count", count);
   });
 
   lats = [28.4127, 29.3075, 28.4863];
@@ -193,8 +191,8 @@ function registerAmbulanceData() {
   let lat = lats[pos_lat_lng] + var_lat;
   let lang = lngs[pos_lat_lng] + var_lng;
 
-  console.log(lat);
-  console.log(lang);
+  // console.log(lat);
+  // console.log(lang);
 
   ambulance_data = {
     booking_time: 0,
@@ -211,9 +209,10 @@ function registerAmbulanceData() {
     type: hType,
   };
 
-  var services = firebase
-    .database()
-    .ref("ambulances/" + serviceProviders.length);
+  let id = localStorage.getItem("count");
+  console.log("id" + id);
+  console.log("id" + (parseInt(id) + 1));
+  var services = firebase.database().ref("ambulances/" + (parseInt(id) + 1));
 
   services.set(ambulance_data, function (error) {
     if (error) {
