@@ -45,6 +45,18 @@ body {
   box-shadow: 3px 7px 6px 2px #000000;
 }
 
+.admincard2 {
+  height: 520px;
+  margin-top: auto;
+  margin-bottom: auto;
+  right: 0px;
+  border-radius: 5%;
+  width: auto;
+  background-color: rgba(255, 255, 255, 0.5) !important;
+  -webkit-box-shadow: 3px 7px 6px 2px #000000;
+  box-shadow: 3px 7px 6px 2px #000000;
+}
+
 .card-header h3 {
   color: black;
   font-weight: bold;
@@ -348,8 +360,6 @@ li a:hover {
   -webkit-box-shadow: 3px 7px 6px 2px #000000;
   box-shadow: 3px 7px 6px 2px #000000;
 }
-
-
 
 .contact_us_booking {
   background-color: rgba(182, 225, 228, 0.5) !important;

@@ -47,6 +47,47 @@ function formSubmit() {
     });
 }
 
+function saFormSubmit() {
+  var password = document.querySelector("#adminPassword").value;
+  var username = document.querySelector("#adminUsername").value;
+  if (username == "admin") {
+    if (password == "admin") {
+      var checkbox = document.getElementById("adminRememberMe");
+      console.log("currentAdminEmail");
+      localStorage.removeItem("currentAdminEmail");
+      localStorage.removeItem("currentAdminPassword");
+      if (checkbox.checked == true) {
+        addRememberAdminDataCache(username, password);
+      }
+      localStorage.removeItem("adminLogout");
+      window.location.href = "../HTML/super_admin_map.html";
+    } else {
+      window.alert("Incorrect Password!");
+    }
+  } else {
+    window.alert("Incorrect Email!");
+  }
+}
+
+function getAdminData() {
+  const user = localStorage.getItem("currentAdminEmail");
+  var checkbox = document.getElementById("adminRememberMe");
+  if (user != null) {
+    var usernameField = document.getElementById("adminUsername");
+    var passwordField = document.getElementById("adminPassword");
+
+    usernameField.value = user;
+    passwordField.value = localStorage.getItem("currentAdminPassword");
+
+    checkbox.checked = true;
+  }
+}
+
+function addRememberAdminDataCache(email, password) {
+  localStorage.setItem("currentAdminEmail", email);
+  localStorage.setItem("currentAdminPassword", password);
+}
+
 function resetPassword() {
   var emailID = document.querySelector("#resetPasswordEmail").value;
   console.log(emailID);
@@ -90,6 +131,97 @@ function addRememberDataCache(email, password) {
 function hospitalAddRememberDataCache(email, password) {
   localStorage.setItem("currentHospitalEmail", email);
   localStorage.setItem("currentHospitalPassword", password);
+}
+
+function registerAmbulanceData() {
+  let hName = document.querySelector("#aHName").value;
+  let hTitle = document.querySelector("#aHTitle").value;
+  let hType = document.querySelector("#aHType").value;
+  let hDName = document.querySelector("#aHDName").value;
+  let hDphno = document.querySelector("#aHDphno").value;
+  let hDescription = document.querySelector("#aHDescription").value;
+
+  if (
+    validateField(hName) == false ||
+    validateField(hTitle) == false ||
+    validateField(hType) == false ||
+    validateField(hDName) == false ||
+    validateField(hDphno) == false ||
+    validateField(hDescription) == false
+  ) {
+    window.alert("Ensure all fields are filled.");
+    return;
+  }
+
+  service_data = {
+    // around user location
+    booking_time: 0,
+    description: "Available Ambulance: MAX ICU",
+    driver_contact: "9983832456",
+    driver_name: "Mr. David Trebil",
+    eta: 0,
+    hospital: "max",
+    icon: "icon_icu",
+    lat: 28.48583655915536,
+    lng: 77.50720685131385,
+    status: "available",
+    title: "MAX ICU",
+    type: "icu",
+  };
+
+  var services = firebase.database().ref("ambulances/");
+  var serviceProviders = [service_data];
+  services.on("value", (snapshot) => {
+    snapshot.forEach(function (childSnapshot) {
+      var childData = childSnapshot.val();
+      serviceProviders.push(childData);
+    });
+  });
+
+  lats = [28.4127, 29.3075, 28.4863];
+  lngs = [77.3134, 78.508, 77.5146];
+
+  pos_lat_lng = parseInt(Math.random() * 4);
+  if (pos_lat_lng == 3) pos_lat_lng = 0;
+
+  var plusOrMinusLat = Math.random() < 0.5 ? -1.0 : 1.0;
+  var plusOrMinusLng = Math.random() < 0.5 ? -1.0 : 1.0;
+
+  let var_lat = (Math.random() / 50.0) * plusOrMinusLat;
+  let var_lng = (Math.random() / 50.0) * plusOrMinusLng;
+
+  let lat = lats[pos_lat_lng] + var_lat;
+  let lang = lngs[pos_lat_lng] + var_lng;
+
+  console.log(lat);
+  console.log(lang);
+
+  ambulance_data = {
+    booking_time: 0,
+    description: hDescription,
+    driver_contact: hDphno,
+    driver_name: hDName,
+    eta: 0,
+    hospital: hName,
+    icon: "icon_" + hType,
+    lat: lat,
+    lng: lang,
+    status: "available",
+    title: hTitle,
+    type: hType,
+  };
+
+  var services = firebase
+    .database()
+    .ref("ambulances/" + serviceProviders.length);
+
+  services.set(ambulance_data, function (error) {
+    if (error) {
+      alert("Data could not be saved." + error);
+    } else {
+      alert("Data saved successfully.");
+    }
+  });
 }
 
 function registerUser() {
