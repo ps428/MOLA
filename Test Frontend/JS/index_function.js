@@ -47,6 +47,47 @@ function formSubmit() {
     });
 }
 
+function saFormSubmit() {
+  var password = document.querySelector("#adminPassword").value;
+  var username = document.querySelector("#adminUsername").value;
+  if (username == "admin") {
+    if (password == "admin") {
+      var checkbox = document.getElementById("adminRememberMe");
+      console.log("currentAdminEmail");
+      localStorage.removeItem("currentAdminEmail");
+      localStorage.removeItem("currentAdminPassword");
+      if (checkbox.checked == true) {
+        addRememberAdminDataCache(username, password);
+      }
+      localStorage.removeItem("adminLogout");
+      window.location.href = "../HTML/super_admin_map.html";
+    } else {
+      window.alert("Incorrect Password!");
+    }
+  } else {
+    window.alert("Incorrect Email!");
+  }
+}
+
+function getAdminData() {
+  const user = localStorage.getItem("currentAdminEmail");
+  var checkbox = document.getElementById("adminRememberMe");
+  if (user != null) {
+    var usernameField = document.getElementById("adminUsername");
+    var passwordField = document.getElementById("adminPassword");
+
+    usernameField.value = user;
+    passwordField.value = localStorage.getItem("currentAdminPassword");
+
+    checkbox.checked = true;
+  }
+}
+
+function addRememberAdminDataCache(email, password) {
+  localStorage.setItem("currentAdminEmail", email);
+  localStorage.setItem("currentAdminPassword", password);
+}
+
 function resetPassword() {
   var emailID = document.querySelector("#resetPasswordEmail").value;
   console.log(emailID);
@@ -90,6 +131,96 @@ function addRememberDataCache(email, password) {
 function hospitalAddRememberDataCache(email, password) {
   localStorage.setItem("currentHospitalEmail", email);
   localStorage.setItem("currentHospitalPassword", password);
+}
+
+function registerAmbulanceData() {
+  let hName = document.querySelector("#aHName").value;
+  let hTitle = document.querySelector("#aHTitle").value;
+  let hType = document.querySelector("#aHType").value;
+  let hDName = document.querySelector("#aHDName").value;
+  let hDphno = document.querySelector("#aHDphno").value;
+  let hDescription = document.querySelector("#aHDescription").value;
+
+  if (
+    validateField(hName) == false ||
+    validateField(hTitle) == false ||
+    validateField(hType) == false ||
+    validateField(hDName) == false ||
+    validateField(hDphno) == false ||
+    validateField(hDescription) == false
+  ) {
+    window.alert("Ensure all fields are filled.");
+    return;
+  }
+
+  ambulanceData = {
+    // around user location
+    booking_time: 0,
+    description: "Available Ambulance: MAX ICU",
+    driver_contact: "9983832456",
+    driver_name: "Mr. David Trebil",
+    eta: 0,
+    hospital: "max",
+    icon: "icon_icu",
+    lat: 28.48583655915536,
+    lng: 77.50720685131385,
+    status: "available",
+    title: "MAX ICU",
+    type: "icu",
+  };
+
+  ambulances = firebase.database().ref("ambulances");
+
+  ambulances.on("value", (snapshot) => {
+    let count = snapshot.numChildren();
+    localStorage.setItem("count", count);
+  });
+
+  lats = [28.4127, 29.3075, 28.4863];
+  lngs = [77.3134, 78.508, 77.5146];
+
+  pos_lat_lng = parseInt(Math.random() * 4);
+  if (pos_lat_lng == 3) pos_lat_lng = 0;
+
+  var plusOrMinusLat = Math.random() < 0.5 ? -1.0 : 1.0;
+  var plusOrMinusLng = Math.random() < 0.5 ? -1.0 : 1.0;
+
+  let var_lat = (Math.random() / 50.0) * plusOrMinusLat;
+  let var_lng = (Math.random() / 50.0) * plusOrMinusLng;
+
+  let lat = lats[pos_lat_lng] + var_lat;
+  let lang = lngs[pos_lat_lng] + var_lng;
+
+  // console.log(lat);
+  // console.log(lang);
+
+  ambulance_data = {
+    booking_time: 0,
+    description: hDescription,
+    driver_contact: hDphno,
+    driver_name: hDName,
+    eta: 0,
+    hospital: hName,
+    icon: "icon_" + hType,
+    lat: lat,
+    lng: lang,
+    status: "available",
+    title: hTitle,
+    type: hType,
+  };
+
+  let id = localStorage.getItem("count");
+  console.log("id" + id);
+  console.log("id" + (parseInt(id) + 1));
+  var services = firebase.database().ref("ambulances/" + (parseInt(id) + 1));
+
+  services.set(ambulance_data, function (error) {
+    if (error) {
+      alert("Data could not be saved." + error);
+    } else {
+      alert("Data saved successfully.");
+    }
+  });
 }
 
 function registerUser() {
@@ -738,7 +869,6 @@ function getServiceProviders() {
   });
 }
 
-
 function generate_your_rides() {
   ride_data = {
     // around user location
@@ -761,67 +891,76 @@ function generate_your_rides() {
     if (user) {
       var uid = user.uid;
       const rides = [ride_data];
-      var ambulancesBooked = firebase.database().ref("bookings/" + uid);
 
-      ambulancesBooked.on("value", (snapshot) => {
-        snapshot.forEach(function (childSnapshot) {
-          var childData = childSnapshot.val();
-          rides.push(childData);
+      firebase
+        .database()
+        .ref("bookings/" + uid)
+        .orderByChild("booking_time")
+        .on("value", (snapshot) => {
+          snapshot.forEach(function (childSnapshot) {
+            var childData = childSnapshot.val();
+            rides.push(childData);
+          });
+
+          var data = "";
+          rides.reverse();
+          if (rides.length == 1) {
+            document.getElementById("Your Rides").innerHTML =
+              "No Rides Booked Till Now.";
+          }
+
+          console.log(rides.length);
+          for (let i = 0; i < rides.length - 1; i++) {
+            var ambID = rides[i].ambulanceID;
+            var ambName = "";
+
+            firebase
+              .database()
+              .ref("ambulances/" + ambID)
+              .on("value", (snapshot) => {
+                const dataValue = snapshot.val();
+                ambName = dataValue.title;
+                const timeBooked = rides[i].booking_time;
+                const currentTime = +new Date();
+                const diffTime = currentTime - timeBooked;
+                const minutes = parseInt(diffTime / 6000);
+                let status = "";
+                const ETAminutes = rides[i].ETA.substr(
+                  0,
+                  rides[i].ETA.indexOf(" ")
+                );
+                console.log(rides[i].ETA);
+
+                if (minutes >= ETAminutes) {
+                  status = "Completed";
+                } else {
+                  status = "Ongoing";
+                }
+
+                const date = new Date(timeBooked);
+                let datePartString = date.toDateString();
+                let timePartString = date.toTimeString();
+                let dateString = new String(timePartString);
+                dateString = dateString.substr(0, dateString.indexOf("GMT"));
+
+                data += "<h4><b>" + ambName + "</b></h4>";
+
+                data += "<b>Status: </b>" + status + "<br>";
+                data += "<b>Date: </b>" + datePartString + "<br>";
+                data += "<b>Time: </b>" + dateString + "<br>";
+                data += "<b>Duration: </b>" + rides[i].ETA + "<br>";
+                ///data += rides[i].ambulanceID + "<br>";
+                data += "<b>Distance: </b>" + rides[i].distance + " km<br>";
+                data += "<b>Cost: Rs. </b>" + rides[i].cost + "<br>";
+                if (i != rides.length - 1) {
+                  data += "<br>";
+                }
+                //data += rides[i].userID + "<br><br>";
+
+                document.getElementById("Your Rides").innerHTML = data;
+              });
+          }
         });
-
-        var data = "";
-
-        if (rides.length == 1) {
-          document.getElementById("Your Rides").innerHTML =
-            "No Rides Booked Till Now.";
-        }
-
-        console.log(rides.length);
-        for (let i = 1; i < rides.length; i++) {
-          var ambID = rides[i].ambulanceID;
-          var ambName = "";
-
-          firebase
-            .database()
-            .ref("ambulances/" + ambID)
-            .on("value", (snapshot) => {
-              const dataValue = snapshot.val();
-              ambName = dataValue.title;
-              ambTimeBooked = dataValue.booking_time;
-              let status = "";
-              console.log(ambTimeBooked + rides[i].ETA);
-              if (ambTimeBooked == 0) {
-                status = "Completed";
-              } else {
-                status = "Ongoing";
-              }
-
-              const timeBooked = rides[i].booking_time;
-
-              const date = new Date(timeBooked);
-              let datePartString = date.toDateString();
-              let timePartString = date.toTimeString();
-              let dateString = new String(timePartString);
-              dateString = dateString.substr(0, dateString.indexOf("GMT"));
-
-              data += "<h4><b>" + ambName + "</b></h4>";
-
-              data += "<b>Status: </b>" + status + "<br>";
-              data += "<b>Date: </b>" + datePartString + "<br>";
-              data += "<b>Time: </b>" + dateString + "<br>";
-              data += "<b>Duration: </b>" + rides[i].ETA + "<br>";
-              ///data += rides[i].ambulanceID + "<br>";
-              data += "<b>Distance: </b>" + rides[i].distance + " km<br>";
-              data += "<b>Cost: Rs. </b>" + rides[i].cost + "<br>";
-              if (i != rides.length - 1) {
-                data += "<br>";
-              }
-              //data += rides[i].userID + "<br><br>";
-
-              document.getElementById("Your Rides").innerHTML = data;
-            });
-        }
-      });
     }
   });
 }
