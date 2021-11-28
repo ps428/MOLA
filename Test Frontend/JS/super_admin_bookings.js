@@ -11,6 +11,17 @@ function getSuperAdminBookings() {
         bookingsArray.push(childData);
         });
     });
+
+
+    var all_ambulances = firebase.database().ref("ambulances/");
+    ambulance_data = []
+    all_ambulances.on("value", (snapshot) => {
+        snapshot.forEach(function (childSnapshot) {
+          var childData = childSnapshot.val();
+          // console.log(childData);
+          ambulance_data.push(childData);
+          });
+      });
       
   
     data = "";
@@ -41,22 +52,36 @@ function getSuperAdminBookings() {
             user_locations.push(childData['userLocation'])
             ambulance_locations.push(childData['ambulanceLocation'])            
         }
-                
         }
            
     }, 2000);
     //   console.log(bookingsArray)
-     setTimeout(() => {
-        console.log(12,user_ids)
-        for( i in user_ids)
+    user_name = []
+    user_contact = []
+    user_mail = []
+    
+    ambulance_driver_name = []
+    ambulance_driver_contact = []
+    ambulance_title = []
+    ambulance_type = []
+    
+    setTimeout(() => {
+        // console.log(12,user_ids)
+        var users = firebase.database().ref();
+        
+        for( i =0; i<user_ids.length; i++)
         {
-            var user_data = firebase.database().ref("user/"+i);
-            setTimeout(() => {
-                // console.log(user_data)
-                
-            }, 1000);
-        }    
-    },3000);
+            console.log(user_ids[i])
+            console.log(i)
+        }
+        console.log(user_ids)
+        // curr_user = users.child(user_ids[i])
+        // curr_user.once("value", function(snapshot) {
+        //     snapshot.forEach(function(child) {
+        //       console.log(": "+child.val());
+        //     });
+        //   });    
+    },2000);
     
 
         // data += "<h4><b>" + serviceProviders[i].name + "</b></h4>";

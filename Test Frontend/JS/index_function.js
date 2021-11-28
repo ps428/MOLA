@@ -436,7 +436,7 @@ function initMap(user_id) {
         infoWindow.setPosition(pos);
         infoWindow.setContent("Location found.");
         map.setCenter(pos);
-        //   console.log(user_lat, user_lng)
+          console.log(user_lat, user_lng)
 
         add_human_marker(user_lat, user_lng, map);
         //   update_location(user_lat, user_lng)
@@ -581,11 +581,11 @@ function add_ambulances(ambulances, user_lat, user_lng, map) {
   // console.log(ambulances, "-----");
   let pathBetween = null;
   var ref = firebase.database().ref().child("ambulances").push().key;
-  console.log(ambulances.length);
+  // console.log(ambulances.length);
   for (let i = 1; i < ambulances.length; i++) {
-    console.log(ambulances.length + "" + i);
+    // console.log(ambulances.length + "" + i);
     marker_data = ambulances[i - 1];
-    console.log(marker_data.status + i);
+    // console.log(marker_data.status + i);
     if (marker_data.status != "available") {
       const prevTime = marker_data.booking_time;
       if (prevTime != 0) {

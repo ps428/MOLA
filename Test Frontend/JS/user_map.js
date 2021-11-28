@@ -27,7 +27,7 @@ function initMap() {
         infoWindow.setPosition(pos);
         infoWindow.setContent("Location found.");
         map.setCenter(pos);
-        //   console.log(user_lat, user_lng)
+          console.log(user_lat, user_lng)
 
         add_human_marker(user_lat, user_lng, map);
         //   update_location(user_lat, user_lng)
