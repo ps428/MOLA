@@ -11,19 +11,9 @@ function getSuperAdminBookings() {
         bookingsArray.push(childData);
         });
     });
+    // console.log(bookingsArray)
 
-
-    var all_ambulances = firebase.database().ref("ambulances/");
-    ambulance_data = []
-    all_ambulances.on("value", (snapshot) => {
-        snapshot.forEach(function (childSnapshot) {
-          var childData = childSnapshot.val();
-          // console.log(childData);
-          ambulance_data.push(childData);
-          });
-      });
       
-  
     data = "";
     ambulance_ids = []
     user_ids = []
@@ -56,42 +46,63 @@ function getSuperAdminBookings() {
            
     }, 2000);
     //   console.log(bookingsArray)
-    user_name = []
-    user_contact = []
-    user_mail = []
-    
-    ambulance_driver_name = []
-    ambulance_driver_contact = []
-    ambulance_title = []
-    ambulance_type = []
     
     setTimeout(() => {
         // console.log(12,user_ids)
-        var users = firebase.database().ref();
         
-        for( i =0; i<user_ids.length; i++)
+        user_data = []
+        // console.log(user_ids)
+
+
+        for(j=0;j<user_ids.length;j++)
         {
-            console.log(user_ids[i])
-            console.log(i)
+            curr_user = firebase.database().ref('user/'+user_ids[j])
+            curr_user.once("value", function(snapshot) {
+                user_data.push(snapshot.val())
+                // console.log(snapshot.val())
+              });    
+           
         }
-        console.log(user_ids)
-        // curr_user = users.child(user_ids[i])
-        // curr_user.once("value", function(snapshot) {
-        //     snapshot.forEach(function(child) {
-        //       console.log(": "+child.val());
-        //     });
-        //   });    
+        //   console.log(user_data)
+
+          ambualance_data = []        
+          for(j=0;j<ambulance_ids.length;j++)
+          {
+              curr_user = firebase.database().ref('ambulances/'+ambulance_ids[j])
+              curr_user.once("value", function(snapshot) {
+                  ambualance_data.push(snapshot.val())
+                  // console.log(snapshot.val())
+                });    
+             
+          }
+            // console.log(ambualance_data)
+  
     },2000);
     
 
-        // data += "<h4><b>" + serviceProviders[i].name + "</b></h4>";
-        // data += "<b>Mail ID: </b>" + serviceProviders[i].mail + "<br>";
+    setTimeout(() => {
+        // ambualance_data.forEach(element => {
+        //     console.log(element['hospital'])
+        // });
+    for(i=0;i<user_data.length;i++)
+    {
+        // console.log(user_data[i])
+        // console.log(ambualance_data[i])
+
+        data += "<h4><b>Organisation name: " + ambualance_data[i]['hospital'].toUpperCase() + "</b></h4>";
+        data += "<b>Driver Name: </b>" + ambualance_data[i]['driver_name'] + "<br>";
+        data += "<b>Driver Contact: </b>" + ambualance_data[i]['driver_contact'] + "<br>";
+        data += "<b>Ambulance Type: </b>" + ambualance_data[i]['type'] + "<br>";
+        data += "<b>User Name: </b>" + user_data[i]['name'] + "<br>";
+        data += "<b>User Contact: </b>" + user_data[i]['type'] + "<br>";
         // data += "<b>Contact: </b>" + serviceProviders[i].mobileNumber + "<br>";
-        // if (i != serviceProviders.length - 1) {
-        //   data += "<br>";
-        // }
-        // //data += rides[i].userID + "<br><br>";
+          data += "<hr>";
+        //data += rides[i].userID + "<br><br>";
   
-        // document.getElementById("Super Admin Bookings").innerHTML = data;
+        document.getElementById("Super Admin Bookings").innerHTML = data;
+    }
+},3000);
+
+        
  }
   
