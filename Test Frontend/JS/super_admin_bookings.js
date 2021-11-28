@@ -94,7 +94,7 @@ function getSuperAdminBookings() {
         data += "<b>Driver Contact: </b>" + ambualance_data[i]['driver_contact'] + "<br>";
         data += "<b>Ambulance Type: </b>" + ambualance_data[i]['type'] + "<br>";
         data += "<b>User Name: </b>" + user_data[i]['name'] + "<br>";
-        data += "<b>User Contact: </b>" + user_data[i]['type'] + "<br>";
+        data += "<b>User Contact: </b>" + user_data[i]['mobileNumber'] + "<br>";
         // data += "<b>Contact: </b>" + serviceProviders[i].mobileNumber + "<br>";
           data += "<hr>";
         //data += rides[i].userID + "<br><br>";
