@@ -188,3 +188,4 @@ function add_ambulances(ambulances, map) {
 function logoutCache() {
   localStorage.setItem("Logout", 1);
 }
+

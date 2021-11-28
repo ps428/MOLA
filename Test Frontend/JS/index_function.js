@@ -219,6 +219,7 @@ function registerAmbulanceData() {
       alert("Data could not be saved." + error);
     } else {
       alert("Data saved successfully.");
+      window.location.href ='../HTML/Hospital_map_view.html'
     }
   });
 }

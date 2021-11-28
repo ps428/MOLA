@@ -123,19 +123,8 @@ for (i = 1; i <= 50; i++) {
     };
     console.log(ambulance_data)
     firebase.database().ref('ambulances/' + i).set({
-        booking_time:curr_time,
-        description: hospitals[hospital_pos]+" ambulance..available.",//var
-        driver_contact: contacts[i],//var
-        driver_name: pre+firstName[i]+' '+names[i],//var
-        eta:0,
-        hospital: hospitals[hospital_pos],//var
-        icon: "icon_" + icons[pos_icon],//var
-        lat: lats[pos_lat_lng]+var_lat,//random
-        lng: lngs[pos_lat_lng]+var_lng,//random
-        status: "available",
-        title: hospitals[hospital_pos]+' '+icons[pos_icon],//random
-        type: icons[pos_icon],//var
-      });
+        booking_time:0,
+           });
   
 
 }

@@ -11,7 +11,6 @@ function getSuperAdminBookings() {
         bookingsArray.push(childData);
         });
     });
-    // console.log(bookingsArray)
 
       
     data = "";
@@ -25,6 +24,8 @@ function getSuperAdminBookings() {
     ambulance_locations = []
 
     setTimeout(() => {
+    console.log(bookingsArray)
+
         for(i = 0 ;i<bookingsArray.length; i++)
         {
         serviceProviders = bookingsArray[i]
@@ -65,7 +66,7 @@ function getSuperAdminBookings() {
         }
         //   console.log(user_data)
 
-          ambualance_data = []        
+          ambualance_data = []
           for(j=0;j<ambulance_ids.length;j++)
           {
               curr_user = firebase.database().ref('ambulances/'+ambulance_ids[j])
@@ -84,11 +85,12 @@ function getSuperAdminBookings() {
         // ambualance_data.forEach(element => {
         //     console.log(element['hospital'])
         // });
+        console.log(user_data)
+        console.log(ambualance_data)
+
     for(i=0;i<user_data.length;i++)
     {
-        // console.log(user_data[i])
-        // console.log(ambualance_data[i])
-
+        
         data += "<h4><b>Organisation name: " + ambualance_data[i]['hospital'].toUpperCase() + "</b></h4>";
         data += "<b>Driver Name: </b>" + ambualance_data[i]['driver_name'] + "<br>";
         data += "<b>Driver Contact: </b>" + ambualance_data[i]['driver_contact'] + "<br>";
