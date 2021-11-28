@@ -1,4 +1,0 @@
-1. DONE: Adi Login error, showing wrong credentials
-2. DONE: Me Add free/ govt type ambulances: ambulances type distribution
-3. Maddy Heading on Map page
-4. DONE: Me CSS Home page

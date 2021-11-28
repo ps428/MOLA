@@ -176,8 +176,8 @@ function registerAmbulanceData() {
     localStorage.setItem("count", count);
   });
 
-  lats = [28.4127, 29.3075, 28.4863];
-  lngs = [77.3134, 78.508, 77.5146];
+  lats = [22.7196, 24.342, 20.23];
+  lngs = [75.8577, 75.508,75.22];
 
   pos_lat_lng = parseInt(Math.random() * 4);
   if (pos_lat_lng == 3) pos_lat_lng = 0;
@@ -185,8 +185,8 @@ function registerAmbulanceData() {
   var plusOrMinusLat = Math.random() < 0.5 ? -1.0 : 1.0;
   var plusOrMinusLng = Math.random() < 0.5 ? -1.0 : 1.0;
 
-  let var_lat = (Math.random() / 50.0) * plusOrMinusLat;
-  let var_lng = (Math.random() / 50.0) * plusOrMinusLng;
+  let var_lat = (Math.random()) * plusOrMinusLat;
+  let var_lng = (Math.random()) * plusOrMinusLng;
 
   let lat = lats[pos_lat_lng] + var_lat;
   let lang = lngs[pos_lat_lng] + var_lng;

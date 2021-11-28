@@ -22,6 +22,8 @@ function getSuperAdminBookings() {
     booking_times = []
     user_locations = []
     ambulance_locations = []
+    booking_times = []
+    etas = []
 
     setTimeout(() => {
     console.log(bookingsArray)
@@ -42,6 +44,8 @@ function getSuperAdminBookings() {
             booking_times.push(childData['booking_time'])
             user_locations.push(childData['userLocation'])
             ambulance_locations.push(childData['ambulanceLocation'])            
+            booking_times.push(childData['booking_time'])            
+            etas.push(childData['ETA'])            
         }
         }
            
@@ -90,13 +94,16 @@ function getSuperAdminBookings() {
 
     for(i=0;i<user_data.length;i++)
     {
-        
+        timestamp = booking_times[i]   
+        bookedAt = new Date(timestamp)
+
         data += "<h4><b>Organisation name: " + ambualance_data[i]['hospital'].toUpperCase() + "</b></h4>";
         data += "<b>Driver Name: </b>" + ambualance_data[i]['driver_name'] + "<br>";
         data += "<b>Driver Contact: </b>" + ambualance_data[i]['driver_contact'] + "<br>";
         data += "<b>Ambulance Type: </b>" + ambualance_data[i]['type'] + "<br>";
         data += "<b>User Name: </b>" + user_data[i]['name'] + "<br>";
         data += "<b>User Contact: </b>" + user_data[i]['mobileNumber'] + "<br>";
+        data += "<b>Booking Time:</b> "+ bookedAt +'<br>';
         // data += "<b>Contact: </b>" + serviceProviders[i].mobileNumber + "<br>";
           data += "<hr>";
         //data += rides[i].userID + "<br><br>";

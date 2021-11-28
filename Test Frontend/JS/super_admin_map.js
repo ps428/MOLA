@@ -3,6 +3,8 @@ function initMap(user_id) {
   // The location of Uluru
   var infoWindow = new google.maps.InfoWindow({
     map: map,
+    mapTypeId: 'satellite'
+
   });
 
   var map = new google.maps.Map(document.getElementById("map"), {
