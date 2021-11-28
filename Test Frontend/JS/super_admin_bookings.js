@@ -84,7 +84,6 @@ function getSuperAdminBookings() {
   
     },2000);
     
-
     setTimeout(() => {
         // ambualance_data.forEach(element => {
         //     console.log(element['hospital'])
@@ -97,6 +96,12 @@ function getSuperAdminBookings() {
         timestamp = booking_times[i]   
         bookedAt = new Date(timestamp)
 
+        statuss = ambualance_data[i]['status']
+        if(statuss =='available')
+          statuss = 'Completed'
+        else
+          statuss = "Ongoing"
+
         data += "<h4><b>Organisation name: " + ambualance_data[i]['hospital'].toUpperCase() + "</b></h4>";
         data += "<b>Driver Name: </b>" + ambualance_data[i]['driver_name'] + "<br>";
         data += "<b>Driver Contact: </b>" + ambualance_data[i]['driver_contact'] + "<br>";
@@ -104,6 +109,7 @@ function getSuperAdminBookings() {
         data += "<b>User Name: </b>" + user_data[i]['name'] + "<br>";
         data += "<b>User Contact: </b>" + user_data[i]['mobileNumber'] + "<br>";
         data += "<b>Booking Time:</b> "+ bookedAt +'<br>';
+        data += "<b>Status:</b> "+ statuss +'<br>';
         // data += "<b>Contact: </b>" + serviceProviders[i].mobileNumber + "<br>";
           data += "<hr>";
         //data += rides[i].userID + "<br><br>";
