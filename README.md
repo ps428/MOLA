@@ -3,6 +3,8 @@
 MOLA is a Web App which allows the patient to book different types of ambulances in real-time based on their availability in the vicinity of his location and the organization to optimally add and allocate the ambulances as per the demands of the patient. The patient can choose the type of ambulances as per the requirement. It has three views: Patient, Organization View, and Super Admin View.<br/><br/>
 Code has been written using **JavaScript, CSS and HTML**
 
+## You can find the project here: https://mola-1--ps428.repl.co/<br/>
+
 # Objective
 
 1. Begin with the [page0_home](https://github.com/blank0826/MOLA/blob/master/Code/HTML/page0_home.html), which provides you with the three options of user view, organization view, and super admin view.  You can visit any of them based on your needs.
@@ -69,7 +71,7 @@ Code has been written using **JavaScript, CSS and HTML**
 2. MOLA->Test Frontend-> HTML -> page0_home.html
 
 # Website
-Website Link**
+https://mola-1--ps428.repl.co/<br/>
 
 # Contact
-## [Pranav Soni](mailto:ps205@snu.edu.in?subject=GitHub)<br/><br/>[Aditya Srivastava](mailto:aditya26052002@gmail.com?subject=GitHub)<br/><br/>[Madhav Agarwal](mailto:ma699@snu.edu.in?subject=GitHub)<br/><br/>[Jayati Sharma](mailto:js880@snu.edu.in?subject=GitHub)<br/><br/>
+## [Pranav Soni](mailto:ps205@snu.edu.in?subject=GitHub)<br/><br/>[Aditya Srivastava](mailto:aditya26052002@gmail.com?subject=GitHub)<br/><br/>[Jayati Sharma](mailto:js880@snu.edu.in?subject=GitHub)<br/><br/>[Madhav Agarwal](mailto:ma699@snu.edu.in?subject=GitHub)<br/><br/>
