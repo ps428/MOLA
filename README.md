@@ -54,7 +54,7 @@ Code has been written using **JavaScript, CSS and HTML**
 
 # System Specifications
  
-**Platform:** Windows 10 / Linux / MacOS<br/>
+**Platform:** Windows 10 / Linux / MacOS / Android<br/>
 **Client-Side Validation:** JavaScript<br/>
 **Server-Side Validation:** Firebase<br/>
 **Database:** Firebase
@@ -71,7 +71,7 @@ Code has been written using **JavaScript, CSS and HTML**
 2. MOLA->Test Frontend-> HTML -> page0_home.html
 
 # Website
-https://mola-1--ps428.repl.co/<br/>
+**https://mola-1--ps428.repl.co/**<br/>
 
 # Contact
 ## [Pranav Soni](mailto:ps205@snu.edu.in?subject=GitHub)<br/><br/>[Aditya Srivastava](mailto:aditya26052002@gmail.com?subject=GitHub)<br/><br/>[Jayati Sharma](mailto:js880@snu.edu.in?subject=GitHub)<br/><br/>[Madhav Agarwal](mailto:ma699@snu.edu.in?subject=GitHub)<br/><br/>
