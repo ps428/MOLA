@@ -1,4 +1,4 @@
-# MOLA
+#<ins> MOLA </ins>
 
 MOLA is a Web App which allows the patient to book different types of ambulances in real-time based on their availability in the vicinity of his location and the organization to optimally add and allocate the ambulances as per the demands of the patient. The patient can choose the type of ambulances as per the requirement. It has three views: Patient, Organization View, and Super Admin View.<br/><br/>
 Code has been written using **JavaScript, CSS and HTML**
