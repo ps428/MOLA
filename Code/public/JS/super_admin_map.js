@@ -49,7 +49,6 @@ function addOnMap(map) {
 
   ref = firebase.database().ref("ambulances").orderByKey();
   var ambulances = [];
-
   ref.on("value", function (snapshot) {
     snapshot.forEach(function (childSnapshot) {
       var childData = childSnapshot.val();
@@ -58,9 +57,9 @@ function addOnMap(map) {
     });
   });
 
-  console.log(ambulances);
 
   setTimeout(() => {
+    console.log(ambulances);
     add_ambulances(ambulances, map);
   }, 3000);
 }
