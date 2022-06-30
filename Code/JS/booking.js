@@ -197,7 +197,7 @@ function addBookingDetails(
     parseInt(1000) + parseFloat((distance * 200).toFixed(2))
   ).toFixed(2);
   ETAHours = parseInt(
-    parseInt(5) + (parseFloat((distance/60).toFixed(2)))
+    (parseFloat((distance/60).toFixed(2)))
   );
   // console.log(ETAHours)
   

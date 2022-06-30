@@ -202,7 +202,7 @@ function addBookingDetails(
   ETASeconds = parseInt(parseFloat((distance * 60).toFixed(2)) % 60);
   if(distance>10)
   ETAHours = parseInt(
-    parseInt(5) + (parseFloat((distance/60).toFixed(2)))
+    (parseFloat((distance/60).toFixed(2)))
   );
   
 
