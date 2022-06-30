@@ -196,15 +196,15 @@ function addBookingDetails(
   estimatedCost = (
     parseInt(1000) + parseFloat((distance * 200).toFixed(2))
   ).toFixed(2);
-  ETAHours = parseInt(
-    parseInt(5) + (parseFloat((distance/60).toFixed(2)))
-  );
-  // console.log(ETAHours)
-  
   ETAMinutes = parseInt(
     parseInt(5) + (parseFloat((distance * 10).toFixed(2)) % 55)
   );
   ETASeconds = parseInt(parseFloat((distance * 60).toFixed(2)) % 60);
+  if(distance>10)
+  ETAHours = parseInt(
+    parseInt(5) + (parseFloat((distance/60).toFixed(2)))
+  );
+  
 
   ambulanceTitle = marker_data.title;
   ambulanceType = marker_data.type;
@@ -226,10 +226,7 @@ function addBookingDetails(
   innerHTML += "<br>Estimated Cost: <b>" + estimatedCost;
 
   innerHTML +=
-  "</b><br>Estimated Time of Arrival (ETA):<b> " +
-  ETAHours +
-  " Hours " +
-  "<br>" +
+    "</b><br>Estimated Time of Arrival (ETA):<b> " +
     ETAMinutes +
     " Minutes " +
     ETASeconds +
@@ -267,7 +264,7 @@ function addBookingDetails(
   firebase
     .database()
     .ref("ambulances/" + ambulanceID + "/eta")
-    .set(ETAHours+" "+ ETAMinutes + " " + ETASeconds);
+    .set(ETAHours+" " +ETAMinutes + " " + ETASeconds);
 
   firebase
     .database()
@@ -277,8 +274,7 @@ function addBookingDetails(
   setTimeout(
     alert(
       "Your Booking is confirmed. Your ride will arrive in " +
-        ETAHours +
-        " hours "+
+      ETAHours+ " hours "+
         ETAMinutes +
         " minutes and " +
         ETASeconds +

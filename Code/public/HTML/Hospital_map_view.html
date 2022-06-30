@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Organization View</title>
+    <link rel="shortcut icon" href="../assets/logo__top.svg"/>
+
+    <!--Bootsrap 4 CDN-->
+
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-database-compat.js"></script>
+    <script>
+      const firebaseApp = firebase.initializeApp({
+        apiKey: "AIzaSyDNBJBKa0inzSjHz8MYjfBkE66o99k-S60",
+        authDomain: "mola-afb82.firebaseapp.com",
+        databaseURL: "https://mola-afb82-default-rtdb.firebaseio.com",
+        projectId: "mola-afb82",
+        storageBucket: "mola-afb82.appspot.com",
+        messagingSenderId: "42452640257",
+        appId: "1:42452640257:web:642cec53e7bec0408ad600",
+        measurementId: "G-FBPSVBQ638",
+      });
+    </script>
+
+    <script>
+      history.pushState(null, null, null);
+      window.addEventListener("popstate", function () {
+        history.pushState(null, null, null);
+      });
+    </script>
+
+    <script src="../JS/hospitalMap.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+      crossorigin="anonymous"
+    />
+
+    <!--Fontawesome CDN-->
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+      integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+      crossorigin="anonymous"
+    />
+
+    <!--Custom styles-->
+    <link rel="stylesheet" type="text/css" href="../styles.css" />
+  </head>
+  <body background="../assets/ambulance.png">
+    <ul>
+      <li style="float: right">
+        <a href="../HTML/contactUs.html" target="_blank">Contact Us</a>
+      </li>
+      <li style="float: right">
+        <a href="../HTML/aboutUs.html" target="_blank">About</a>
+      </li>
+      <li style="float: right">
+        <a href="../HTML/ServiceProvider.html" target="_blank">Our Partners</a>
+      </li>
+      <li style="float: right">
+        <a href="../HTML/organizationAmbulance.html" onclick=""
+          >Add Ambulance</a
+        >
+      </li>
+      <li style="float: right">
+        <a href="../HTML/Hospital_login.html" onclick="hLogoutCache()"
+          >Logout</a
+        >
+      </li>
+    </ul>
+    <div class="user_map_container">
+      <div class="user-map-heading-booking">
+        <div class="user-heading-text">
+          <h1>Organization View</h1>
+        </div>
+      </div>
+      <div class="d-flex justify-content-center h-100">
+        <div id="map"></div>
+      </div>
+    </div>
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC5DhDiQCZmUAyW8yvr-bjJWxTgML6FJAM&callback=initMap&libraries=&v=weekly&channel=2"
+      async
+    ></script>
+    <div class="footer">
+      <div class="footer-text">
+        <p>© MOLA: My Online Local Ambulance</p>
+      </div>
+    </div>
+  </body>
+</html>

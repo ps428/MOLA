@@ -1032,7 +1032,6 @@ function bookNowWindow(marker_data, user_lat_lng, map, markerId) {
   distance = haversine_distance(user_lat_lng, ambulance_lat_lng);
   console.log(distance);
   cost = (parseInt(1000) + parseFloat((distance * 200).toFixed(2))).toFixed(2);
-  
   ETAMinutes = parseInt(
     parseInt(5) + (parseFloat((distance * 10).toFixed(2)) % 55)
   );
@@ -1042,7 +1041,6 @@ function bookNowWindow(marker_data, user_lat_lng, map, markerId) {
     parseInt(5) + (parseFloat((distance/60).toFixed(2)))
   );
   
-
   distance_value = document.createElement("h7");
   distance_value.innerHTML =
     "<br>Distance is <b>" +
@@ -1052,7 +1050,7 @@ function bookNowWindow(marker_data, user_lat_lng, map, markerId) {
     cost +
     " INR</b>" +
     "<br>Estimated Time of Arrival (ETA): <b>" +
-    ETAHours+" hours "+
+    ETAHours+" Hours "+
     ETAMinutes +
     " Minutes " +
     ETASeconds +

@@ -1,0 +1,389 @@
+/* Made with love by Mutiullah Samim*/
+
+@import url("https://fonts.googleapis.com/css?family=Numans");
+@import url("https://fonts.googleapis.com/css?family=Poppins");
+@import url("https://fonts.googleapis.com/css2?family=Lora:wght@700&display=swap");
+html,
+body {
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100%;
+  font-family: "Lora", serif;
+}
+
+.container {
+  height: 91.5%;
+  align-content: fill;
+}
+
+.container2 h1 {
+  color: white;
+}
+
+.card {
+  height: 350px;
+  margin-top: auto;
+  margin-bottom: auto;
+  border-radius: 5%;
+  right: 0px;
+  width: 350px;
+  background-color: rgba(255, 255, 255, 0.5) !important;
+  -webkit-box-shadow: 3px 7px 6px 2px #000000;
+  box-shadow: 3px 7px 6px 2px #000000;
+}
+
+/* for signup form */
+.card2 {
+  height: 520px;
+  margin-top: auto;
+  margin-bottom: auto;
+  right: 0px;
+  border-radius: 5%;
+  width: 350px;
+  background-color: rgba(255, 255, 255, 0.5) !important;
+  -webkit-box-shadow: 3px 7px 6px 2px #000000;
+  box-shadow: 3px 7px 6px 2px #000000;
+}
+
+.admincard2 {
+  height: 520px;
+  margin-top: auto;
+  margin-bottom: auto;
+  right: 0px;
+  border-radius: 5%;
+  width: auto;
+  background-color: rgba(255, 255, 255, 0.5) !important;
+  -webkit-box-shadow: 3px 7px 6px 2px #000000;
+  box-shadow: 3px 7px 6px 2px #000000;
+}
+
+
+.admincard3 {
+  height: 460px;
+  margin-top: auto;
+  margin-bottom: auto;
+  right: 0px;
+  border-radius: 5%;
+  width: auto;
+  background-color: rgba(255, 255, 255, 0.5) !important;
+  -webkit-box-shadow: 3px 7px 6px 2px #000000;
+  box-shadow: 3px 7px 6px 2px #000000;
+}
+
+.card-header h3 {
+  color: black;
+  font-weight: bold;
+}
+
+.input-group-prepend span {
+  width: 50px;
+  background-color: #721e1e;
+  color: white;
+  border: 2 !important;
+}
+
+input:focus {
+  outline: 0 0 0 0 !important;
+  box-shadow: 0 0 0 0 !important;
+}
+
+.title-of-page {
+  font-family: "Lora", serif;
+  font-weight: bold;
+  margin: 90px auto;
+  margin-left: 160px;
+  color: #99eeb4;
+  text-align: center;
+}
+.remember {
+  color: black;
+}
+
+.remember input {
+  width: 20px;
+  height: 20px;
+  margin-left: 15px;
+  margin-right: 5px;
+}
+
+.login_btn {
+  color: rgb(253, 252, 252);
+  background-color: #721e1e;
+  border-radius: 0.15cm;
+  width: 150px;
+}
+
+.login_btn:hover {
+  color: burlywood;
+  background-color: rgb(24, 23, 23);
+}
+
+.links {
+  color: white;
+}
+
+.links a {
+  margin-left: 4px;
+}
+
+#map {
+  height: 400px;
+  /* The height is 400 pixels */
+  width: 65%;
+  /* The width is the width of the web page */
+  margin-top: 1.5%;
+  margin-left: 24%;
+  margin-right: 2%;
+  border-radius: 0.5cm;
+  border-width: 2cm;
+  border-color: #000000;
+  background-color: #000000;
+  padding: 2cm;
+}
+
+#liveMap {
+  height: 400px;
+  /* The height is 400 pixels */
+  width: 65%;
+  /* The width is the width of the web page */
+  margin-left: 2%;
+  margin-top: 1.5%;
+  margin-right: 2%;
+  border-radius: 0.5cm;
+  border-width: 2cm;
+  border-color: #000000;
+  background-color: #000000;
+  padding: 2cm;
+}
+
+.user_intro {
+  height: auto;
+  margin-top: 1.5%;
+  border-radius: 0.35cm;
+  text-align: justify;
+  padding: 1%;
+  margin-left: 2%;
+  margin-right: 0.5%;
+  text-justify: auto;
+  margin-bottom: auto;
+  width: auto;
+  background-color: rgba(255, 255, 255, 0.5) !important;
+  -webkit-box-shadow: 3px 7px 6px 2px #000000;
+  box-shadow: 3px 7px 6px 2px #000000;
+}
+
+.user_title-of-page {
+  font-family: "Lora", serif;
+  font-weight: bold;
+  margin-left: 10px;
+  color: #99eeb4;
+  text-align: center;
+}
+
+.scrollable {
+  padding: 4px;
+  height: 280px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  text-align: justify;
+}
+
+.card-text {
+  border: 1px solid #800000;
+  border-radius: 0.5cm;
+  padding: 10px;
+  /* text-align: center; */
+}
+
+.bookcard-text {
+  border: 1px solid #800000;
+  border-radius: 0.5cm;
+  padding: 10px;
+}
+
+.user_head {
+  color: #721e1e;
+  margin-left: auto;
+  margin-top: 1%;
+}
+
+.home-card {
+  height: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  width: 400px;
+  background-color: rgba(255, 255, 255, 0.5) !important;
+  -webkit-box-shadow: 3px 7px 6px 2px #000000;
+  box-shadow: 3px 7px 6px 2px #000000;
+  border-radius: 5%;
+  padding: 3%;
+  text-align: center;
+  margin-right: 30%;
+}
+
+.home_hospital_btn {
+  color: rgb(253, 252, 252);
+  background-color: #721e1e;
+  width: auto;
+  border-radius: 0.15cm;
+}
+
+.home_hospital_btn:hover {
+  color: burlywood;
+  background-color: rgb(58, 54, 54);
+}
+
+.home_user_btn {
+  color: rgb(253, 252, 252);
+  border-radius: 0.15cm;
+  background-color: #721e1e;
+  width: auto;
+}
+
+.home_user_btn:hover {
+  color: burlywood;
+  background-color: rgb(58, 54, 54);
+}
+
+.user-map-heading {
+  background-color: rgba(182, 225, 228, 0.5) !important;
+  font-family: "Lora", serif;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 0.7%;
+  height: 60px;
+  width: auto;
+  text-align: center;
+  padding: 4px;
+  border-radius: 0.25cm;
+  box-shadow: 3px 7px 6px 2px #000000;
+}
+.user-map-heading-booking {
+  background-color: rgba(182, 225, 228, 0.5) !important;
+  font-family: "Lora", serif;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 0.7%;
+  height: 60px;
+  width: fit-content;
+  text-align: center;
+  padding: 20px;
+  padding-top: 8px;
+  border-radius: 0.25cm;
+}
+
+.user-heading-text {
+  color: #800000;
+  opacity: 1;
+}
+
+.footer {
+  background-color: rgba(136, 163, 165, 0.5) !important;
+  font-family: "Lora", serif;
+  margin-top: 1.2%;
+  position: fixed;
+  width: 100%;
+  bottom: 3%;
+  text-align: right;
+  padding: 4px;
+  padding-right: 12px;
+  height: 32px;
+  align-content: center;
+  color: #800000;
+}
+
+.ulstyle {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover {
+  background-color: #111;
+}
+
+.bookingscard {
+  box-shadow: 0 4px 2px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  width: auto;
+  height: auto;
+}
+
+.bookingscard:hover {
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2);
+}
+
+.containerBookingsCard {
+  padding: 2px 2px;
+}
+
+.About-us {
+  align-items: center;
+  height: auto;
+  margin-top: 5%;
+  margin-bottom: auto;
+  margin-left: 28%;
+  margin-right: 28%;
+  border-radius: 2%;
+  width: auto;
+  background-color: rgba(255, 255, 255, 0.5) !important;
+  -webkit-box-shadow: 3px 7px 6px 2px #000000;
+  box-shadow: 3px 7px 6px 2px #000000;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2);
+  color: black;
+  padding: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.contact_us {
+  height: 220px;
+  margin-top: 3.5%;
+  border-radius: 0.35cm;
+  text-align: justify;
+  padding: 1%;
+  margin-left: 4%;
+  margin-right: 2%;
+  text-justify: auto;
+  margin-bottom: auto;
+  width: 400px;
+  background-color: rgba(255, 255, 255, 0.5) !important;
+  -webkit-box-shadow: 3px 7px 6px 2px #000000;
+  box-shadow: 3px 7px 6px 2px #000000;
+}
+
+.contact_us_booking {
+  background-color: rgba(182, 225, 228, 0.5) !important;
+  font-family: "Lora", serif;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 2.5%;
+  height: 60px;
+  width: fit-content;
+  text-align: center;
+  padding: 20px;
+  padding-top: 8px;
+  border-radius: 0.25cm;
+}
