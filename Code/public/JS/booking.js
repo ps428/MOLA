@@ -227,6 +227,7 @@ function addBookingDetails(
 
   innerHTML +=
     "</b><br>Estimated Time of Arrival (ETA):<b> " +
+    ETAHours+" Hours " +
     ETAMinutes +
     " Minutes " +
     ETASeconds +

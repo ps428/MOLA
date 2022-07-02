@@ -655,6 +655,7 @@ async function get_ambulance_data(user_lat, user_lng, map) {
 
   setTimeout(() => {
     add_ambulances(ambulances, user_lat, user_lng, map);
+    // console.log(ambulances);
 
     myLatLng1 = { lat: user_lat - 0.001, lng: user_lng + 0.001 };
     myLatLng2 = {
@@ -717,17 +718,20 @@ function add_ambulances(ambulances, user_lat, user_lng, map) {
   for (let i = 1; i < ambulances.length; i++) {
     // console.log(ambulances.length + "" + i);
     marker_data = ambulances[i - 1];
+    if(i==48)
+    continue
     // console.log(marker_data.status + i);
     if (marker_data.status != "available") {
       const prevTime = marker_data.booking_time;
       if (prevTime != 0) {
         const eta = marker_data.eta;
         const currentTime = +new Date();
+        // console.log(i, marker_data, eta)
         //console.log("currentTime" + currentTime);
         const diffTime = currentTime - prevTime;
         const minutes = parseInt(diffTime / 6000) % 60;
         const ETAminutes = eta.substr(0, eta.indexOf(" "));
-
+        
         if (minutes >= ETAminutes) {
           arr.push(i);
         } else {
