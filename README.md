@@ -1,5 +1,7 @@
 # <ins> MOLA </ins>
 
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fps428%2FMOLA&count_bg=%2317DAED&title_bg=%23555555&icon=probot.svg&icon_color=%23E7E7E7&title=Views&edge_flat=false)](https://hits.seeyoufarm.com)
+
 MOLA is a Web App which allows the patient to book different types of ambulances in real-time based on their availability in the vicinity of his location and the organization to optimally add and allocate the ambulances as per the demands of the patient. The patient can choose the type of ambulances as per the requirement. It has three views: Patient, Organization View, and Super Admin View.<br/><br/>
 Code has been written using **JavaScript, CSS and HTML**
 
